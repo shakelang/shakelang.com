@@ -1,0 +1,9 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Compilation results
+**/target/
+**/build/
+!**/src/**/build/
+.project
