@@ -1,12 +1,11 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.js") version "1.4.31"
+    kotlin("js") version "1.5.10"
 }
 
 repositories {
     mavenCentral()
     mavenLocal()
-
 }
 
 dependencies {
@@ -20,22 +19,24 @@ dependencies {
 kotlin {
     js {
         browser {
-            browser {
-                compilations {
-                    "main" {
-                        packageJson {
-                            customField("browser", mapOf( "fs" to false, "path" to false, "os" to false, "readline" to false))
-                        }
-                        kotlinOptions {
-                            moduleKind = "commonjs"
-                            sourceMap = true
-                            sourceMapEmbedSources = "always"
-                        }
-                    }
+            dceTask  {
+                dceOptions.devMode = true
+                keep("interpreter.execute")
+            }
+            compilations {
+                "main" {
+                    packageJson {
+                        customField("browser", mapOf( "fs" to false, "path" to false, "os" to false, "readline" to false))
+                    }/*
+                    kotlinOptions {
+                        moduleKind = "commonjs"
+                        sourceMap = true
+                        sourceMapEmbedSources = "always"
+                    }*/
                 }
-                commonWebpackConfig {
-                    cssSupport.enabled = true
-                }
+            }
+            commonWebpackConfig {
+                cssSupport.enabled = true
             }
         }
     }

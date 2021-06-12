@@ -11,6 +11,8 @@ import com.github.shakelang.shake.util.characterinput.position.PositionMap
 
 val interpreter = Interpreter()
 
+@JsName("execute")
+@Suppress("unused")
 fun execute(source: String, code: String) {
 
     val result = parse(source, code)
@@ -55,7 +57,10 @@ private fun parse(input: CharacterInputStream): ParseResult {
 
 }
 
+@Suppress("unused")
 private class ParseResult(val tree: Tree, val map: PositionMap)
-fun debug(message: String) {
+
+@Suppress("unused")
+private fun debug(message: String) {
     js("console.debug(message)")
 }

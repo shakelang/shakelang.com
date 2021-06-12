@@ -8,4 +8,3 @@
  */
 
 rootProject.name = "interpreter"
-include("app")
