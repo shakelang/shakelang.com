@@ -1,9 +1,9 @@
-:: Build script for shake-lang.github.io
+@rem Build script for shake-lang.github.io
 @echo off
 
 
 
-:: Set local scope for the variables with windows NT shell
+@rem Set local scope for the variables with windows NT shell
 if "%OS%"=="Windows_NT" setlocal
 
 
@@ -13,7 +13,7 @@ set START_DIR=%CD%
 
 cd %0\..
 
-:: Remember build base-dir
+@rem Remember build base-dir
 set BUILD_BASEDIR=%CD%
 
 
@@ -31,39 +31,52 @@ echo Invalid command "%0 %*"
 echo Enter build help to get help!
 goto end
 
-:: Clean Task
+@rem Clean Task
 :build-clean
 
 
 
 
-:build-interpreter
-:: Clean interpreter
-cd %BUILD_BASEDIR%\interpreter
-echo.
+:clean-interpreter
+@rem Clean gradle
 echo Starting clean...
-echo.
-echo.
-echo.
-echo.
-echo ---------------------------- Clean Interpreter -----------------------------
-echo.
-echo ^> interpreter/gradlew clean
-echo.
-call gradlew clean
-echo.
-echo ------------------------ Clean Interpreter finished -------------------------
-echo.
-echo.
-cd %BUILD_BUILDDIR%
-echo.
-echo.
+if exist "%BUILD_BASEDIR%\build\shake" (
+  cd %BUILD_BASEDIR%\build\shake
+  echo.
+  echo.
+  echo ---------------------------- Clean Interpreter -----------------------------
+  echo.
+  echo ^> build/shake/gradlew clean
+  echo.
+  call gradlew clean --quiet
+  echo.
+  echo ------------------------ Clean Interpreter finished -------------------------
+  echo.
+  cd %BUILD_BASEDIR%
+)
 
+if exist "%BUILD_BASEDIR%\build" (
+
+  echo.
+  echo.
+  echo ---------------------------- Clean Interpreter -----------------------------
+  echo.
+  echo ^> gradlew clean
+  echo.
+  call gradlew clean --quiet
+  echo.
+  echo ------------------------ Clean Interpreter finished -------------------------
+  echo.
+  echo.
+
+)
 
 :remove-build-folder
-:: Remove build folder
-echo Removing build folder...
-if exist "%BUILD_BASEDIR%\build" rmdir %BUILD_BASEDIR%\build /s /q
+@rem Remove build folder
+if exist "%BUILD_BASEDIR%\build" (
+  echo Removing build folder...
+  rmdir %BUILD_BASEDIR%\build /s /q
+)
 
 echo clean finished!
 goto end
@@ -74,23 +87,21 @@ goto end
 
 
 
-:: Build Task
+@rem Build Task
 :build-run
 
 echo.
 echo Starting build...
-echo.
-echo.
 
 
 
 :init-build-dir
 
-:: Create build folder
+@rem Create build folder
 if not exist "build" mkdir build
 cd build
 
-:: Remember build-dir
+@rem Remember build-dir
 set BUILD_BUILDDIR=%CD%
 
 
@@ -98,7 +109,7 @@ set BUILD_BUILDDIR=%CD%
 
 :clone-shake
 
-:: Clone Shake
+@rem Clone Shake
 if not exist "shake" (
   echo.
   echo Cloning shake repository ^(%SHAKE_REPOSITORY%^) into build/shake...
@@ -113,7 +124,7 @@ if not exist "shake" (
 
 :build-shake
 
-:: Publish Shake
+@rem Publish Shake
 cd %BUILD_BUILDDIR%\Shake
 echo.
 echo.
@@ -128,20 +139,20 @@ echo --------------------------- Build Shake finished --------------------------
 
 
 :build-interpreter
-:: Build interpreter
-cd %BUILD_BASEDIR%\interpreter
+@rem Build interpreter
+cd %BUILD_BASEDIR%
 echo.
 echo.
 echo ---------------------------- Build Interpreter ----------------------------
 echo.
-echo ^> interpreter/gradlew build
+echo ^> gradlew build
 echo.
-call gradlew build
+call gradlew build --quiet
 echo.
 echo ------------------------ Build Interpreter finished ------------------------
 
 
-:: Go back to build dir
+@rem Go back to build dir
 cd %BUILD_BUILDDIR%
 
 echo.
@@ -152,7 +163,7 @@ goto end
 
 
 :help
-:: Print out help
+@rem Print out help
 echo Subcommands:
 echo %0 build  -  Build the application
 echo %0 clean  -  Clean the build
@@ -160,6 +171,6 @@ echo %0 help   -  Show this help-menu
 
 goto end
 
-:: End of the File, End script
+@rem End of the File, End script
 :end
 cd %START_DIR%
