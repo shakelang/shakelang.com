@@ -1,0 +1,49 @@
+{
+  "name": "shake-lang.github.io",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "gulp dev",
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shake-lang/shake-lang.github.io.git"
+  },
+  "author": "Nicolas Schmidt",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/shake-lang/shake-lang.github.io/issues"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "ie 8",
+    "ie 9"
+  ],
+  "homepage": "shake-lang.github.io",
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "css-mqpacker": "^7.0.0",
+    "grunt": "^1.4.1",
+    "grunt-contrib-jshint": "^3.0.0",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-postcss": "^0.9.0",
+    "grunt-sass": "^3.1.0",
+    "grunt-ts": "^6.0.0-beta.22",
+    "load-grunt-tasks": "^5.1.0",
+    "node-sass": "^6.0.0",
+    "postcss-calc": "^8.0.0",
+    "postcss-color-function": "^4.1.0",
+    "postcss-color-hex-alpha": "^7.0.0",
+    "postcss-custom-media": "^8.0.0",
+    "postcss-custom-properties": "^11.0.0",
+    "postcss-custom-selectors": "^6.0.0",
+    "postcss-import": "^14.0.2",
+    "postcss-media-minmax": "^5.0.0",
+    "postcss-neat": "^2.5.3",
+    "postcss-nested": "^5.0.5",
+    "postcss-selector-matches": "^4.0.0",
+    "postcss-selector-not": "^5.0.0",
+    "typescript": "^4.3.2"
+  }
+}

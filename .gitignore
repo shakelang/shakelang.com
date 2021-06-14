@@ -8,5 +8,12 @@
 !**/src/**/build/
 .project
 
+# Node
+**/node_modules
+
+# Typescript
+.tscache/
+
+
 # Ignore Gradle project-specific cache directory
 .gradle

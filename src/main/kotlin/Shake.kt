@@ -64,3 +64,8 @@ private class ParseResult(val tree: Tree, val map: PositionMap)
 private fun debug(message: String) {
     js("console.debug(message)")
 }
+
+@JsName("main")
+fun main(args: Array<String>) {
+    execute("<main>", "js(\"console.log(\\\"Shake test executed from interpreter main\\\")\")")
+}
