@@ -54,18 +54,36 @@ module.exports = function(grunt) {
                 src: 'build/www-tmp/sass-dist/style.css',
                 dest: 'build/www/style/style.min.css'
             }
-        }
+        },
+        'compile-handlebars': {
+            allStatic: {
+                files: [{
+                    src: 'src/main/www/index.hbs',
+                    dest: 'build/www/index.html'
+                }],
+                templateData: 'test/fixtures/data.json'
+            },
+        },
     });
+
+    grunt.registerMultiTask("hbs", ["compile handlebars", ], handleBarsTask)
 
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks("grunt-ts");
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-compile-handlebars');
 
     grunt.registerTask('style', ['sass', 'postcss'])
     grunt.registerTask('scripts', ['ts', 'uglify'])
+    grunt.registerTask('html', ['compile-handlebars'])
 
     // Default task(s).
-    grunt.registerTask('default', ['scripts', 'style']);
+    grunt.registerTask('all', ['scripts', 'style', 'html']);
+    grunt.registerTask('default', ['all']);
 
 };
+
+function handleBarsTask() {
+
+}
