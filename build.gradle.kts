@@ -9,10 +9,10 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.shakelang.shake:util:0.1.0")
-    implementation("com.github.shakelang.shake:lexer:0.1.0")
-    implementation("com.github.shakelang.shake:parser:0.1.0")
-    implementation("com.github.shakelang.shake:interpreter:0.1.0")
+    implementation("com.github.shakelang.shake:util-js:0.1.0")
+    implementation("com.github.shakelang.shake:lexer-js:0.1.0")
+    implementation("com.github.shakelang.shake:parser-js:0.1.0")
+    implementation("com.github.shakelang.shake:interpreter-js:0.1.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
