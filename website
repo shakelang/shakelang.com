@@ -8,10 +8,10 @@ SHAKE_REPOSITORY=https://github.com/shake-lang/shake
 
 START_DIR={PWD##*/}
 
-cd $0\..
+cd $0/..
 
 #Remember build base-dir
-set BUILD_BASEDIR=%CD%
+BUILD_BASEDIR={PWD##*/}
 
 
 
@@ -20,12 +20,12 @@ set BUILD_BASEDIR=%CD%
 
 
 # Clean Task
-function clean() {
+clean() {
 
   # Clean gradle
   echo Starting clean...
-  if exist "%BUILD_BASEDIR%\build\shake"; then
-    cd %BUILD_BASEDIR%\build\shake
+  if exist "$BUILD_BASEDIR/build/shake"; then
+    cd $BUILD_BASEDIR/build/shake
     chmod +x gradlew
     echo.
     echo.
@@ -37,10 +37,10 @@ function clean() {
     echo.
     echo ------------------------ Clean Interpreter finished -------------------------
     echo.
-    cd %BUILD_BASEDIR%
+    cd $BUILD_BASEDIR
   fi
 
-  if exist "%BUILD_BASEDIR%\build"; then
+  if exist "$BUILD_BASEDIR/build"; then
 
     chmod +x gradlew
     echo.
@@ -58,9 +58,9 @@ function clean() {
   fi
 
   # Remove build folder
-  if exist "%BUILD_BASEDIR%\build" then
+  if exist "$BUILD_BASEDIR/build"; then
     echo Removing build folder...
-    rmdir %BUILD_BASEDIR%\build /s /q
+    rmdir $BUILD_BASEDIR/build /s /q
   fi
 
   echo clean finished!
@@ -71,45 +71,40 @@ function clean() {
 
 
 
-function build() {
-  @rem Build Task
+build() {
+  # Build Task
 
   echo.
   echo Starting build...
 
 
-
-  :init-build-dir
-
-  @rem Create build folder
-  if not exist "build" mkdir build
+  # Create build folder
+  if test ! -f "build"; then
+    mkdir build
+  fi
   cd build
 
-  @rem Remember build-dir
-  set BUILD_BUILDDIR=%CD%
+  # Remember build-dir
+  BUILD_BUILDDIR={PWD##*/}
 
 
 
 
-  :clone-shake
-
-  @rem Clone Shake
-  if not exist "shake" (
+  # Clone Shake
+  if test ! -f "shake"; then
     echo.
-    echo Cloning shake repository ^(%SHAKE_REPOSITORY%^) into build/shake...
+    echo Cloning shake repository \($SHAKE_REPOSITORY\) into build/shake...
     echo.
-    git clone %SHAKE_REPOSITORY% ./shake
+    git clone $SHAKE_REPOSITORY ./shake
     echo.
     echo.
-  )
+  fi
 
 
 
 
-  :build-shake
-
-  @rem Publish Shake
-  cd %BUILD_BUILDDIR%\Shake
+  # Publish Shake
+  cd $BUILD_BUILDDIR/Shake
   chmod +x gradlew
   echo.
   echo.
@@ -123,9 +118,8 @@ function build() {
 
 
 
-  :build-interpreter
-  @rem Build interpreter
-  cd %BUILD_BASEDIR%
+  # Build interpreter
+  cd $BUILD_BASEDIR
   chmod +x gradlew
   echo.
   echo.
@@ -139,9 +133,8 @@ function build() {
 
 
 
-  :build-interpreter
-  @rem Build web application
-  cd %BUILD_BASEDIR%
+  # Build web application
+  cd $BUILD_BASEDIR
 
   echo.
   echo.
@@ -170,7 +163,7 @@ function build() {
 }
 
 
-function help() {
+help() {
   # Print out help
   echo Subcommands:
   echo $0 build  -  Build the application
@@ -184,10 +177,10 @@ function help() {
 
 
 
-if "$1" == "build"; then build();
-elif "$1" == "clean"; then clean();
-elif "$1" == "help"; then help();
-elif "$1" == "" then
+if "$1" == "build"; then build;
+elif "$1" == "clean"; then clean;
+elif "$1" == "help"; then help;
+elif "$1" == ""; then
   echo.
   echo Please specify subcommand
   echo Enter build help to get help!
@@ -197,4 +190,4 @@ else
   echo Enter build help to get help!
 fi
 
-cd %START_DIR%
+cd $START_DIR
