@@ -66,7 +66,8 @@ module.exports = function(grunt) {
                     src: 'src/main/www/index.hbs',
                     dest: 'build/www/index.html'
                 }],
-                templateData: 'test/fixtures/data.json'
+                templateData: 'test/fixtures/data.json',
+                handlebars: 'node_modules/handlebars'
             },
         },
 
@@ -94,6 +95,24 @@ module.exports = function(grunt) {
                 },
             },
         },
+
+        browserSync: {
+            bsFiles: {
+                src : './build/www'
+            },
+            options: {
+                watchTask: true,
+                server: './build/www'
+            }
+        },
+
+        clean: {
+            html: ['build/www/**/*.html'],
+            style: ['build/www/style/**/*.css'],
+            scripts: ['build/www/scripts/**/*.js'],
+            www: ['build/www'],
+            'www-tmp': ['build/www-tmp'],
+        }
     });
 
     grunt.registerMultiTask("hbs", ["compile handlebars", ], handleBarsTask)
@@ -104,14 +123,16 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-compile-handlebars');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-browser-sync');
 
     grunt.registerTask('style', ['sass', 'postcss'])
     grunt.registerTask('scripts', ['ts', 'uglify'])
-    grunt.registerTask('html', ['compile-handlebars'])
+    grunt.registerTask('html', ['clean:html', 'compile-handlebars'])
+    grunt.registerTask('watch-browser-sync', ['browserSync', 'watch'])
 
     // Default task(s).
     grunt.registerTask('all', ['scripts', 'style', 'html']);
-    grunt.registerTask('default', ['all', 'watch']);
+    grunt.registerTask('default', ['all', 'watch-browser-sync']);
 
 };
 

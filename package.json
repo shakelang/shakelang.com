@@ -23,9 +23,12 @@
   "homepage": "shake-lang.github.io",
   "devDependencies": {
     "autoprefixer": "^9.8.6",
+    "browser-sync": "^2.26.14",
     "css-mqpacker": "^7.0.0",
     "grunt": "^1.4.1",
+    "grunt-browser-sync": "^2.2.0",
     "grunt-compile-handlebars": "^2.0.2",
+    "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-jshint": "^3.0.0",
     "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
