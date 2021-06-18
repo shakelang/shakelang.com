@@ -41,7 +41,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
             
-      - name: Build docs with Gradle
+      - name: Build Website
         run: ./build build
         
       - name: Deploy 🚀
