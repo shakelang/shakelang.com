@@ -104,7 +104,7 @@ build() {
 
 
   # Publish Shake
-  cd $BUILD_BUILDDIR/Shake
+  cd $BUILD_BUILDDIR/shake
   chmod +x gradlew
   echo
   echo
