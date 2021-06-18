@@ -159,6 +159,16 @@ cd %BUILD_BASEDIR%
 
 echo.
 echo.
+echo ------------------------------- Install npm -------------------------------
+echo.
+echo ^> npm ci
+echo.
+call npm ci
+echo.
+echo --------------------------- Install npm finished ---------------------------
+
+echo.
+echo.
 echo ------------------------------ Build Website ------------------------------
 echo.
 echo ^> grunt build
