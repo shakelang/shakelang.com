@@ -173,7 +173,7 @@ echo ------------------------------ Build Website ------------------------------
 echo.
 echo ^> grunt build
 echo.
-call grunt build
+call npx grunt build
 echo.
 echo -------------------------- Build Website finished --------------------------
 
