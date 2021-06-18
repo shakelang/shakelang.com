@@ -152,8 +152,20 @@ echo.
 echo ------------------------ Build Interpreter finished ------------------------
 
 
-@rem Go back to build dir
-cd %BUILD_BUILDDIR%
+
+:build-interpreter
+@rem Build web application
+cd %BUILD_BASEDIR%
+
+echo.
+echo.
+echo ------------------------------ Build Website ------------------------------
+echo.
+echo ^> grunt build
+echo.
+call grunt build
+echo.
+echo -------------------------- Build Website finished --------------------------
 
 echo.
 echo.
