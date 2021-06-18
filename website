@@ -6,12 +6,12 @@
 
 SHAKE_REPOSITORY=https://github.com/shake-lang/shake
 
-START_DIR={PWD##*/}
+START_DIR=$PWD
 
 cd $0/..
 
 #Remember build base-dir
-BUILD_BASEDIR={PWD##*/}
+BUILD_BASEDIR=$PWD
 
 
 
@@ -27,33 +27,33 @@ clean() {
   if exist "$BUILD_BASEDIR/build/shake"; then
     cd $BUILD_BASEDIR/build/shake
     chmod +x gradlew
-    echo.
-    echo.
+    echo
+    echo
     echo ---------------------------- Clean Interpreter -----------------------------
-    echo.
+    echo
     echo ^> build/shake/gradlew clean
-    echo.
-    call gradlew clean --quiet
-    echo.
+    echo
+    ./gradlew clean --quiet
+    echo
     echo ------------------------ Clean Interpreter finished -------------------------
-    echo.
+    echo
     cd $BUILD_BASEDIR
   fi
 
   if exist "$BUILD_BASEDIR/build"; then
 
     chmod +x gradlew
-    echo.
-    echo.
+    echo
+    echo
     echo ---------------------------- Clean Interpreter -----------------------------
-    echo.
+    echo
     echo ^> gradlew clean
-    echo.
-    call gradlew clean --quiet
-    echo.
+    echo
+    ./gradlew clean --quiet
+    echo
     echo ------------------------ Clean Interpreter finished -------------------------
-    echo.
-    echo.
+    echo
+    echo
 
   fi
 
@@ -74,7 +74,7 @@ clean() {
 build() {
   # Build Task
 
-  echo.
+  echo
   echo Starting build...
 
 
@@ -85,19 +85,19 @@ build() {
   cd build
 
   # Remember build-dir
-  BUILD_BUILDDIR={PWD##*/}
+  BUILD_BUILDDIR=$PWD
 
 
 
 
   # Clone Shake
   if test ! -f "shake"; then
-    echo.
+    echo
     echo Cloning shake repository \($SHAKE_REPOSITORY\) into build/shake...
-    echo.
+    echo
     git clone $SHAKE_REPOSITORY ./shake
-    echo.
-    echo.
+    echo
+    echo
   fi
 
 
@@ -106,13 +106,13 @@ build() {
   # Publish Shake
   cd $BUILD_BUILDDIR/Shake
   chmod +x gradlew
-  echo.
-  echo.
+  echo
+  echo
   echo ------------------------------- Build Shake -------------------------------
-  echo.
+  echo
   echo ^> build/shake/gradlew publishToMavenLocal
-  echo.
-  call gradlew publishToMavenLocal --quiet
+  echo
+  ./gradlew publishToMavenLocal --quiet
   echo --------------------------- Build Shake finished --------------------------
 
 
@@ -121,14 +121,14 @@ build() {
   # Build interpreter
   cd $BUILD_BASEDIR
   chmod +x gradlew
-  echo.
-  echo.
+  echo
+  echo
   echo ---------------------------- Build Interpreter ----------------------------
-  echo.
+  echo
   echo ^> gradlew build
-  echo.
-  call gradlew build --quiet
-  echo.
+  echo
+  ./gradlew build --quiet
+  echo
   echo ------------------------ Build Interpreter finished ------------------------
 
 
@@ -136,28 +136,28 @@ build() {
   # Build web application
   cd $BUILD_BASEDIR
 
-  echo.
-  echo.
+  echo
+  echo
   echo ------------------------------- Install npm -------------------------------
-  echo.
+  echo
   echo ^> npm ci
-  echo.
-  call npm ci
-  echo.
+  echo
+  npm ci
+  echo
   echo --------------------------- Install npm finished ---------------------------
 
-  echo.
-  echo.
+  echo
+  echo
   echo ------------------------------ Build Website ------------------------------
-  echo.
+  echo
   echo ^> grunt build
-  echo.
-  call npx grunt build
-  echo.
+  echo
+  npx grunt build
+  echo
   echo -------------------------- Build Website finished --------------------------
 
-  echo.
-  echo.
+  echo
+  echo
   echo build finished successfully
 
 }
@@ -181,11 +181,11 @@ if "$1" == "build"; then build;
 elif "$1" == "clean"; then clean;
 elif "$1" == "help"; then help;
 elif "$1" == ""; then
-  echo.
+  echo
   echo Please specify subcommand
   echo Enter build help to get help!
 else
-  echo.
+  echo
   echo Invalid command "$0 $*"
   echo Enter build help to get help!
 fi
