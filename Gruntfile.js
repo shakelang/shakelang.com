@@ -7,6 +7,13 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+
+        // Script configuration
+        ts: {
+            default : {
+                tsconfig: './tsconfig.json'
+            }
+        },
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -17,6 +24,8 @@ module.exports = function(grunt) {
             }
         },
 
+
+        // Style Configuration
         sass: {
             options: {
                 implementation: sass,
@@ -26,12 +35,6 @@ module.exports = function(grunt) {
                 files: {
                     'build/www-tmp/sass-dist/style.css': 'src/main/www/style/style.scss'
                 }
-            }
-        },
-
-        ts: {
-            default : {
-                tsconfig: './tsconfig.json'
             }
         },
         postcss: {
@@ -55,6 +58,8 @@ module.exports = function(grunt) {
                 dest: 'build/www/style/style.min.css'
             }
         },
+
+        //
         'compile-handlebars': {
             allStatic: {
                 files: [{
@@ -62,6 +67,31 @@ module.exports = function(grunt) {
                     dest: 'build/www/index.html'
                 }],
                 templateData: 'test/fixtures/data.json'
+            },
+        },
+
+        // Watch
+        watch: {
+            scripts: {
+                files: 'src/main/www/scripts/**/*.ts',
+                tasks: ['scripts'],
+                options: {
+                    debounceDelay: 250,
+                },
+            },
+            style: {
+                files: 'src/main/www/style/**/*.scss',
+                tasks: ['style'],
+                options: {
+                    debounceDelay: 250,
+                },
+            },
+            html: {
+                files: 'src/main/www/**/*.hbs',
+                tasks: ['html'],
+                options: {
+                    debounceDelay: 250,
+                },
             },
         },
     });
@@ -73,6 +103,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-ts");
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-compile-handlebars');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('style', ['sass', 'postcss'])
     grunt.registerTask('scripts', ['ts', 'uglify'])
@@ -80,7 +111,7 @@ module.exports = function(grunt) {
 
     // Default task(s).
     grunt.registerTask('all', ['scripts', 'style', 'html']);
-    grunt.registerTask('default', ['all']);
+    grunt.registerTask('default', ['all', 'watch']);
 
 };
 
