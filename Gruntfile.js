@@ -24,7 +24,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'build/www-tmp/sass-dist/style.css': 'src/www/style/style.scss'
+                    'build/www-tmp/sass-dist/style.css': 'src/main/www/style/style.scss'
                 }
             }
         },
