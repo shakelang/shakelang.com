@@ -65,12 +65,13 @@ module.exports = function(grunt) {
 
         'compile-handlebars': {
             allStatic: {
-                files: [
-                    markdown_files.map(e => { return {
-                        src: `build/www-tmp/handlebars/${e}.hbs`,
-                        dest: `build/www/${e}.html`
-                    }})
-                ],
+                files: [{
+                    expand: true,
+                    cwd: 'build/www-tmp/handlebars/',
+                    src: `**/*.hbs`,
+                    dest: `build/www/`,
+                    ext: '.html'
+                }],
                 templateData: 'test/fixtures/data.json',
                 handlebars: 'node_modules/handlebars'
             },
@@ -78,13 +79,13 @@ module.exports = function(grunt) {
 
         markdown: {
             all: {
-                files: [
-                    markdown_files.map(e => {return {
-                        expand: false,
-                        src: `markdown/${e}.md`,
-                        dest: `build/www-tmp/handlebars/${e}.hbs`
-                    }})
-                ],
+                files: [{
+                    expand: true,
+                    cwd: 'markdown/',
+                    src: `*.md`,
+                    dest: `build/www-tmp/handlebars/`,
+                    ext: '.hbs'
+                }],
                 options: {
                     template: 'src/main/www/template.hbs',
                     markdownOptions: {
@@ -128,6 +129,13 @@ module.exports = function(grunt) {
                 options: {
                     debounceDelay: 250,
                 },
+            },
+            assets: {
+                files: 'assets/**/*',
+                tasks: ['assets'],
+                options: {
+                    debounceDelay: 250,
+                },
             }
         },
 
@@ -147,7 +155,33 @@ module.exports = function(grunt) {
             scripts: ['build/www/scripts/**/*.js'],
             www: ['build/www'],
             'www-tmp': ['build/www-tmp'],
-        }
+        },
+
+        imagemin: {
+            dynamic: {
+                options: {
+                    optimizationLevel: 3,
+                    svgoPlugins: [{removeViewBox: false}],
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/main/www/',
+                    src: ['assets/**/*.{png,jpg,gif,ico,svg}'],
+                    dest: 'build/www/'
+                }]
+            }
+        },
+
+        copy: {
+            assets: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/main/www/',
+                    src: ['assets/**/*', '!assets/**/*.{png,jpg,gif,ico,svg}'],
+                    dest: 'build/www/'
+                }],
+            },
+        },
     });
 
     grunt.registerMultiTask("hbs", ["compile handlebars", ], handleBarsTask)
@@ -160,14 +194,17 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-markdown');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('style', ['sass', 'postcss'])
     grunt.registerTask('scripts', ['ts', 'uglify'])
     grunt.registerTask('html', ['clean:html', 'markdown', 'compile-handlebars'])
     grunt.registerTask('watch-browser-sync', ['browserSync', 'watch'])
+    grunt.registerTask('assets', ['imagemin', 'copy:assets'])
 
     // Default task(s).
-    grunt.registerTask('all', ['scripts', 'style', 'html']);
+    grunt.registerTask('all', ['scripts', 'style', 'html', 'assets']);
     grunt.registerTask('default', ['all', 'watch-browser-sync']);
 
 };
