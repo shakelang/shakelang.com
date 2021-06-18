@@ -14,18 +14,10 @@ cd $0\..
 set BUILD_BASEDIR=%CD%
 
 
-if "$1" == "build"; then build()
-elif "$1" == "clean"; then clean()
-elif "$1" == "help"; then help()
-elif "$1" == "" then
-  echo.
-  echo Please specify subcommand
-  echo Enter build help to get help!
-else
-  echo.
-  echo Invalid command "$0 $*"
-  echo Enter build help to get help!
-fi
+
+
+
+
 
 # Clean Task
 function clean() {
@@ -185,5 +177,24 @@ function help() {
   echo $0 clean  -  Clean the build
   echo $0 help   -  Show this help-menu
 }
+
+
+
+
+
+
+
+if "$1" == "build"; then build();
+elif "$1" == "clean"; then clean();
+elif "$1" == "help"; then help();
+elif "$1" == "" then
+  echo.
+  echo Please specify subcommand
+  echo Enter build help to get help!
+else
+  echo.
+  echo Invalid command "$0 $*"
+  echo Enter build help to get help!
+fi
 
 cd %START_DIR%
