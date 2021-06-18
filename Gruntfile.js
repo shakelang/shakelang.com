@@ -82,7 +82,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'markdown/',
-                    src: `*.md`,
+                    src: `**/*.md`,
                     dest: `build/www-tmp/handlebars/`,
                     ext: '.hbs'
                 }],
