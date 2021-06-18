@@ -24,7 +24,7 @@ clean() {
 
   # Clean gradle
   echo Starting clean...
-  if exist "$BUILD_BASEDIR/build/shake"; then
+  if test -f "$BUILD_BASEDIR/build/shake"; then
     cd $BUILD_BASEDIR/build/shake
     chmod +x gradlew
     echo
@@ -40,7 +40,7 @@ clean() {
     cd $BUILD_BASEDIR
   fi
 
-  if exist "$BUILD_BASEDIR/build"; then
+  if test -f "$BUILD_BASEDIR/build"; then
 
     chmod +x gradlew
     echo
@@ -58,9 +58,9 @@ clean() {
   fi
 
   # Remove build folder
-  if exist "$BUILD_BASEDIR/build"; then
+  if test -f "$BUILD_BASEDIR/build"; then
     echo Removing build folder...
-    rmdir $BUILD_BASEDIR/build /s /q
+    rm -r $BUILD_BASEDIR/build
   fi
 
   echo clean finished!
@@ -91,14 +91,16 @@ build() {
 
 
   # Clone Shake
-  if test ! -f "shake"; then
-    echo
-    echo Cloning shake repository \($SHAKE_REPOSITORY\) into build/shake...
-    echo
-    git clone $SHAKE_REPOSITORY ./shake
-    echo
-    echo
+  if test -f "shake"; then
+    rm -r $BUILD_BASEDIR/build
   fi
+
+  echo
+  echo Cloning shake repository \($SHAKE_REPOSITORY\) into build/shake...
+  echo
+  git clone $SHAKE_REPOSITORY ./shake
+  echo
+  echo
 
 
 
