@@ -31,7 +31,7 @@ clean() {
     echo
     echo ---------------------------- Clean Interpreter -----------------------------
     echo
-    echo ^> build/shake/gradlew clean
+    echo \> build/shake/gradlew clean
     echo
     ./gradlew clean --quiet
     echo
@@ -47,7 +47,7 @@ clean() {
     echo
     echo ---------------------------- Clean Interpreter -----------------------------
     echo
-    echo ^> gradlew clean
+    echo \> gradlew clean
     echo
     ./gradlew clean --quiet
     echo
@@ -110,7 +110,7 @@ build() {
   echo
   echo ------------------------------- Build Shake -------------------------------
   echo
-  echo ^> build/shake/gradlew publishToMavenLocal
+  echo \> build/shake/gradlew publishToMavenLocal
   echo
   ./gradlew publishToMavenLocal --quiet
   echo --------------------------- Build Shake finished --------------------------
@@ -125,7 +125,7 @@ build() {
   echo
   echo ---------------------------- Build Interpreter ----------------------------
   echo
-  echo ^> gradlew build
+  echo \> gradlew build
   echo
   ./gradlew build --quiet
   echo
@@ -140,7 +140,7 @@ build() {
   echo
   echo ------------------------------- Install npm -------------------------------
   echo
-  echo ^> npm ci
+  echo \> npm ci
   echo
   npm ci
   echo
@@ -150,7 +150,7 @@ build() {
   echo
   echo ------------------------------ Build Website ------------------------------
   echo
-  echo ^> grunt build
+  echo \> grunt build
   echo
   npx grunt build
   echo
