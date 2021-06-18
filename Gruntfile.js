@@ -1,8 +1,12 @@
 const sass = require('node-sass');
+const fs = require('fs')
 
 module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
+    let markdown_files = fs.readdirSync("markdown")
+      .filter(e => e.endsWith(".md"))
+      .map(e => e.substr(0, e.length - 3));
 
     // Project configuration.
     grunt.initConfig({
@@ -59,16 +63,40 @@ module.exports = function(grunt) {
             }
         },
 
-        //
         'compile-handlebars': {
             allStatic: {
-                files: [{
-                    src: 'src/main/www/index.hbs',
-                    dest: 'build/www/index.html'
-                }],
+                files: [
+                    markdown_files.map(e => { return {
+                        src: `build/www-tmp/handlebars/${e}.hbs`,
+                        dest: `build/www/${e}.html`
+                    }})
+                ],
                 templateData: 'test/fixtures/data.json',
                 handlebars: 'node_modules/handlebars'
             },
+        },
+
+        markdown: {
+            all: {
+                files: [
+                    markdown_files.map(e => {return {
+                        expand: false,
+                        src: `markdown/${e}.md`,
+                        dest: `build/www-tmp/handlebars/${e}.hbs`
+                    }})
+                ],
+                options: {
+                    template: 'src/main/www/template.hbs',
+                    markdownOptions: {
+                        gfm: true,
+                        highlight: 'manual',
+                        codeLines: {
+                            before: '<span>',
+                            after: '</span>'
+                        }
+                    }
+                }
+            }
         },
 
         // Watch
@@ -94,6 +122,13 @@ module.exports = function(grunt) {
                     debounceDelay: 250,
                 },
             },
+            html2: {
+                files: 'markdown/**/*.md',
+                tasks: ['html'],
+                options: {
+                    debounceDelay: 250,
+                },
+            }
         },
 
         browserSync: {
@@ -124,10 +159,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-compile-handlebars');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browser-sync');
+    grunt.loadNpmTasks('grunt-markdown');
 
     grunt.registerTask('style', ['sass', 'postcss'])
     grunt.registerTask('scripts', ['ts', 'uglify'])
-    grunt.registerTask('html', ['clean:html', 'compile-handlebars'])
+    grunt.registerTask('html', ['clean:html', 'markdown', 'compile-handlebars'])
     grunt.registerTask('watch-browser-sync', ['browserSync', 'watch'])
 
     // Default task(s).
