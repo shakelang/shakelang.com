@@ -21,7 +21,7 @@ kotlin {
         browser {
             dceTask  {
                 dceOptions.devMode = true
-                keep("interpreter.execute")
+                keep("shake.execute")
             }
             compilations {
                 "main" {

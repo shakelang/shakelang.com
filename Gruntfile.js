@@ -181,10 +181,16 @@ module.exports = function(grunt) {
                     dest: 'build/www/'
                 }],
             },
+            shake: {
+                files: [{
+                    expand: true,
+                    cwd: 'build/distributions/',
+                    src: ['shake.{js,js.map}'],
+                    dest: 'build/www/scripts/'
+                }],
+            },
         },
     });
-
-    grunt.registerMultiTask("hbs", ["compile handlebars", ], handleBarsTask)
 
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-postcss');
@@ -204,11 +210,9 @@ module.exports = function(grunt) {
     grunt.registerTask('assets', ['imagemin', 'copy:assets'])
 
     // Default task(s).
-    grunt.registerTask('all', ['scripts', 'style', 'html', 'assets']);
-    grunt.registerTask('default', ['all', 'watch-browser-sync']);
+    grunt.registerTask('all', ['scripts', 'style', 'html', 'assets', 'copy:shake']);
+    grunt.registerTask('dev', ['all', 'watch-browser-sync']);
+    grunt.registerTask('default', ['all']);
+    grunt.registerTask('build', ['all']);
 
 };
-
-function handleBarsTask() {
-
-}
