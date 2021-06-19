@@ -161,9 +161,9 @@ echo.
 echo.
 echo ------------------------------- Install npm -------------------------------
 echo.
-echo ^> npm ci
+echo ^> npm i
 echo.
-call npm ci
+call npm i
 echo.
 echo --------------------------- Install npm finished ---------------------------
 

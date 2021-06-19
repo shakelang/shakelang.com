@@ -142,9 +142,9 @@ build() {
   echo
   echo ------------------------------- Install npm -------------------------------
   echo
-  echo \> npm ci
+  echo \> npm i
   echo
-  npm ci
+  npm i
   echo
   echo --------------------------- Install npm finished ---------------------------
 
