@@ -22,8 +22,10 @@
   ],
   "homepage": "shake-lang.github.io",
   "devDependencies": {
+    "@types/cheerio": "^0.22.29",
     "autoprefixer": "^9.8.6",
     "browser-sync": "^2.26.14",
+    "cheerio": "*",
     "css-mqpacker": "^7.0.0",
     "grunt": "^1.4.1",
     "grunt-browser-sync": "^2.2.0",
@@ -54,5 +56,8 @@
     "postcss-selector-matches": "^4.0.0",
     "postcss-selector-not": "^5.0.0",
     "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "@mdi/font": "^5.9.55"
   }
 }

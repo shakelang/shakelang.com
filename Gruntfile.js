@@ -1,12 +1,10 @@
 const sass = require('node-sass');
-const fs = require('fs')
+const cheerio = require('cheerio');
+const { join } = require('path');
 
 module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
-    let markdown_files = fs.readdirSync("markdown")
-      .filter(e => e.endsWith(".md"))
-      .map(e => e.substr(0, e.length - 3));
 
     // Project configuration.
     grunt.initConfig({
@@ -37,7 +35,8 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'build/www-tmp/sass-dist/style.css': 'src/main/www/style/style.scss'
+                    'build/www-tmp/sass-dist/style.css': 'src/main/www/style/style.scss',
+                    'build/www-tmp/sass-dist/materialdesignicons.css': 'src/main/www/style/materialdesignicons.scss',
                 }
             }
         },
@@ -51,8 +50,11 @@ module.exports = function(grunt) {
                 ]
             },
             dev: {
-                src: 'build/www-tmp/sass-dist/style.css',
-                dest: 'build/www/style/style.min.css'
+                expand: true,
+                cwd: 'build/www-tmp/sass-dist/',
+                src: '**/*.css',
+                dest: 'build/www/style/',
+                ext: '.min.css'
             },
             prod: {
                 options: {
@@ -88,6 +90,13 @@ module.exports = function(grunt) {
                 }],
                 options: {
                     template: 'src/main/www/template.hbs',
+                    postCompile: (src) => {
+                        const $ = cheerio.load(src);
+                        $(Array.from(Array(6).keys()).map(e => `h${e+1}`).join(', ')).each(function() {
+                           $(`<a class="headline-link" href="#${$(this).attr('id')}"><i class="mdi mdi-link-variant"></i></a>`).appendTo($(this));
+                        });
+                        return $.html();
+                    },
                     markdownOptions: {
                         gfm: true,
                         highlight: 'manual',
@@ -181,12 +190,20 @@ module.exports = function(grunt) {
                     dest: 'build/www/'
                 }],
             },
+            materialdesignicons: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/main/www/',
+                    src: ['assets/**/*', '!assets/**/*.{png,jpg,gif,ico,svg}'],
+                    dest: 'build/www/'
+                }],
+            },
             shake: {
                 files: [{
                     expand: true,
-                    cwd: 'build/distributions/',
-                    src: ['shake.{js,js.map}'],
-                    dest: 'build/www/scripts/'
+                    cwd: join('node_modules/@mdi/font/fonts'),
+                    src: '**/*',
+                    dest: 'build/www/assets/fonts/materialdesignicons'
                 }],
             },
         },
