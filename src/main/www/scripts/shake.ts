@@ -47,12 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
       theme: "darcula"
     });
 
+  function setConsoleOutput(e: String) {
+      document.getElementById("shake-output").innerHTML = e
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;")
+          .replace(/ /g, "&nbsp;")
+          .replace(/\n/g, "\n<br/>");
+  }
+
   document.getElementById("try-shake-execute-button").addEventListener('click', function() {
     try {
       interpreter.execute("<Try Shake>", editor.getValue());
     } catch (e) {
-        console.log(e);
-      document.getElementById("shake-output").innerText = e.message;
+        console.error("Shake code execution threw an error", e);
+        setConsoleOutput(`${e.message}: ${e.details}\n\nat ${e.marker.source}\n${e.marker.preview}\n${e.marker.marker}"\n`);
     }
   });
 }, false);
