@@ -20,7 +20,7 @@ nav {
   width: calc(100% - 8px);
   height: $nav-inner-height;
   padding: 4px;
-  margin: 0;
+  margin: auto;
   border-bottom: 1px solid var(--primary-color);
 
   div.logo {
@@ -33,9 +33,18 @@ nav {
 
 }
 
+#site-contents-outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #site-contents {
   padding: 12px 40px 40px 40px;
   font-size: 16px;
+  width: 70%;
+  min-width: 800px;
+  display: inline-block;
 
   h1, h2 {
     border-bottom: 1px solid #ddd;
@@ -109,5 +118,13 @@ nav {
 
   a {
     color: #777;
+  }
+}
+
+@media only screen and (max-width: 880px) {
+  #site-contents {
+    min-width: 0;
+    width: 800px;
+    max-width: 100%;
   }
 }

@@ -23,6 +23,7 @@
   "homepage": "shake-lang.github.io",
   "devDependencies": {
     "@types/cheerio": "^0.22.29",
+    "@types/codemirror": "^5.60.0",
     "autoprefixer": "^9.8.6",
     "browser-sync": "^2.26.14",
     "cheerio": "*",
@@ -40,9 +41,13 @@
     "grunt-postcss": "^0.9.0",
     "grunt-sass": "^3.1.0",
     "grunt-ts": "^6.0.0-beta.22",
+    "grunt-webpack": "^4.0.3",
     "handlebars": "^4.7.7",
+    "highlight.js": "^8.4.0",
+    "i": "^0.3.6",
     "load-grunt-tasks": "^5.1.0",
     "node-sass": "^6.0.0",
+    "npm": "^7.18.1",
     "postcss-calc": "^8.0.0",
     "postcss-color-function": "^4.1.0",
     "postcss-color-hex-alpha": "^7.0.0",
@@ -55,9 +60,11 @@
     "postcss-nested": "^5.0.5",
     "postcss-selector-matches": "^4.0.0",
     "postcss-selector-not": "^5.0.0",
-    "typescript": "^4.3.2"
+    "typescript": "^4.3.2",
+    "webpack": "^5.39.1"
   },
   "dependencies": {
-    "@mdi/font": "^5.9.55"
+    "@mdi/font": "^5.9.55",
+    "codemirror": "^5.61.1"
   }
 }
