@@ -1,7 +1,4 @@
 import CodeMirror = require("codemirror");
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/addon/selection/active-line';
-import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/display/fullscreen';
 import 'codemirror/addon/scroll/simplescrollbars';
 
@@ -16,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       mode: 'shake',
       tabSize: 2,
-      lineNumbers: true,
-      firstLineNumber: 1,
+      lineNumbers: false,
+      //firstLineNumber: 1,
       extraKeys: {
         "Ctrl-Space": "autocomplete",
         "Alt-F": "findPersistent",
@@ -35,12 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       lineWrapping: true,
       // foldGutter: true,
+      /*
       gutters: [
+
         "CodeMirror-linenumbers",
         "breakpoints",
         "CodeMirror-foldgutter"
       ],
+      */
       scrollbarStyle: "simple",
-      theme: "default"
+      theme: "darcula"
     });
 }, false);

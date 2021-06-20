@@ -57,6 +57,7 @@ module.exports = function(grunt) {
           'build/www-tmp/sass-dist/style.css': 'src/main/www/style/style.scss',
           'build/www-tmp/sass-dist/materialdesignicons.css': 'src/main/www/style/materialdesignicons.scss',
           'build/www-tmp/sass-dist/editor.css': 'src/main/www/style/editor.scss',
+          'build/www-tmp/sass-dist/index.css': 'src/main/www/style/index.scss',
         }
       }
     },

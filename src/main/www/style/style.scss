@@ -11,8 +11,10 @@ html, body {
   --primary-font-color: #000;
   --secoundary-font-color: #666;
   --primary-color: #ccc;
+  --secoundary-color: #ddd;
   background: var(--primary-background-color);
   font-family: Arial, Helvetica, sans-serif;
+  color: var(--primary-font-color);
 
 }
 
@@ -27,7 +29,7 @@ nav {
     display: inline-block;
     height: $nav-inner-height;
     width: #{$nav-inner-height * 2.685};
-    background: url("../assets/logo/logo-black.svg");
+    background-image: url("../assets/logo/logo-black.svg");
     background-size: 100%;
   }
 
@@ -47,7 +49,7 @@ nav {
   display: inline-block;
 
   h1, h2 {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--secoundary-color);
   }
 
   h1, h2, h3, h4, h5, h6 {
