@@ -50,5 +50,22 @@ nav div.logo { background-image: url("../assets/logo/logo-white.svg"); }
     padding: 8px;
     font-family: monospace;
     overflow-wrap: anywhere;
+    max-height: 400px;
+    overflow-y: auto;
+    
+    p.console-log {
+      color: #fff;
+    }
+    p.console-warn {
+      color: #fd0;
+    }
+    p.console-error {
+      color: #f00;
+    }
+    p.console-debug {
+      color: #3af;
+      display: none;
+    }
+
   }
 }
