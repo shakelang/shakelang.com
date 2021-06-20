@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       interpreter.execute("<Try Shake>", editor.getValue());
     } catch (e) {
         console.error("Shake code execution threw an error", e);
-        setConsoleOutput(`${e.message}: ${e.details}\n\nat ${e.marker.source}\n${e.marker.preview}\n${e.marker.marker}"\n`);
+        setConsoleOutput(`${e.name}: ${e.details}\n\nat ${e.marker.source}\n${e.marker.preview}\n${e.marker.marker}"\n`);
     }
   });
 }, false);
