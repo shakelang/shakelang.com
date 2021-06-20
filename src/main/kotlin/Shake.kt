@@ -9,12 +9,11 @@ import com.github.shakelang.shake.util.characterinput.position.PositionMap
 
 
 
-val interpreter = Interpreter()
-
 @JsName("execute")
 @Suppress("unused")
 fun execute(source: String, code: String) {
 
+    val interpreter = Interpreter()
     val result = parse(source, code)
     interpreter.visit(result.tree)
 

@@ -5,7 +5,10 @@ import 'codemirror/addon/scroll/simplescrollbars';
 import './language-shake';
 
 // Shake Library
-require('./shake_environment.js')
+const interpreter: { execute(source: String, input: String) : void; } = require('./shake_environment.js')
+declare const global: { interpreter: any }
+
+global.interpreter = interpreter;
 
 document.addEventListener('DOMContentLoaded', () => {
   const editor = CodeMirror.fromTextArea(
@@ -43,4 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollbarStyle: "simple",
       theme: "darcula"
     });
+
+  document.getElementById("try-shake-execute-button").addEventListener('click', function() {
+    try {
+      interpreter.execute("<Try Shake>", editor.getValue());
+    } catch (e) {
+        console.log(e);
+      document.getElementById("shake-output").innerText = e.message;
+    }
+  });
 }, false);
