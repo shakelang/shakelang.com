@@ -256,7 +256,7 @@ module.exports = function(grunt) {
   grunt.registerTask('scripts', ['ts', 'copy:shake', 'webpack', 'uglify'])
   grunt.registerTask('html', ['clean:html', 'markdown', 'compile-handlebars'])
   grunt.registerTask('watch-browser-sync', ['browserSync', 'watch'])
-  grunt.registerTask('assets', ['imagemin', 'copy:assets'])
+  grunt.registerTask('assets', ['imagemin', 'copy:assets', 'copy:materialdesignicons'])
 
   // Default task(s).
   grunt.registerTask('all', ['scripts', 'style', 'html', 'assets', 'copy:shake']);
