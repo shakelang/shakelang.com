@@ -1,12 +1,45 @@
 import CodeMirror = require("codemirror");
 import 'codemirror/addon/mode/simple';
 
+const keywords = [
+    "do",
+    "while",
+    "for",
+    "if",
+    "else",
+    "class",
+    "extends",
+    "implements",
+    "public",
+    "protected",
+    "private",
+    "new",
+    "function",
+    "return",
+    "var",
+    "let",
+    "const",
+    "dynamic",
+    "byte",
+    "short",
+    "int",
+    "long",
+    "float",
+    "double",
+    "char",
+    "boolean",
+    "import",
+    "void",
+    "constructor",
+    "as",
+]
+
 CodeMirror.defineSimpleMode("shake", {
     start: [
         { regex: /"(?:[^\\]|\\.)*?(?:"|$)/, token: "string" },
-        { regex: /(function)(\s+)([a-z$][\w$]*)/, token: ["keyword", null, "variable-2"] },
-        { regex: /(?:function|var|return|if|for|while|else|do|this)\b/, token: "keyword" },
-        { regex: /true|false|null|undefined/, token: "atom" },
+        { regex: /(function|void|class|interface|enum|var|let[a-z$][\w$]*)(\s+)([a-z$][\w$]*)/, token: ["keyword", null, "variable-2"] },
+        { regex: new RegExp(`(?:${keywords.join('|')})\\b`), token: "keyword" },
+        { regex: /true|false|null/, token: "atom" },
         { regex: /0x[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i, token: "number" },
         { regex: /\/\/.*/, token: "comment" },
         { regex: /\/(?:[^\\]|\\.)*?\//, token: "variable-3" },
