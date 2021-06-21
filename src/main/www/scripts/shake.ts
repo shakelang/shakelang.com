@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
       interpreter.execute("<Try Shake>", editor.getValue());
     } catch (e) {
         console.error(
-           "Shake code execution threw an error",
+           'Shake code execution threw an error',
            `${e.name}: ${e.details}\n\nat ${e.marker.source}\n${e.marker.preview}\n${e.marker.marker}"\n`);
     } finally {
        undoCaptureConsoleLog();
@@ -111,12 +111,12 @@ class DivConsole {
    ) {}
 
    private general_log(classname: string, ...message: string[]) {
-      message.forEach(m => {
+      message.forEach(e => e.split("\n").forEach(m => {
          const p = document.createElement('p');
          p.classList.add(classname);
          p.innerHTML = formatHTMLString(m);
          this.println(p);
-      });
+      }));
    }
 
    public log(...message: string[]) { this.general_log("console-log", ...message) }
@@ -154,5 +154,4 @@ function formatHTMLString(str: string): string {
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;")
       .replace(/ /g, "&nbsp;")
-      .replace(/\n/g, "\n<br/>");
 }
