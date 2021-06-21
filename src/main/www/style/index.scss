@@ -52,7 +52,10 @@ nav div.logo { background-image: url("../assets/logo/logo-white.svg"); }
     overflow-wrap: anywhere;
     max-height: 400px;
     overflow-y: auto;
-    
+
+    p {
+      margin: 0
+    }
     p.console-log {
       color: #fff;
     }
