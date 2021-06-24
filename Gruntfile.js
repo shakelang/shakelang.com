@@ -171,7 +171,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: 'src/main/www/scripts/**/*.ts',
-        tasks: ['scripts'],
+        tasks: ['scripts-dev'],
         options: {
           debounceDelay: 250,
         },
