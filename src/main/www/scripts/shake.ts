@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     divConsole.clear();
     const { undoCaptureConsoleLog } = captureConsoleLog();
     try {
+       // @ts-ignore
        const interpreter: { execute(source: String, input: String) : void; } = await import('./shake_environment.js')
        if(!global.interpreter) global.interpreter = interpreter;
       interpreter.execute("<Try Shake>", editor.getValue());
