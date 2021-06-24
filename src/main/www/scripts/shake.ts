@@ -95,9 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       interpreter.execute("<Try Shake>", editor.getValue());
     } catch (e) {
-        console.error(
-           'Shake code execution threw an error',
-           `${e.name}: ${e.details}\n\nat ${e.marker.source}\n${e.marker.preview}\n${e.marker.marker}"\n`);
+       if(e.marker) e.toString = function() {
+          return `${this.name}: ${this.details}\n\nat ${this.marker.source}\n${this.marker.preview}\n${this.marker.marker}"\n`;
+       }
+       console.error('Shake code execution threw an error', e);
     } finally {
        undoCaptureConsoleLog();
     }
@@ -111,7 +112,7 @@ class DivConsole {
    ) {}
 
    private general_log(classname: string, ...message: string[]) {
-      message.forEach(e => e.split("\n").forEach(m => {
+      message.forEach(e => String(e).split("\n").forEach(m => {
          const p = document.createElement('p');
          p.classList.add(classname);
          p.innerHTML = formatHTMLString(m);
@@ -124,7 +125,7 @@ class DivConsole {
    public error(...message: string[]) { this.general_log("console-error", ...message) }
    public debug(...message: string[]) { this.general_log("console-debug", ...message) }
 
-   public println(e: HTMLElement | string) {
+   public println(e: HTMLElement | string): void {
       if(typeof e == "string") {
          const div = document.createElement('div');
          div.innerHTML = e.trim();

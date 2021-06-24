@@ -6,12 +6,15 @@
     "sourceMap": true,
     "experimentalDecorators": true,
     "outDir": "build/www-tmp/typescript-dist/",
-    "rootDir": "src/main/www/scripts/"
+    "rootDir": ".",
+    "noImplicitAny": true,
+    "jsx": "react",
+    "allowJs": true
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "src/main/www/scripts/**/*.ts"
+    "build/www-tmp/scripts/**/*.ts"
   ]
 }

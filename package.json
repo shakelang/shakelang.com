@@ -35,7 +35,6 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-imagemin": "^4.0.0",
     "grunt-contrib-jshint": "^3.0.0",
-    "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-markdown": "^0.7.0",
     "grunt-postcss": "^0.9.0",
@@ -59,8 +58,9 @@
     "postcss-nested": "^5.0.5",
     "postcss-selector-matches": "^4.0.0",
     "postcss-selector-not": "^5.0.0",
+    "ts-loader": "^9.2.3",
     "typescript": "^4.3.2",
-    "webpack": "^5.39.1"
+    "webpack": "^5.40.0"
   },
   "dependencies": {
     "@mdi/font": "^5.9.55",

@@ -78,6 +78,12 @@ if exist "%BUILD_BASEDIR%\build" (
   rmdir %BUILD_BASEDIR%\build /s /q
 )
 
+@rem Remove node_modules folder
+if exist "%BUILD_BASEDIR%\node_modules" (
+  echo Removing node_modules folder...
+  rmdir %BUILD_BASEDIR%\node_modules /s /q
+)
+
 echo clean finished!
 goto end
 

@@ -63,6 +63,12 @@ clean() {
     rm -r $BUILD_BASEDIR/build
   fi
 
+  # Remove node_modules folder
+  if test -f "$BUILD_BASEDIR/node_modules"; then
+    echo Removing node_modules folder...
+    rm -r $BUILD_BASEDIR/node_modules
+  fi
+
   echo clean finished!
 }
 

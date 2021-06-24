@@ -2,6 +2,8 @@ const sass = require('node-sass');
 const cheerio = require('cheerio');
 const { join } = require('path');
 
+const scripts = ["index", "shake" /* The script file names to compile */];
+
 module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
@@ -16,34 +18,60 @@ module.exports = function(grunt) {
         tsconfig: './tsconfig.json'
       }
     },
-    webpack: {
-      index: () => ({
-        entry: join(__dirname, 'build/www-tmp/typescript-dist/index.js'),
-        output: {
-          path: join(__dirname, 'build/www-tmp/webpack-dist'),
-          filename: 'index.js',
+    webpack: Object.fromEntries(((e => [
+        ...e
+          .map(e => [...e])
+          .map(e => {
+            e[0] += "-dev";
+            e[1] = Object.assign({}, e[1]);
+            e[1].mode = "development"
+            return e;
+          }),
+        ...e
+          .map(e => [...e])
+          .map(e => {
+            e[0] += "-prod";
+            e[1] = Object.assign({}, e[1]);
+            e[1].mode = "production";
+            return e;
+          }),
+      ])(scripts.map(e => [`${e}`, {
+        mode: "production",
+        entry: join(__dirname, `build/www-tmp/scripts/${e}.ts`),
+        module: {
+          rules: [
+            {
+              test: /\.tsx?$/,
+              use: 'ts-loader',
+              exclude: /node_modules/,
+            },
+          ],
         },
-      }),
-      shake: () => ({
-        entry: join(__dirname, 'build/www-tmp/typescript-dist/shake.js'),
-        output: {
-          path: join(__dirname, 'build/www-tmp/webpack-dist'),
-          filename: 'shake.js',
+        resolve: {
+          extensions: ['.tsx', '.ts', '.js'],
         },
-      }),
-    },
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
-      build: {
-        expand: true,
-        cwd: 'build/www-tmp/webpack-dist/',
-        src: '**/*.js',
-        dest: 'build/www/scripts/',
-        ext: '.min.js'
-      }
-    },
+        output: {
+          path: join(__dirname, `build/www/scripts`),
+          filename: `${e}.min.js`,
+        },
+        devtool: "source-map",
+    }])))),
+    // uglify: {
+    //   options: {
+    //     sourceMap : true,
+    //     sourceMapIncludeSources : true,
+    //     sourceMapIn : 'build/www-tmp/webpack-dist/shake.js.map',
+    //     'sourceMap.url': '/maps/',
+    //     banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+    //   },
+    //   build: {
+    //     expand: true,
+    //     cwd: 'build/www-tmp/webpack-dist/',
+    //     src: '**/*.js',
+    //     dest: 'build/www/scripts/',
+    //     ext: '.min.js'
+    //   }
+    // },
 
 
     // Style Configuration
@@ -228,23 +256,29 @@ module.exports = function(grunt) {
           dest: 'build/www/assets/fonts/materialdesignicons'
         }],
       },
-      shake: {
+      scripts: {
         files: [{
-          src: 'build/distributions/shake.js',
-          dest: 'build/www-tmp/typescript-dist/shake_environment.js'
-        },
-        {
-          src: 'build/distributions/shake.js.map',
-          dest: 'build/www-tmp/typescript-dist/shake_environment.js.map'
-        }],
-      },
+            expand: true,
+            cwd: 'src/main/www/scripts/',
+            src: '**/*',
+            dest: 'build/www-tmp/scripts/'
+          },
+          {
+            src: 'build/distributions/shake.js',
+            dest: 'build/www-tmp/scripts/shake_environment.js'
+          },
+          {
+            src: 'build/distributions/shake.js.map',
+            dest: 'build/www-tmp/scripts/shake_environment.js.map'
+          }],
+      }
     },
   });
 
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks("grunt-ts");
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  // grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-compile-handlebars');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browser-sync');
@@ -253,15 +287,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('style', ['sass', 'postcss'])
-  grunt.registerTask('scripts', ['ts', 'copy:shake', 'webpack', 'uglify'])
+  grunt.registerTask('webpack-dev', scripts.map(e => `webpack:${e}-dev`))
+  grunt.registerTask('webpack-prod', scripts.map(e => `webpack:${e}-prod`))
+  grunt.registerTask('scripts-dev', ['copy:scripts', 'webpack-dev'])
+  grunt.registerTask('scripts-prod', ['copy:scripts', 'webpack-prod'])
   grunt.registerTask('html', ['clean:html', 'markdown', 'compile-handlebars'])
   grunt.registerTask('watch-browser-sync', ['browserSync', 'watch'])
   grunt.registerTask('assets', ['imagemin', 'copy:assets', 'copy:materialdesignicons'])
 
-  // Default task(s).
-  grunt.registerTask('all', ['scripts', 'style', 'html', 'assets', 'copy:shake']);
-  grunt.registerTask('dev', ['all', 'watch-browser-sync']);
-  grunt.registerTask('default', ['all']);
-  grunt.registerTask('build', ['all']);
+  grunt.registerTask('all-dev', ['scripts-dev', 'style', 'html', 'assets']);
+  grunt.registerTask('all-prod', ['scripts-prod', 'style', 'html', 'assets']);
+  grunt.registerTask('dev', ['all-dev', 'watch-browser-sync']);
+  grunt.registerTask('default', ['all-prod']);
+  grunt.registerTask('build', ['all-prod']);
 
 };
+
