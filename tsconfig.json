@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es5",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -9,7 +9,8 @@
     "rootDir": ".",
     "noImplicitAny": true,
     "jsx": "react",
-    "allowJs": true
+    "allowJs": true,
+    "importHelpers": true
   },
   "exclude": [
     "node_modules"

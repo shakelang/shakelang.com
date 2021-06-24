@@ -1,14 +1,12 @@
-import CodeMirror = require("codemirror");
+import * as CodeMirror from "codemirror";
 import 'codemirror/addon/display/fullscreen';
 import 'codemirror/addon/scroll/simplescrollbars';
 
 import './language-shake';
 
 // Shake Library
-const interpreter: { execute(source: String, input: String) : void; } = require('./shake_environment.js')
-declare const global: { interpreter: any }
 
-global.interpreter = interpreter;
+declare const global: { interpreter: any }
 
 document.addEventListener('DOMContentLoaded', () => {
   const editor = CodeMirror.fromTextArea(
@@ -89,10 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-  document.getElementById("try-shake-execute-button").addEventListener('click', function() {
+  document.getElementById("try-shake-execute-button").addEventListener('click', async function() {
     divConsole.clear();
     const { undoCaptureConsoleLog } = captureConsoleLog();
     try {
+       const interpreter: { execute(source: String, input: String) : void; } = await import('./shake_environment.js')
+       if(!global.interpreter) global.interpreter = interpreter;
       interpreter.execute("<Try Shake>", editor.getValue());
     } catch (e) {
        if(e.marker) e.toString = function() {
