@@ -22,6 +22,9 @@ jobs:
         with:
           persist-credentials: false
             
+      - name: Install npm packages ☁️
+        run: npm i
+            
       - name: Build Website 🔨
         run: npx grunt build
         
