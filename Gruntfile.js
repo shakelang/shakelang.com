@@ -1,6 +1,10 @@
+// jshint esversion: 9
+
+const fs = require('fs-extra');
 const sass = require('node-sass');
 const cheerio = require('cheerio');
-const { join } = require('path');
+const { join, basename } = require('path');
+const download_browser_scripts = require("./download_browser_scripts");
 
 const scripts = ["index", "shake" /* The script file names to compile */];
 
@@ -23,15 +27,15 @@ module.exports = function(grunt) {
           .map(e => [...e])
           .map(e => {
             e[0] += "-dev";
-            e[1] = Object.assign({}, e[1]);
-            e[1].mode = "development"
+            e[1] = { ...e[1] };
+            e[1].mode = "development";
             return e;
           }),
         ...e
           .map(e => [...e])
           .map(e => {
             e[0] += "-prod";
-            e[1] = Object.assign({}, e[1]);
+            e[1] = { ...e[1] };
             e[1].mode = "production";
             return e;
           }),
@@ -56,22 +60,6 @@ module.exports = function(grunt) {
         },
         devtool: "source-map",
     }])))),
-    // uglify: {
-    //   options: {
-    //     sourceMap : true,
-    //     sourceMapIncludeSources : true,
-    //     sourceMapIn : 'build/www-tmp/webpack-dist/shake.js.map',
-    //     'sourceMap.url': '/maps/',
-    //     banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-    //   },
-    //   build: {
-    //     expand: true,
-    //     cwd: 'build/www-tmp/webpack-dist/',
-    //     src: '**/*.js',
-    //     dest: 'build/www/scripts/',
-    //     ext: '.min.js'
-    //   }
-    // },
 
 
     // Style Configuration
@@ -251,34 +239,41 @@ module.exports = function(grunt) {
       materialdesignicons: {
         files: [{
           expand: true,
-          cwd: join('node_modules/@mdi/font/fonts'),
+          cwd: 'node_modules/@mdi/font/fonts',
           src: '**/*',
           dest: 'build/www/assets/fonts/materialdesignicons'
         }],
       },
       scripts: {
         files: [{
-            expand: true,
-            cwd: 'src/main/www/scripts/',
-            src: '**/*',
-            dest: 'build/www-tmp/scripts/'
-          },
-          {
-            src: 'build/distributions/shake.js',
-            dest: 'build/www-tmp/scripts/shake_environment.js'
-          },
-          {
-            src: 'build/distributions/shake.js.map',
-            dest: 'build/www-tmp/scripts/shake_environment.js.map'
-          }],
+          expand: true,
+          cwd: 'src/main/www/scripts/',
+          src: '**/*',
+          dest: 'build/www-tmp/scripts/'
+        }],
       }
-    },
+    }
+  });
+
+  grunt.task.registerTask('browser-scripts', 'A sample task that logs stuff.', function() {
+
+    const done = this.async();
+    (async () => {
+
+      const scripts = await download_browser_scripts('build/www-tmp/scripts/shake/');
+      await fs.writeFile('build/www-tmp/scripts/shake-versions.json', JSON.stringify(scripts.map(e => ({
+        commit: e.commit,
+        file: basename(e.target).replaceAll("\\", "/")
+      })), null, 2));
+      done();
+
+    })();
+
   });
 
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks("grunt-ts");
-  // grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-compile-handlebars');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browser-sync');
@@ -286,14 +281,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('style', ['sass', 'postcss'])
-  grunt.registerTask('webpack-dev', scripts.map(e => `webpack:${e}-dev`))
-  grunt.registerTask('webpack-prod', scripts.map(e => `webpack:${e}-prod`))
-  grunt.registerTask('scripts-dev', ['copy:scripts', 'webpack-dev'])
-  grunt.registerTask('scripts-prod', ['copy:scripts', 'webpack-prod'])
-  grunt.registerTask('html', ['clean:html', 'markdown', 'compile-handlebars'])
-  grunt.registerTask('watch-browser-sync', ['browserSync', 'watch'])
-  grunt.registerTask('assets', ['imagemin', 'copy:assets', 'copy:materialdesignicons'])
+  grunt.registerTask('style', ['sass', 'postcss']);
+  grunt.registerTask('webpack-dev', scripts.map(e => `webpack:${e}-dev`));
+  grunt.registerTask('webpack-prod', scripts.map(e => `webpack:${e}-prod`));
+  grunt.registerTask('scripts-dev', ['browser-scripts', 'copy:scripts', 'webpack-dev']);
+  grunt.registerTask('scripts-prod', ['browser-scripts', 'copy:scripts', 'webpack-prod']);
+  grunt.registerTask('html', ['clean:html', 'markdown', 'compile-handlebars']);
+  grunt.registerTask('watch-browser-sync', ['browserSync', 'watch']);
+  grunt.registerTask('assets', ['imagemin', 'copy:assets', 'copy:materialdesignicons']);
 
   grunt.registerTask('all-dev', ['scripts-dev', 'style', 'html', 'assets']);
   grunt.registerTask('all-prod', ['scripts-prod', 'style', 'html', 'assets']);

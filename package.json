@@ -2,8 +2,8 @@
   "name": "shake-lang.github.io",
   "version": "0.1.0",
   "scripts": {
-    "dev": "gulp dev",
-    "build": "gulp build"
+    "dev": "grunt dev",
+    "build": "grunt build"
   },
   "repository": {
     "type": "git",
@@ -22,12 +22,14 @@
   ],
   "homepage": "shake-lang.github.io",
   "devDependencies": {
+    "@octokit/core": "^3.5.1",
     "@types/cheerio": "^0.22.29",
     "@types/codemirror": "^5.60.0",
     "autoprefixer": "^9.8.6",
     "browser-sync": "^2.26.14",
     "cheerio": "*",
     "css-mqpacker": "^7.0.0",
+    "fs-extra": "^3.0.1",
     "grunt": "^1.4.1",
     "grunt-browser-sync": "^2.2.0",
     "grunt-compile-handlebars": "^2.0.2",

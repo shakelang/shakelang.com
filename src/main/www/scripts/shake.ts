@@ -8,9 +8,22 @@ import './language-shake';
 
 declare const global: { interpreter: any }
 
+// @ts-ignore
+const shake_versions = require('./shake-versions.json');
+
 document.addEventListener('DOMContentLoaded', () => {
+
+  const shake_version_select = document.getElementById('shake-version-select') as HTMLSelectElement;
+
+  shake_versions.forEach((e: any) => {
+    const option = document.createElement('option') as HTMLOptionElement;
+    option.value = e.file;
+    option.innerText = e.commit;
+    shake_version_select.appendChild(option);
+  });
+
   const editor = CodeMirror.fromTextArea(
-    <HTMLTextAreaElement>document.getElementById('try-shake'),
+    document.getElementById('try-shake') as HTMLTextAreaElement,
     {
       mode: 'shake',
       tabSize: 2,
@@ -25,27 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
         "Esc": function(cm) {
           if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
         },
-        /*
-        "Ctrl-Q": function(cm) {
-          cm.foldCode(cm.getCursor());
-        }
-         */
       },
       lineWrapping: true,
-      // foldGutter: true,
-      /*
-      gutters: [
-
-        "CodeMirror-linenumbers",
-        "breakpoints",
-        "CodeMirror-foldgutter"
-      ],
-      */
       scrollbarStyle: "simple",
       theme: "darcula"
     });
 
-   const divConsole = new DivConsole(<HTMLDivElement> document.getElementById("shake-output"));
+   const divConsole = new DivConsole(document.getElementById("shake-output") as HTMLDivElement);
 
   function captureConsoleLog() {
     const log = console.log;
@@ -88,13 +87,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById("try-shake-execute-button").addEventListener('click', async function() {
+
     divConsole.clear();
     const { undoCaptureConsoleLog } = captureConsoleLog();
+
     try {
-       // @ts-ignore
-       const interpreter: { execute(source: String, input: String) : void; } = await import('./shake_environment.js')
-       if(!global.interpreter) global.interpreter = interpreter;
+
+      // Get shake interpreter
+      // @ts-ignore
+      const interpreter: { execute(source: String, input: String) : void; } = await import(
+         /* webpackInclude: /\.js$/ */
+         /* webpackChunkName: "my-chunk-name" */
+         /* webpackMode: "lazy" */
+         /* webpackPrefetch: true */
+         /* webpackPreload: true */
+         `./shake/${shake_version_select.value}`
+      )
+
       interpreter.execute("<Try Shake>", editor.getValue());
+
     } catch (e) {
        if(e.marker) e.toString = function() {
           return `${this.name}: ${this.details}\n\nat ${this.marker.source}\n${this.marker.preview}\n${this.marker.marker}"\n`;
@@ -130,7 +141,7 @@ class DivConsole {
       if(typeof e == "string") {
          const div = document.createElement('div');
          div.innerHTML = e.trim();
-         return div.childNodes.forEach(e => this.println(<HTMLElement> e));
+         return div.childNodes.forEach(e => this.println(e as HTMLElement));
       }
       else {
          this.div.appendChild(e);
