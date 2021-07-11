@@ -263,7 +263,7 @@ module.exports = function(grunt) {
       const scripts = await download_browser_scripts('build/www-tmp/scripts/shake/');
       await fs.writeFile('build/www-tmp/scripts/shake-versions.json', JSON.stringify(scripts.map(e => ({
         commit: e.commit,
-        file: basename(e.target).replaceAll("\\", "/")
+        file: basename(e.target).replace(/\\/g, "/")
       })), null, 2));
       done();
 
