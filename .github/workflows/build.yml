@@ -27,6 +27,8 @@ jobs:
             
       - name: Build Website 🔨
         run: npx grunt build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
