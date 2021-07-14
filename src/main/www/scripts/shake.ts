@@ -11,6 +11,38 @@ declare const global: { interpreter: any }
 // @ts-ignore
 const shake_versions = require('./shake-versions.json');
 
+const interpreters: any = {};
+
+async function getShakeInterpreter(file: string): Promise<{ execute(source: String, input: String) : void; }> {
+
+  if(!interpreters[file]) {
+
+    // @ts-ignore
+    interpreters[file] = await import(
+      /* webpackInclude: /\.js$/ */
+      /* webpackChunkName: "my-chunk-name" */
+      /* webpackMode: "lazy" */
+      /* webpackPrefetch: true */
+      /* webpackPreload: true */
+      `./shake/${file}`
+    );
+
+    if(interpreters[file].addInterpreterFileFromUrl) {
+      interpreters[file].addInterpreterFileFromUrl("core/system.shake", "./assets/shake/core/system.shake");
+    }
+  }
+
+  return {
+    execute(source: String, input: String) {
+      if(!interpreters[file].addInterpreterFileFromUrl)
+        console.warn(`This shake version seems not to allow API imports, so the core API can't be imported [used verion: ${file}]`)
+      console.debug(interpreters[file])
+      interpreters[file].execute(source, input)
+    }
+  };
+
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const shake_version_select = document.getElementById('shake-version-select') as HTMLSelectElement;
@@ -94,17 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
 
       // Get shake interpreter
-      // @ts-ignore
-      const interpreter: { execute(source: String, input: String) : void; } = await import(
-         /* webpackInclude: /\.js$/ */
-         /* webpackChunkName: "my-chunk-name" */
-         /* webpackMode: "lazy" */
-         /* webpackPrefetch: true */
-         /* webpackPreload: true */
-         `./shake/${shake_version_select.value}`
-      )
-
-      interpreter.execute("<Try Shake>", editor.getValue());
+      (await getShakeInterpreter(shake_version_select.value)).execute("<Try Shake>", editor.getValue());
 
     } catch (e) {
        if(e.marker) e.toString = function() {
