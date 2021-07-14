@@ -3,6 +3,7 @@
 const { Octokit } = require('@octokit/core');
 const fs = require('fs-extra');
 const { join } = require('path');
+const resolve_commits = require('./resolve_commits');
 
 function base64Decode(b64string) {
   if (typeof Buffer.from === "function") return Buffer.from(b64string, 'base64');
@@ -26,7 +27,15 @@ module.exports = async function downloadBrowserScriptsTo(dir) {
 
   fs.mkdirs(dir);
 
-  return await Promise.all(commits_folder.tree.map(({path, url}) => (async () => {
+  console.log("Resolving commits on master...");
+  const { nodes } = await resolve_commits("master");
+  console.log(`Found ${nodes.length} commits on branch master!`);
+  const idx = (build) => nodes.findIndex((e) => e.oid.startsWith(build.commit));
+
+  console.log("Downloading builds...");
+  console.log(nodes[0].oid);
+
+  return (await Promise.all(commits_folder.tree.map(({path, url}) => (async () => {
 
     const commit = await rest(url);
     const browser_script = await rest(commit.tree.find(e => e.path === "browser.js"));
@@ -36,6 +45,6 @@ module.exports = async function downloadBrowserScriptsTo(dir) {
     console.log(`Got browser-script for commit ${path} into ${target}`);
     return { commit: path, target: target };
 
-  })()));
+  })()))).sort((a, b) => idx(a) - idx(b));
 
 };

@@ -73,6 +73,8 @@ async function resolveCommitsOnBranch(branch = "master") {
     hasNext = totalCount > nodes.length;
     after = '"' + nodes[0].oid + " " + (nodes.length - 1) + '"';
   }
-  return data;
+  return history;
 
 }
+
+module.exports = resolveCommitsOnBranch;
