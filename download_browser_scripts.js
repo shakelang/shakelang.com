@@ -33,7 +33,6 @@ module.exports = async function downloadBrowserScriptsTo(dir) {
   const idx = (build) => nodes.findIndex((e) => e.oid.startsWith(build.commit));
 
   console.log("Downloading builds...");
-  console.log(nodes[0].oid);
 
   return (await Promise.all(commits_folder.tree.map(({path, url}) => (async () => {
 
