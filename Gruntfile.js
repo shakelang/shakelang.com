@@ -7,6 +7,7 @@ const { join, basename } = require('path');
 const download_browser_scripts = require("./download_browser_scripts");
 
 const scripts = ["index", "shake" /* The script file names to compile */];
+const bid = Math.random().toString(16).replace(/[^a-z]+/g, '').substr(0, 12);
 
 module.exports = function(grunt) {
 
@@ -120,7 +121,9 @@ module.exports = function(grunt) {
           ext: '.html'
           }
         ],
-        templateData: 'test/fixtures/data.json',
+        templateData: {
+          bid: bid
+        },
         handlebars: 'node_modules/handlebars'
       },
     },
