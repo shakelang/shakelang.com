@@ -28,7 +28,7 @@ async function getShakeInterpreter(file: string): Promise<{ execute(source: Stri
     );
 
     if(interpreters[file].addInterpreterFileFromUrl) {
-      interpreters[file].addInterpreterFileFromUrl("core/system.shake", "./assets/shake/core/system.shake");
+      await interpreters[file].addInterpreterFileFromUrl("core/system.shake", "./assets/shake/core/system.shake");
     }
   }
 
@@ -36,7 +36,6 @@ async function getShakeInterpreter(file: string): Promise<{ execute(source: Stri
     execute(source: String, input: String) {
       if(!interpreters[file].addInterpreterFileFromUrl)
         console.warn(`This shake version seems not to allow API imports, so the core API can't be imported [used verion: ${file}]`)
-      console.debug(interpreters[file])
       interpreters[file].execute(source, input)
     }
   };
@@ -123,10 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
     divConsole.clear();
     const { undoCaptureConsoleLog } = captureConsoleLog();
 
+    const interpreter = await getShakeInterpreter(shake_version_select.value);
     try {
 
       // Get shake interpreter
-      (await getShakeInterpreter(shake_version_select.value)).execute("<Try Shake>", editor.getValue());
+      interpreter.execute("<Try Shake>", editor.getValue());
 
     } catch (e) {
        if(e.marker) e.toString = function() {
@@ -146,7 +146,7 @@ class DivConsole {
    ) {}
 
    private general_log(classname: string, ...message: string[]) {
-      message.forEach(e => String(e).split("\n").forEach(m => {
+      message.forEach(e => `${e}`.split("\n").forEach(m => {
          const p = document.createElement('p');
          p.classList.add(classname);
          p.innerHTML = formatHTMLString(m);
