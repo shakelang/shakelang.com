@@ -4,9 +4,10 @@ const fs = require('fs-extra');
 const sass = require('node-sass');
 const cheerio = require('cheerio');
 const { join, basename } = require('path');
-const download_browser_scripts = require("./download_browser_scripts");
+const download_browser_scripts = require('./download_browser_scripts');
 
-const scripts = ["index", "shake" /* The script file names to compile */];
+const scripts = ['index', 'shake' /* The script file names to compile */];
+const stylesheets = [ 'style', 'materialdesignicons', 'editor', 'index', 'select' /* The stylesheet file names to compile */ ];
 const bid = Math.random().toString(16).replace(/[^a-z]+/g, '').substr(0, 12);
 
 module.exports = function(grunt) {
@@ -27,21 +28,21 @@ module.exports = function(grunt) {
         ...e
           .map(e => [...e])
           .map(e => {
-            e[0] += "-dev";
+            e[0] += '-dev';
             e[1] = { ...e[1] };
-            e[1].mode = "development";
+            e[1].mode = 'development';
             return e;
           }),
         ...e
           .map(e => [...e])
           .map(e => {
-            e[0] += "-prod";
+            e[0] += '-prod';
             e[1] = { ...e[1] };
-            e[1].mode = "production";
+            e[1].mode = 'production';
             return e;
           }),
       ])(scripts.map(e => [`${e}`, {
-        mode: "production",
+        mode: 'production',
         entry: join(__dirname, `build/www-tmp/scripts/${e}.ts`),
         module: {
           rules: [
@@ -59,7 +60,7 @@ module.exports = function(grunt) {
           path: join(__dirname, `build/www/scripts`),
           filename: `${e}.min.js`,
         },
-        devtool: "source-map",
+        devtool: 'source-map',
     }])))),
 
 
@@ -70,12 +71,9 @@ module.exports = function(grunt) {
         sourceMap: true
       },
       dist: {
-        files: {
-          'build/www-tmp/sass-dist/style.css': 'src/main/www/style/style.scss',
-          'build/www-tmp/sass-dist/materialdesignicons.css': 'src/main/www/style/materialdesignicons.scss',
-          'build/www-tmp/sass-dist/editor.css': 'src/main/www/style/editor.scss',
-          'build/www-tmp/sass-dist/index.css': 'src/main/www/style/index.scss',
-        }
+        files: Object.fromEntries(stylesheets.map(it => [
+          `build/www-tmp/sass-dist/${it}.css`, `src/main/www/style/${it}.scss`
+        ])),
       }
     },
     postcss: {
@@ -83,7 +81,7 @@ module.exports = function(grunt) {
         browsers: ['last 2 versions', 'ie 8', 'ie 9'],
         map: true,
         processors: [
-          require("css-mqpacker")(),
+          require('css-mqpacker')(),
           require('autoprefixer')(),
         ]
       },
@@ -142,7 +140,7 @@ module.exports = function(grunt) {
           postCompile: (src) => {
             const $ = cheerio.load(src);
             $(Array.from(Array(6).keys()).map(e => `h${e+1}`).join(', ')).each(function() {
-               $(`<a class="headline-link" href="#${$(this).attr('id')}"><i class="mdi mdi-link-variant"></i></a>`).appendTo($(this));
+               $(`<a class='headline-link' href='#${$(this).attr('id')}'><i class='mdi mdi-link-variant'></i></a>`).appendTo($(this));
             });
             return $.html();
           },
@@ -266,7 +264,7 @@ module.exports = function(grunt) {
       const scripts = await download_browser_scripts('build/www-tmp/scripts/shake/');
       await fs.writeFile('build/www-tmp/scripts/shake-versions.json', JSON.stringify(scripts.map(e => ({
         commit: e.commit,
-        file: basename(e.target).replace(/\\/g, "/")
+        file: basename(e.target).replace(/\\/g, '/')
       })), null, 2));
       done();
 
@@ -276,7 +274,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-postcss');
-  grunt.loadNpmTasks("grunt-ts");
+  grunt.loadNpmTasks('grunt-ts');
   grunt.loadNpmTasks('grunt-compile-handlebars');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browser-sync');

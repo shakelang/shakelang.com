@@ -55,7 +55,7 @@ _implemented priorities_
 
 1. [brackets](#1.3.0-Brackets) `(`, `)`
 2. [logical operators](#1.2-Logical-Operators) \> and `&&`
-2. [logical operators](#1.2-Logical-Operators) \> or `||`
+3. [logical operators](#1.2-Logical-Operators) \> or `||`
 4. [comparison](#1.1-Comparison-Operators) `>` `<` `>=` `<=` `==`
 5. [mathematical](#1.0-Mathematical-operators) \> power `**`
 6. [mathematical](#1.0-Mathematical-operators) \> mul, div, mod `*` `/` `%`

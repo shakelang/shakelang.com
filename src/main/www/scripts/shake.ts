@@ -1,12 +1,9 @@
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 import 'codemirror/addon/display/fullscreen';
 import 'codemirror/addon/scroll/simplescrollbars';
 
 import './language-shake';
-
-// Shake Library
-
-declare const global: { interpreter: any }
+import { apply_to_select } from './select'
 
 // @ts-ignore
 const shake_versions = require('./shake-versions.json');
@@ -20,15 +17,15 @@ async function getShakeInterpreter(file: string): Promise<{ execute(source: Stri
     // @ts-ignore
     interpreters[file] = await import(
       /* webpackInclude: /\.js$/ */
-      /* webpackChunkName: "my-chunk-name" */
-      /* webpackMode: "lazy" */
+      /* webpackChunkName: 'commit-entry-' */
+      /* webpackMode: 'lazy' */
       /* webpackPrefetch: true */
       /* webpackPreload: true */
       `./shake/${file}`
     );
 
     if(interpreters[file].addInterpreterFileFromUrl) {
-      await interpreters[file].addInterpreterFileFromUrl("core/system.shake", "./assets/shake/core/system.shake");
+      await interpreters[file].addInterpreterFileFromUrl('core/system.shake', './assets/shake/core/system.shake');
     }
   }
 
@@ -52,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
     option.innerText = e.commit;
     shake_version_select.appendChild(option);
   });
+  
+  const shake_version_select_outer = document.getElementById('shake-version-select-outer') as HTMLDivElement;
+  apply_to_select(shake_version_select_outer)
 
   const editor = CodeMirror.fromTextArea(
     document.getElementById('try-shake') as HTMLTextAreaElement,
@@ -61,21 +61,21 @@ document.addEventListener('DOMContentLoaded', () => {
       lineNumbers: false,
       //firstLineNumber: 1,
       extraKeys: {
-        "Ctrl-Space": "autocomplete",
-        "Alt-F": "findPersistent",
-        "F11": function(cm) {
-          cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+        'Ctrl-Space': 'autocomplete',
+        'Alt-F': 'findPersistent',
+        'F11': function(cm) {
+          cm.setOption('fullScreen', !cm.getOption('fullScreen'));
         },
-        "Esc": function(cm) {
-          if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+        'Esc': function(cm) {
+          if (cm.getOption('fullScreen')) cm.setOption('fullScreen', false);
         },
       },
       lineWrapping: true,
-      scrollbarStyle: "simple",
-      theme: "darcula"
+      scrollbarStyle: 'simple',
+      theme: 'darcula'
     });
 
-   const divConsole = new DivConsole(document.getElementById("shake-output") as HTMLDivElement);
+   const divConsole = new DivConsole(document.getElementById('shake-output') as HTMLDivElement);
 
   function captureConsoleLog() {
     const log = console.log;
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-  document.getElementById("try-shake-execute-button").addEventListener('click', async function() {
+  document.getElementById('try-shake-execute-button').addEventListener('click', async function() {
 
     divConsole.clear();
     const { undoCaptureConsoleLog } = captureConsoleLog();
@@ -126,11 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
 
       // Get shake interpreter
-      interpreter.execute("<Try Shake>", editor.getValue());
+      interpreter.execute('<Try Shake>', editor.getValue());
 
     } catch (e) {
        if(e.marker) e.toString = function() {
-          return `${this.name}: ${this.details}\n\nat ${this.marker.source}\n${this.marker.preview}\n${this.marker.marker}"\n`;
+          return `${this.name}: ${this.details}\n\nat ${this.marker.source}\n${this.marker.preview}\n${this.marker.marker}'\n`;
        }
        console.error('Shake code execution threw an error', e);
     } finally {
@@ -146,7 +146,7 @@ class DivConsole {
    ) {}
 
    private general_log(classname: string, ...message: string[]) {
-      message.forEach(e => `${e}`.split("\n").forEach(m => {
+      message.forEach(e => `${e}`.split('\n').forEach(m => {
          const p = document.createElement('p');
          p.classList.add(classname);
          p.innerHTML = formatHTMLString(m);
@@ -154,13 +154,13 @@ class DivConsole {
       }));
    }
 
-   public log(...message: string[]) { this.general_log("console-log", ...message) }
-   public warn(...message: string[]) { this.general_log("console-warn", ...message) }
-   public error(...message: string[]) { this.general_log("console-error", ...message) }
-   public debug(...message: string[]) { this.general_log("console-debug", ...message) }
+   public log(...message: string[]) { this.general_log('console-log', ...message) }
+   public warn(...message: string[]) { this.general_log('console-warn', ...message) }
+   public error(...message: string[]) { this.general_log('console-error', ...message) }
+   public debug(...message: string[]) { this.general_log('console-debug', ...message) }
 
    public println(e: HTMLElement | string): void {
-      if(typeof e == "string") {
+      if(typeof e == 'string') {
          const div = document.createElement('div');
          div.innerHTML = e.trim();
          return div.childNodes.forEach(e => this.println(e as HTMLElement));
@@ -171,7 +171,7 @@ class DivConsole {
    }
 
    public clear() {
-      this.setConsoleOutput("");
+      this.setConsoleOutput('');
    }
 
    public setConsoleOutput(e: string) {
@@ -183,10 +183,10 @@ class DivConsole {
 
 function formatHTMLString(str: string): string {
    return str.toString()
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;")
-      .replace(/ /g, "&nbsp;")
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/'/g, '&quot;')
+      .replace(/'/g, '&#039;')
+      .replace(/ /g, '&nbsp;')
 }

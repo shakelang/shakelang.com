@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style/style.min.css?v={{ bid }}">
   <link rel="stylesheet" href="style/materialdesignicons.min.css?v={{ bid }}">
   <link rel="stylesheet" href="style/index.min.css?v={{ bid }}">
+  <link rel="stylesheet" href="style/select.min.css?v={{ bid }}">
 
   <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
@@ -41,9 +42,12 @@
       <h1>A modern object-orientated programming language </h1>
 
       <h2>Try Shake</h2>
-      <select id="shake-version-select">
-
-      </select>
+      
+      <div id="shake-version-select-outer" class="custom-select">
+        <select id="shake-version-select">
+          
+        </select>
+      </div>
       <div id="try-shake-region">
         <div id="try-shake-editor-region">
           <textarea id="try-shake">println("hello world");</textarea>
