@@ -160,7 +160,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: 'src/main/www/scripts/**/*.ts',
-        tasks: ['scripts-dev'],
+        tasks: ['scripts-dev-small'],
         options: {
           debounceDelay: 250,
         },
@@ -256,7 +256,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.task.registerTask('browser-scripts', 'A sample task that logs stuff.', function() {
+  grunt.task.registerTask('browser-scripts', 'Task that downloads the production versions of shake for the code playground.', function() {
 
     const done = this.async();
     (async () => {
@@ -285,7 +285,8 @@ module.exports = function(grunt) {
   grunt.registerTask('style', ['sass', 'postcss']);
   grunt.registerTask('webpack-dev', scripts.map(e => `webpack:${e}-dev`));
   grunt.registerTask('webpack-prod', scripts.map(e => `webpack:${e}-prod`));
-  grunt.registerTask('scripts-dev', ['browser-scripts', 'copy:scripts', 'webpack-dev']);
+  grunt.registerTask('scripts-dev-small', ['copy:scripts', 'webpack-dev']);
+  grunt.registerTask('scripts-dev', ['browser-scripts', 'scripts-dev-small']);
   grunt.registerTask('scripts-prod', ['browser-scripts', 'copy:scripts', 'webpack-prod']);
   grunt.registerTask('html', ['clean:html', 'markdown', 'compile-handlebars']);
   grunt.registerTask('watch-browser-sync', ['browserSync', 'watch']);
