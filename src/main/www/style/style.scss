@@ -1,4 +1,4 @@
-$nav-inner-height: 50px;
+@import "./_nav";
 
 html, body {
 
@@ -15,23 +15,6 @@ html, body {
   background: var(--primary-background-color);
   font-family: Arial, Helvetica, sans-serif;
   color: var(--primary-font-color);
-
-}
-
-nav {
-  width: calc(100% - 16px);
-  height: $nav-inner-height;
-  padding: 8px;
-  margin: auto;
-  border-bottom: 1px solid var(--primary-color);
-
-  div.logo {
-    display: inline-block;
-    height: $nav-inner-height;
-    width: #{$nav-inner-height * 2.685};
-    background-image: url("../assets/logo/logo-black.svg");
-    background-size: 100%;
-  }
 
 }
 
