@@ -5,6 +5,7 @@ const sass = require('node-sass');
 const cheerio = require('cheerio');
 const { join, basename } = require('path');
 const download_browser_scripts = require('./download_browser_scripts');
+const index_generated_pages = require('./index_generated_pages');
 
 const scripts = ['index', 'shake' /* The script file names to compile */];
 const stylesheets = [ 'style', 'materialdesignicons', 'editor', 'index', 'select' /* The stylesheet file names to compile */ ];
@@ -160,7 +161,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: 'src/main/www/scripts/**/*.ts',
-        tasks: ['scripts-dev-small'],
+        tasks: ['scripts-dev'],
         options: {
           debounceDelay: 250,
         },
@@ -174,14 +175,14 @@ module.exports = function(grunt) {
       },
       html: {
         files: 'src/main/www/**/*.hbs',
-        tasks: ['html'],
+        tasks: ['html-dev'],
         options: {
           debounceDelay: 250,
         },
       },
       html2: {
         files: 'markdown/**/*.md',
-        tasks: ['html'],
+        tasks: ['html-dev'],
         options: {
           debounceDelay: 250,
         },
@@ -272,6 +273,19 @@ module.exports = function(grunt) {
 
   });
 
+  grunt.task.registerTask('search-index', 'Task that indexes html pages for the site search functionality', function() {
+
+    const done = this.async();
+    (async () => {
+
+      const index = await index_generated_pages('build/www/**/*.html');
+      await fs.writeFile('build/www-tmp/scripts/search-index.json', index.toJson());
+      done();
+
+    })();
+
+  });
+
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-ts');
@@ -288,12 +302,13 @@ module.exports = function(grunt) {
   grunt.registerTask('scripts-dev-small', ['copy:scripts', 'webpack-dev']);
   grunt.registerTask('scripts-dev', ['browser-scripts', 'scripts-dev-small']);
   grunt.registerTask('scripts-prod', ['browser-scripts', 'copy:scripts', 'webpack-prod']);
-  grunt.registerTask('html', ['clean:html', 'markdown', 'compile-handlebars']);
+  grunt.registerTask('html-dev', ['clean:html', 'markdown', 'compile-handlebars', 'search-index', 'scripts-dev']);
+  grunt.registerTask('html-prod', ['clean:html', 'markdown', 'compile-handlebars', 'search-index', 'scripts-prod']);
   grunt.registerTask('watch-browser-sync', ['browserSync', 'watch']);
   grunt.registerTask('assets', ['imagemin', 'copy:assets', 'copy:materialdesignicons']);
 
-  grunt.registerTask('all-dev', ['scripts-dev', 'style', 'html', 'assets']);
-  grunt.registerTask('all-prod', ['scripts-prod', 'style', 'html', 'assets']);
+  grunt.registerTask('all-dev', ['style', 'html-prod', 'assets']);
+  grunt.registerTask('all-prod', ['style', 'html-dev', 'assets']);
   grunt.registerTask('dev', ['all-dev', 'watch-browser-sync']);
   grunt.registerTask('default', ['all-prod']);
   grunt.registerTask('build', ['all-prod']);
