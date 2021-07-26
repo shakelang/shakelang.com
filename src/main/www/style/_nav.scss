@@ -1,9 +1,10 @@
 $nav-inner-height: 50px;
+$nav-padding: 8px;
 
 nav {
   width: calc(100% - 16px);
   height: $nav-inner-height;
-  padding: 8px;
+  padding: $nav-padding;
   margin: auto;
   border-bottom: 2px solid var(--primary-color);
   user-select: none;
@@ -17,10 +18,10 @@ nav {
     background-size: 100%;
   }
 
-  ul { 
+  ul {
     display: inline-block;
     position: absolute;
-    right: $nav-inner-height;
+    right: $nav-inner-height + $nav-padding * 2 + 4px;
     top: 0;
     margin: 0;
     padding: 0;
@@ -54,6 +55,26 @@ nav {
 
         }
       }
+    }
+  }
+
+  .search-button {
+    background-color: #0000;
+    color: #fff;
+    border: none;
+    width: $nav-inner-height + 2 * $nav-padding;
+    height: $nav-inner-height + 2 * $nav-padding;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    i { 
+      font-size: 24px;
+    }
+    
+    &:hover {
+      cursor: pointer;
+      color: #aaa;
     }
   }
 
