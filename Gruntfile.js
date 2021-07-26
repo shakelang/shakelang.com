@@ -262,6 +262,7 @@ module.exports = function(grunt) {
     const done = this.async();
     (async () => {
 
+      await fs.mkdirs('build/www-tmp/scripts');
       const scripts = await download_browser_scripts('build/www-tmp/scripts/shake/');
       await fs.writeFile('build/www-tmp/scripts/shake-versions.json', JSON.stringify(scripts.map(e => ({
         commit: e.commit,
@@ -278,6 +279,7 @@ module.exports = function(grunt) {
     const done = this.async();
     (async () => {
 
+      await fs.mkdirs('build/www-tmp/scripts');
       const index = await index_generated_pages('build/www/**/*.html');
       await fs.writeFile('build/www-tmp/scripts/search-index.json', index.toJson());
       done();
@@ -302,13 +304,15 @@ module.exports = function(grunt) {
   grunt.registerTask('scripts-dev-small', ['copy:scripts', 'webpack-dev']);
   grunt.registerTask('scripts-dev', ['browser-scripts', 'scripts-dev-small']);
   grunt.registerTask('scripts-prod', ['browser-scripts', 'copy:scripts', 'webpack-prod']);
-  grunt.registerTask('html-dev', ['clean:html', 'markdown', 'compile-handlebars', 'search-index', 'scripts-dev']);
-  grunt.registerTask('html-prod', ['clean:html', 'markdown', 'compile-handlebars', 'search-index', 'scripts-prod']);
+
+  grunt.registerTask('html-base', ['clean:html', 'markdown', 'compile-handlebars', 'search-index']);
+  grunt.registerTask('html-dev', ['html-base', 'scripts-dev']);
+  grunt.registerTask('html-prod', ['html-base', 'scripts-prod']);
   grunt.registerTask('watch-browser-sync', ['browserSync', 'watch']);
   grunt.registerTask('assets', ['imagemin', 'copy:assets', 'copy:materialdesignicons']);
 
-  grunt.registerTask('all-dev', ['style', 'html-prod', 'assets']);
-  grunt.registerTask('all-prod', ['style', 'html-dev', 'assets']);
+  grunt.registerTask('all-dev', ['style', 'html-dev', 'assets']);
+  grunt.registerTask('all-prod', ['style', 'html-prod', 'assets']);
   grunt.registerTask('dev', ['all-dev', 'watch-browser-sync']);
   grunt.registerTask('default', ['all-prod']);
   grunt.registerTask('build', ['all-prod']);
