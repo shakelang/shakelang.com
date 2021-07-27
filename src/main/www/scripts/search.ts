@@ -2,7 +2,7 @@ import Fuse from 'fuse.js'
 
 let searchIndex: Promise<Fuse<any>>|Fuse<any>|undefined;
 
-async function createSearchIndex() {
+async function createSearchIndex(): Promise<Fuse<any>> {
   
   // @ts-ignore
   const searchIndex =  await import("./search-index.json");
@@ -17,7 +17,7 @@ async function createSearchIndex() {
 
 }
 
-async function getSearchIndex() {
+async function getSearchIndex(): Promise<Fuse<any>> {
   
   if(!searchIndex) {
     return await new Promise((rs) => {
@@ -61,5 +61,15 @@ document.addEventListener('DOMContentLoaded', () => {
       search_bar.classList.remove("shown");
     }
   });
+
+  const search_contents = document.getElementById('search-contents') as HTMLInputElement;
+  async function change_listener() {
+    console.debug((await getSearchIndex()).search(search_contents.value))
+    // TODO Perform search
+  }
+  search_contents.addEventListener('keydown', change_listener);
+  search_contents.addEventListener('keyup', change_listener);
+  search_contents.addEventListener('keypress', change_listener);
+  search_contents.addEventListener('change', change_listener);
 
 });
