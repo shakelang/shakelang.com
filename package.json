@@ -69,6 +69,7 @@
   "dependencies": {
     "@mdi/font": "^5.9.55",
     "codemirror": "^5.61.1",
+    "fuse.js": "^6.4.6",
     "github-graphql-client": "^1.0.0"
   }
 }
