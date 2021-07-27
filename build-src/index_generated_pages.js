@@ -1,7 +1,8 @@
-// jshint esversion: 8
+// jshint esversion: 9
 const cheerio = require('cheerio');
 const glob = require("glob-promise");
 const fs = require('fs-extra');
+const fuse = require('fuse.js');
 
 
 /**
@@ -83,8 +84,15 @@ class SearchIndex {
         .each((_i, e) => this.runIndexer($(e), $, page));
   }
 
+  toMap() {
+    return {
+      ...this.index,
+      fuseIndex: fuse.createIndex(['contents'], this.index.contents).toJSON()
+    };
+  }
+
   toJson() {
-    return JSON.stringify(this.index);
+    return JSON.stringify(this.toMap());
   }
 
 }
@@ -96,10 +104,9 @@ class SearchIndex {
  */
 async function indexGeneratedPages(path) {
   const index = new SearchIndex();
-  // options is optional
   await glob.promise(path)
     .then(e => Promise.all(e.map(async (file) => ({file: file, contents: (await fs.readFile(file)).toString()}))))
-    .then(e => e.forEach(e => index.add(e.contents, e.file)))
+    .then(e => e.forEach(e => index.add(e.contents, e.file)));
   return index;
 }
 
