@@ -280,7 +280,7 @@ module.exports = function(grunt) {
     (async () => {
 
       await fs.mkdirs('build/www-tmp/scripts');
-      const index = await index_generated_pages('build/www/**/*.html');
+      const index = await index_generated_pages('build/www');
       await fs.writeFile('build/www-tmp/scripts/search-index.json', index.toJson());
       done();
 

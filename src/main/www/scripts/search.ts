@@ -1,11 +1,20 @@
 import Fuse from 'fuse.js'
 
 let searchIndex: Promise<Fuse<any>>|Fuse<any>|undefined;
+let si: any;
+
+async function getSearchIndexImport() {
+  
+  // @ts-ignore
+  if(!si) return si = await import("./search-index.json");
+  else return si;
+
+}
 
 async function createSearchIndex(): Promise<Fuse<any>> {
   
   // @ts-ignore
-  const searchIndex =  await import("./search-index.json");
+  const searchIndex = await getSearchIndexImport();
   const index = Fuse.parseIndex(searchIndex.fuseIndex);
   return new Fuse(searchIndex.contents, {
     includeScore: true,
@@ -44,28 +53,65 @@ getSearchIndex().then(console.log);
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  let searchBarActive = false;
+  const search_contents = document.getElementById('search-contents') as HTMLInputElement;
+  const search_results = document.getElementById('search-results') as HTMLUListElement;
+  const search_bar = document.getElementById('search-bar-container');
 
   document.getElementById('search-button').addEventListener('click', function() {
 
-    const search_bar = document.getElementById('search-bar-container');
     if(!search_bar.classList.contains('shown')) {
-      searchBarActive = true;
       search_bar.classList.add("shown");
+      search_results.classList.add("shown");
       setTimeout(() => {
         document.getElementById('search-contents').focus();
       }, 200)
     }
     else {
-      searchBarActive = false;
       search_bar.classList.remove("shown");
+      search_results.classList.remove("shown");
     }
   });
 
-  const search_contents = document.getElementById('search-contents') as HTMLInputElement;
+  function render_result(render: string, target: string): HTMLLIElement {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+
+    const contents = document.createElement('p');
+    contents.classList.add('search-result-entry-contents');
+    contents.innerText = render;
+    a.appendChild(contents);
+
+    const info = document.createElement('p');
+    info.classList.add('search-result-entry-info');
+    info.innerText = target;
+    a.appendChild(info);
+
+    a.href = target;
+    
+    li.appendChild(a);
+    return li;
+  }
+
+  async function getId(id: string): Promise<string> {
+    return (await getSearchIndexImport()).ids[id];
+  }
+
+  async function getPage(id: string): Promise<string> {
+    return (await getSearchIndexImport()).pages[id];
+  }
+
   async function change_listener() {
-    console.debug((await getSearchIndex()).search(search_contents.value))
-    // TODO Perform search
+    const searchResults = (await getSearchIndex()).search(search_contents.value);
+    console.debug(searchResults);
+
+    // Remove previous search results
+    while (search_results.firstChild) {
+      search_results.removeChild(search_results.lastChild);
+    }
+
+    await Promise.all(searchResults.slice(0, 5).map(async (e) => {
+      search_results.appendChild(render_result(e.item.contents, `${await getPage(e.item.page)}#${await getId(e.item.page)}`));
+    }));
   }
   search_contents.addEventListener('keydown', change_listener);
   search_contents.addEventListener('keyup', change_listener);

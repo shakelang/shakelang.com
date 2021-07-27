@@ -76,7 +76,7 @@ class SearchIndex {
       this.index.contents.push({ 
         page: this.getPage(page), 
         findAt: this.getId(findLatestId(it, $)), 
-        contents: it.html() 
+        contents: it.text(), 
       });
     }
     else
@@ -104,8 +104,8 @@ class SearchIndex {
  */
 async function indexGeneratedPages(path) {
   const index = new SearchIndex();
-  await glob.promise(path)
-    .then(e => Promise.all(e.map(async (file) => ({file: file, contents: (await fs.readFile(file)).toString()}))))
+  await glob.promise(path+'/**/*.html')
+    .then(e => Promise.all(e.map(async (file) => ({file: file.substr(path.length+1), contents: (await fs.readFile(file)).toString()}))))
     .then(e => e.forEach(e => index.add(e.contents, e.file)));
   return index;
 }

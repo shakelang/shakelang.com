@@ -2,7 +2,7 @@ $nav-inner-height: 50px;
 $nav-padding: 8px;
 
 $search-height: 30px;
-$search-width: 250px;
+$search-width: 300px;
 
 
 nav {
@@ -22,7 +22,7 @@ nav {
     background-size: 100%;
   }
 
-  ul {
+  ul.nav-elements {
     display: inline-block;
     position: absolute;
     right: $nav-inner-height + $nav-padding * 2 + 4px;
@@ -53,10 +53,10 @@ nav {
         padding: 0px 4px;
         color: #fff;
 
-        &:hover {
-          cursor: pointer;;
-          border-bottom: 2px solid #fff;
 
+        &:hover {
+          cursor: pointer;
+          border-bottom: 2px solid #fff;
         }
       }
     }
@@ -82,6 +82,7 @@ nav {
       height: 100%;
       margin: 0;
       padding: 0;
+      font-size: 16px;
     }
 
     input.search-contents~div.borders {
@@ -128,6 +129,57 @@ nav {
         width: 100%;
         transition: 0.4s;
       }
+    }
+  }
+
+  ul.search-results {
+    display: none;
+    position: absolute;
+    right: $nav-inner-height + $nav-padding * 2 + 2px;
+    top: $nav-padding + $search-height + ($nav-inner-height - $search-height) / 2;
+    margin: 0;
+    padding: 0;
+    width: $search-width;
+    z-index: 1000;
+    border: 2px solid var(--primary-color);
+    border-top: none;
+
+    li { 
+      list-style: none;
+      padding: 0;
+      background-color: var(--primary-background-color);
+
+      a { 
+        padding: 12px;
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        text-decoration: none;
+        overflow: hidden;
+
+        p { 
+          margin: 0;
+
+          &.search-result-entry-info {
+            font-size: 10px;
+            color: #aaa;
+          }
+        }
+      }
+
+      &:hover {
+        background-color: var(--secondary-background-color);
+        cursor: pointer;
+      }
+
+      & + li {
+        border-top: 1px solid var(--primary-color);
+      }
+    }
+
+    &.shown {
+      display: inline-block;
     }
   }
 
