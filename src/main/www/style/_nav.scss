@@ -1,6 +1,10 @@
 $nav-inner-height: 50px;
 $nav-padding: 8px;
 
+$search-height: 30px;
+$search-width: 250px;
+
+
 nav {
   width: calc(100% - 16px);
   height: $nav-inner-height;
@@ -58,8 +62,77 @@ nav {
     }
   }
 
-  .search-button {
-    background-color: #0000;
+  div.search-bar {
+    display: inline-block;
+    position: absolute;
+    right: $nav-inner-height + $nav-padding * 2 + 4px;
+    top: $nav-padding + ($nav-inner-height - $search-height) / 2;
+    height: $search-height;
+    width: $search-width;
+    opacity: 0;
+    pointer-events: none;
+
+    input.search-contents {
+      background-color: var(--primary-background-color);
+      border: none;
+      border-radius: 0;
+      outline: none;
+      color: #ccc;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    input.search-contents~div.borders {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      
+      span.border {
+        position: absolute;
+        bottom: 0;
+        width: 0;
+        transition: 400ms;
+
+        &.show-border {
+          right: 0%;
+          height: 2px;
+          background-color: #555;
+        }
+
+        &.focus-border {
+          left: 50%;
+          height: 2px;
+          background-color: #ccc;
+        }
+      }
+    }
+     
+    input:focus.search-contents~div.borders span.border.focus-border {
+      width: 100%;
+      transition: 0.4s;
+      left: 0;
+    }
+
+    &.shown {
+      display: inline-block;
+      opacity: 1;
+      pointer-events: inherit;
+      
+     
+      input.search-contents~div.borders .show-border {
+        width: 100%;
+        transition: 0.4s;
+      }
+    }
+  }
+
+  button.search-button {
+    background-color: var(--primary-background-color);
     color: #fff;
     border: none;
     width: $nav-inner-height + 2 * $nav-padding;

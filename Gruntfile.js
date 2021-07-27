@@ -7,7 +7,7 @@ const { join, basename } = require('path');
 const download_browser_scripts = require('./build-src/download_browser_scripts');
 const index_generated_pages = require('./build-src/index_generated_pages');
 
-const scripts = ['index', 'shake' /* The script file names to compile */];
+const scripts = ['index', 'shake', 'search' /* The script file names to compile */];
 const stylesheets = [ 'style', 'materialdesignicons', 'editor', 'index', 'select' /* The stylesheet file names to compile */ ];
 const bid = Math.random().toString(16).replace(/[^a-z]+/g, '').substr(0, 12);
 
