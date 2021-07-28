@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const search_contents = document.getElementById('search-contents') as HTMLInputElement;
   const search_results = document.getElementById('search-results') as HTMLUListElement;
-  const search_bar = document.getElementById('search-bar-container');
+  const search_bar = document.getElementById('search-bar-container') as HTMLDivElement;
+  const search_container = document.getElementById('search-container') as HTMLDivElement;
 
   document.getElementById('search-button').addEventListener('click', function() {
 
@@ -70,7 +71,18 @@ document.addEventListener('DOMContentLoaded', () => {
       search_bar.classList.remove("shown");
       search_results.classList.remove("shown");
     }
+
+    return false;
   });
+
+  document.body.addEventListener('click', (e) => {
+    
+    if(!search_container.contains(e.target as Node) && search_bar.classList.contains('shown')) {
+      search_bar.classList.remove("shown");
+      search_results.classList.remove("shown");
+    }
+
+  })
 
   function render_result(render: string, target: string): HTMLLIElement {
     const li = document.createElement('li');
