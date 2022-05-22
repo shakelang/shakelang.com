@@ -1,8 +1,64 @@
 # Shake Programming Language Features
 
-## 1 Operators
 
-### 1.0 Mathematical Operators
+## 1 Introduction
+
+Shake is a high level, object-oriented, multi-targeting, modern programming
+language. It can be compiled into different languages (targets), such as C, 
+C++, C#, Java, JavaScript and binary executables as well as interpreted 
+(currently the only implemented target is JavaScript).
+It also provides a scripting language for faster and more efficient creation
+of small projects.
+
+### 1.2 Overview
+
+The following code is an example for a simple program written in Shake.
+
+```shake
+function main() {
+  println("Hello World!")
+
+  int i = 10;
+  int j = 5;
+  int k = i + j;
+  println(k);
+}
+```
+
+This code will print "Hello World!" to the console, then calculate the sum 
+of the two integers `i=10` and `j=5` and print the result (15) also to the 
+console.
+<!-- It already contains many features we will learn in the next chapters. -->
+
+## 2 Primitive Datatypes
+
+There are 8 primitive datatypes in Shake:
+
+| Type    | # of Bits                | Range                                            | Description                        |
+| ------- | ------------------------ | ------------------------------------------------ | ---------------------------------- |
+| byte    | 8                        | Whole numbers from -2^7 to 2^ - 1                | Signed 8-bit integer               |
+| short   | 16                       | Whole numbers from -2^15 to 2^15 - 1             | Signed 16-bit integer              |
+| int     | 32                       | Whole numbers from -2^31 to 2^31 - 1             | Signed 32-bit integer              |
+| long    | 64                       | Whole numbers from -2^63 to 2^31 - 1             | Signed 64-bit integer              |
+| float   | 32                       | Floating point numbers from ±3.402823e38         | 32-bit floating point number       |
+| double  | 64                       | Floating point numbers from ±1.7976931348623e308 | 64-bit floating point number       |
+| boolean | 1 [*]                    | True or False                                    | Boolean, either true or false      |
+| char    | 16                       | Unicode characters                               | 16-bit Unicode character           |
+
+_* A boolean behaves like 1 bit, but it occupies 8 bits in RAM_
+
+additionally there is one unsigned variant of each integer type.
+
+| Type    | # of Bits  | Range                                            | Description                        |
+| ------- | ---------- | ------------------------------------------------ | ---------------------------------- |
+| ubyte   | 8          | Whole numbers from 0 - 2^8 - 1                   | Unsigned 8-bit integer             |
+| ushort  | 16         | Whole numbers from 0 - 2^16 - 1                  | Unsigned 16-bit integer            |
+| uint    | 32         | Whole numbers from 0 - 2^32 - 1                  | Unsigned 32-bit integer            |
+| ulong   | 64         | Whole numbers from 0 - 2^64 - 1                  | Unsigned 64-bit integer            |
+
+## 3 Operators
+
+### 2.1 Mathematical Operators
 
 _Shake has 6 different types of simple mathematical operators_
 
@@ -15,7 +71,7 @@ _Shake has 6 different types of simple mathematical operators_
 10 ** 3  // power (>> 10 * 10 * 10)
 ```
 
-### 1.1 Comparison Operators
+### 2.2 Comparison Operators
 
 _These are Shake's comparison-operators_
 
@@ -27,7 +83,7 @@ _These are Shake's comparison-operators_
 9 < 8   // lower
 ```
 
-### 1.2 Logical Operators
+### 2.3 Logical Operators
 
 ```shake
 true || false  // or (at least one of them has to be correct) 
@@ -35,14 +91,17 @@ true && false  // and (both of them have to be correct)
 true ^ false   // xor (either one, but not both have to be correct)
 ```
 
-### 1.3 Bitwise operators
+### 2.4 Bitwise operators
 
-#### 1.3.0 Understanding binary numbers
+#### 2.4.1 Understanding binary numbers
 
-Binary operators can manipulate the bits of values.
-To understand binary operations you first have to understand binary numbers.
-In binary numbers, each digit is either 0 or 1. You can just write each number to the base 2
-like you would in decimal. We would count like this:
+_You can skip this paragraph if you understand the basic concept of binary numbers 
+which is necessary for sections `2.4.2` and `2.4.3`_
+
+Binary operators can manipulate individual bits of values.
+To understand binary operations, you first have to understand binary numbers.
+In binary numbers, each digit is represented as either 0 or 1. You can write each number
+as base 2, which is very similar to decimal numbers (base 10), but with only 2 instead of 10 (0 through 9) possible characters per digit. Since some humans previously decided to use 0 and 1 as these two numbers, we would count like this:
 
 ```text
 0 (0), 1 (1), 10 (2), 11 (3), 100 (4), 101 (5), 110 (6), 111 (7)... (and so on)
@@ -64,29 +123,13 @@ binary = decimal / 2^0 + decimal / 2^1 + ... + decimal / 2^n
 
 This is how most primitive datatypes work. They just have a differing number of bits.
 
-| Datatype | Amount of bits |
-|:--------:|:--------------:|
-| Byte    | 8               |
-| Short   | 16              |
-| Integer | 32              |
-| Long    | 64              |
-
 These data types also have to be able to store negative values. So the first digit is used to store the sign.
 So for negative numbers the first digit is 1 and the rest of the digits are 0.
 The formula to convert a binary number to decimal is the same as positive numbers, but we calculate (-1) + `[positive amount]` because we don't need a negative zero.
 
-Following this concept we have these ranges:
-
-| Datatype | Amount of bits | Range           |
-|:--------:|:--------------:|:---------------:|
-| Byte    | 8               | -128 to 127     |
-| Short   | 16              | -2^15 to 2^15-1 |
-| Integer | 32              | -2^31 to 2^31-1 |
-| Long    | 64              | -2^63 to 2^63-1 |
-
 Now that we know how to convert numbers to binary and back we can start to understand the different operators.
 
-#### 1.3.1 Bitwise and, or, xor
+#### 2.4.2 Bitwise and, or, xor
 
 ```shake
 0b1010 & 0b0101  // 0b0000 Binary AND
@@ -97,7 +140,7 @@ Now that we know how to convert numbers to binary and back we can start to under
 If we just think about the bits as boolean values, we can use the AND, OR and XOR operators to manipulate the bits.
 so bit 1 from the first number is ANDed with bit 1 from the second number, bit 2 from the first number is ANDed with bit 2 from the second number and so on.
 
-#### 1.3.2 Bitwise shift
+#### 2.4.3 Bitwise shift
 
 ```shake
 0b1010 << 1  // 0b1010 Binary left shift
@@ -106,9 +149,9 @@ so bit 1 from the first number is ANDed with bit 1 from the second number, bit 2
 
 Using `lshift` and `rshift` we can shift the bits of a number to the left or right by a certain amount.
 
-### 1.4 Brackets & Priorities
+### 2.5 Brackets & Priorities
 
-#### 1.4.0 Brackets
+#### 2.5.1 Brackets
 
 If you are working with bigger terms, there are priorities, e.g.
 multiplication and divisions are preferred before plus and minus.
@@ -123,14 +166,14 @@ eg.
 4 * (10 + 3)  // >> 52
 ```
 
-#### 1.4.1 Priorities
+#### 2.5.2 Priorities
 
-1. [brackets](#1.4.0-Brackets) `(`, `)`
-2. [bitwise and, or, xor](#1.3.1-Bitwise-and-or-xor) `&`, `|`, `^`
-3. [bitwise shift](#1.3.2-Bitwise-shift) `<<`, `>>`
-4. [mathematical](#1.0-Mathematical-operators) \> power `**`
-5. [mathematical](#1.0-Mathematical-operators) \> mul, div, mod `*` `/` `%`
-6. [mathematical](#1.0-Mathematical-operators) \> add, sub `+` `-`
-7. [logical operators](#1.2-Logical-Operators) \> and `&&`
-8. [logical operators](#1.2-Logical-Operators) \> or `||`
-9. [comparison](#1.1-Comparison-Operators) `>` `<` `>=` `<=` `==`
+1. [brackets](#2.5.1-Brackets) `(`, `)`
+2. [bitwise and, or, xor](#2.4.2-Bitwise-and-or-xor) `&`, `|`, `^`
+3. [bitwise shift](#2.4.3-Bitwise-shift) `<<`, `>>`
+4. [mathematical](#2.1-Mathematical-operators) \> power `**`
+5. [mathematical](#2.1-Mathematical-operators) \> mul, div, mod `*` `/` `%`
+6. [mathematical](#2.1-Mathematical-operators) \> add, sub `+` `-`
+7. [logical operators](#2.3-Logical-Operators) \> and `&&`
+8. [logical operators](#2.3-Logical-Operators) \> or `||`
+9. [comparison](#2.2-Comparison-Operators) `>` `<` `>=` `<=` `==`
