@@ -32,6 +32,7 @@ _These are Shake's comparison-operators_
 ```shake
 true || false  // or (at least one of them has to be correct) 
 true && false  // and (both of them have to be correct)
+true ^ false   // xor (either one, but not both have to becorrect)
 ```
 
 ### 1.3 Brackets & Priorities
