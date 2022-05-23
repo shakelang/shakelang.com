@@ -153,18 +153,16 @@ Using `lshift` and `rshift` we can shift the bits of a number to the left or rig
 
 #### 2.5.1 Brackets
 
-If you are working with bigger terms, there are priorities, e.g.
-multiplication and divisions are preferred before plus and minus.
-
-If you want to prefer plus over multiply you can use brackets around
-the addition to give it a higher priority
-
-eg.
+As the standard math rules still apply, Shake first performs all multiplications (and divisions) in the term and then any additions or subtractions.
+Hence, to multiply the sum of some numbers, brackets have to be placed around the numbers to be added up before they are then multiplied, eg.
 
 ```shake
 4 * 10 + 3    // >> 43
 4 * (10 + 3)  // >> 52
 ```
+_(Hint: Brackets can be placed inside other brackets, inner brackets are always calculated first)_
+
+As seen above, Shake "prioritizes" certain operations over others. For a complete overview of these priorities, take a look at the list below.
 
 #### 2.5.2 Priorities
 
