@@ -2,13 +2,13 @@
 
 name: Generate Pages
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches:
-    - main
-    - release/*
+      - main
+      - release/*
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -16,24 +16,32 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
         with:
           persist-credentials: false
-            
+
       - name: Install npm packages ☁️
         run: npm i
-            
+
       - name: Build Website 🔨
         run: npx grunt build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+
+      - name: Setup Pages 📰
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: build
-          FOLDER: build/www/
-          CLEAN: true
+          path: "./build"
+
+      - name: Deploy to GitHub Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+      - name: Cleanup Gradle Cache
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
