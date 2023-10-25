@@ -13,7 +13,10 @@
 
 # Typescript
 .tscache/
+.DS_STORE
 
 
 # Ignore Gradle project-specific cache directory
 .gradle
+
+.docusaurus
