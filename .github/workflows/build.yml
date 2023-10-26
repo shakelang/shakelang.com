@@ -25,12 +25,12 @@ jobs:
         run: npm ci
 
       - name: Build Dependents 🔨
-        run: npm dependents
+        run: npm run dependents
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Website 🔨
-        run: npm build
+        run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
