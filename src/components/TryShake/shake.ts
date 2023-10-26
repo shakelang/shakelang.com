@@ -24,7 +24,7 @@ export async function getShakeInterpreter(
     if (interpreters[file].addInterpreterFileFromUrl) {
       await interpreters[file].addInterpreterFileFromUrl(
         "core/system.shake",
-        "./assets/shake/core/system.shake"
+        "/core/system.shake"
       );
     }
   }
