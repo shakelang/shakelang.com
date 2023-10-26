@@ -6,10 +6,13 @@ export interface LogEntry {
 }
 
 export class Logger {
+  constructor(readonly maxEntries: number = 1024) {}
+
   private logEntries: LogEntry[] = [];
 
   add(type: LogEntry["type"], message: string) {
     this.logEntries.push({ type, message });
+    while (this.logEntries.length > this.maxEntries) this.logEntries.shift();
   }
 
   log(...message: string[]) {
