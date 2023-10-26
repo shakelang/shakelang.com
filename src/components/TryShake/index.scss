@@ -1,10 +1,13 @@
 #try-shake-outer {
   padding: 12px 40px 40px 40px;
   margin: 40px;
-  border: 1px solid var(--secoundary-color);
 }
 
 #try-shake-region {
+  border: 1px solid #ff450088 !important;
+  padding: 20px !important;
+  background-color: #0000;
+
   #try-shake-editor-region {
     position: relative;
 
@@ -67,8 +70,11 @@
   }
 }
 
+.cm-editor {
+  font-size: 25px;
+}
+
 .CodeMirror {
-  border: 1px solid var(--secoundary-color);
   font-size: 25px;
   padding: 8px;
 }

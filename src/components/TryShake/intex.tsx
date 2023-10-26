@@ -38,18 +38,18 @@ export function TryShake() {
           <CodeMirror
             value={value}
             height="200px"
-            extensions={[
-              basicSetup({
-                tabSize: 2,
-                lineNumbers: false,
-                foldKeymap: true,
-                autocompletion: true,
-                foldGutter: true,
-                highlightActiveLineGutter: true,
-              }),
-              StreamLanguage.define(shake),
-            ]}
+            basicSetup={{
+              tabSize: 2,
+              lineNumbers: false,
+              foldKeymap: true,
+              autocompletion: true,
+              foldGutter: false,
+              highlightActiveLineGutter: false,
+              highlightActiveLine: false,
+            }}
+            extensions={[StreamLanguage.define(shake)]}
             onChange={onChange}
+            style={{}}
           />
           <button type="button" title="play" id="try-shake-execute-button">
             <Icon path={mdiPlay} size={1} />
