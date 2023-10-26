@@ -1,11 +1,12 @@
 import "./index.scss";
 import React, { useState } from "react";
-import CodeMirror, { Extension } from "@uiw/react-codemirror";
+import CodeMirror from "@uiw/react-codemirror";
 import "./language-shake";
 import { darcula } from "@uiw/codemirror-theme-darcula";
 import Icon from "@mdi/react";
 import { mdiPlay } from "@mdi/js";
 import { shake } from "./language-shake";
+import light from "@uiw/react-codemirror/cjs/theme/light";
 
 // @ts-ignore
 // const shake_versions = require("./shake-versions.json");
@@ -16,7 +17,7 @@ export function TryShake() {
     setValue(val);
   }, []);
   return (
-    <>
+    <div id="try-shake-outer">
       <h2>Try Shake</h2>
 
       <div id="shake-version-select-outer" className="custom-select">
@@ -53,7 +54,7 @@ export function TryShake() {
             }}*/
             //lineWrapping={true}
             //scrollbarStyle="simple"
-            theme={darcula}
+            theme="light"
           />
           <button type="button" title="play" id="try-shake-execute-button">
             <Icon path={mdiPlay} size={1} />
@@ -61,6 +62,6 @@ export function TryShake() {
         </div>
         <div id="shake-output"></div>
       </div>
-    </>
+    </div>
   );
 }
