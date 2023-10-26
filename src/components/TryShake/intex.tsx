@@ -7,10 +7,8 @@ import { mdiPlay } from "@mdi/js";
 import { StreamLanguage } from "@codemirror/language";
 import { shake } from "./language-shake";
 import "./codemirror-theme.scss";
-import { shake_versions, getShakeInterpreter } from "./shake";
+import { shake_versions, getShakeInterpreter, LogEntry } from "./shake";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-
-console.log(shake_versions);
 
 export function TryShake() {
   const [value, setValue] = React.useState('println("hello world");');
@@ -21,11 +19,14 @@ export function TryShake() {
   const [shakeVersion, setShakeVersion] = React.useState(shake_versions[0]);
 
   const [shakeInterpreter, setShakeInterpreter] = React.useState<{
-    execute(source: String, input: String): void;
+    execute(source: String, input: String): LogEntry[];
   }>();
+
+  const [shakeOutput, setShakeOutput] = React.useState<LogEntry[]>([]);
 
   React.useEffect(() => {
     getShakeInterpreter(shakeVersion.file).then((interpreter) => {
+      console.log("shakeVersion", shakeVersion);
       setShakeInterpreter(interpreter);
     });
   }, [shakeVersion]);
@@ -92,14 +93,19 @@ export function TryShake() {
             id="try-shake-execute-button"
             onClick={() => {
               if (shakeInterpreter) {
-                shakeInterpreter.execute(value, "");
+                const result = shakeInterpreter.execute("", value);
+                setShakeOutput(result);
               }
             }}
           >
             <Icon path={mdiPlay} color="#fff" size={1} />
           </button>
         </div>
-        <div id="shake-output"></div>
+        <div id="shake-output">
+          {shakeOutput.map((entry) => (
+            <p className={`console-${entry.type}`}>{entry.message}</p>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,49 @@
 const interpreters: any = {};
 
+export interface LogEntry {
+  type: "log" | "error" | "warn" | "info" | "debug";
+  message: string;
+}
+
+export class Logger {
+  private logEntries: LogEntry[] = [];
+
+  add(type: LogEntry["type"], message: string) {
+    this.logEntries.push({ type, message });
+  }
+
+  log(...message: string[]) {
+    this.add("log", message.join(" "));
+  }
+
+  error(...message: string[]) {
+    this.add("error", message.join(" "));
+  }
+
+  warn(...message: string[]) {
+    this.add("warn", message.join(" "));
+  }
+
+  info(...message: string[]) {
+    this.add("info", message.join(" "));
+  }
+
+  debug(...message: string[]) {
+    this.add("debug", message.join(" "));
+  }
+
+  getLogEntries() {
+    return this.logEntries;
+  }
+
+  clearLogEntries() {
+    this.logEntries = [];
+  }
+}
+
+const shakeLogger = new Logger();
+global.shakeLogger = shakeLogger;
+
 // @ts-ignore
 export const shake_versions =
   require("../../../build/scripts/shake-versions.json") as {
@@ -9,7 +53,7 @@ export const shake_versions =
 
 export async function getShakeInterpreter(
   file: string
-): Promise<{ execute(source: String, input: String): void }> {
+): Promise<{ execute(source: String, input: String): LogEntry[] }> {
   if (!interpreters[file]) {
     // @ts-ignore
     interpreters[file] = await import(
@@ -31,11 +75,16 @@ export async function getShakeInterpreter(
 
   return {
     execute(source: String, input: String) {
+      shakeLogger.clearLogEntries();
+
       if (!interpreters[file].addInterpreterFileFromUrl)
-        console.warn(
+        shakeLogger.warn(
           `This shake version seems not to allow API imports, so the core API can't be imported [used verion: ${file}]`
         );
+
       interpreters[file].execute(source, input);
+
+      return shakeLogger.getLogEntries();
     },
   };
 }

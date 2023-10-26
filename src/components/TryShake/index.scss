@@ -43,7 +43,7 @@
   }
 
   #shake-output {
-    border: 1px solid var(--secoundary-color);
+    border-top: 1px solid #9999;
     font-size: 25px;
     padding: 8px;
     font-family: monospace;
@@ -65,6 +65,10 @@
     }
     p.console-debug {
       color: #3af;
+      display: none;
+    }
+    p.console-info {
+      color: #0af;
       display: none;
     }
   }
@@ -266,4 +270,8 @@
     width: 800px;
     max-width: 100%;
   }
+}
+
+html[data-theme="light"] #try-shake-outer #shake-output p.console-log {
+  color: #000;
 }
