@@ -5,12 +5,11 @@ import "./language-shake";
 import Icon from "@mdi/react";
 import { mdiPlay } from "@mdi/js";
 import { StreamLanguage } from "@codemirror/language";
-import { basicSetup } from "@uiw/react-codemirror";
 import { shake } from "./language-shake";
 import "./codemirror-theme.scss";
+import { shake_versions, getShakeInterpreter } from "./shake";
 
-// @ts-ignore
-// const shake_versions = require("./shake-versions.json");
+console.log(shake_versions);
 
 export function TryShake() {
   const [value, setValue] = React.useState('println("hello world");');

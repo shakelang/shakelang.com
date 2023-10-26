@@ -22,10 +22,15 @@ jobs:
           persist-credentials: false
 
       - name: Install npm packages ☁️
-        run: npm i
+        run: npm ci
+
+      - name: Build Dependents 🔨
+        run: npm dependents
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Website 🔨
-        run: npx grunt build
+        run: npm build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
