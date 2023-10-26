@@ -1,0 +1,289 @@
+html,
+body {
+  --primary-background-color: #2b2b2b;
+  --secondary-background-color: #3b3b3b;
+  --code-block-background-color: #444;
+  --primary-font-color: #fff;
+  --secoundary-font-color: #bbb;
+  --primary-color: #454545;
+  --secoundary-color: var(--primary-color);
+}
+
+#try-shake-region {
+  #try-shake-editor-region {
+    position: relative;
+
+    button#try-shake-execute-button {
+      display: inline-block;
+      width: 56px;
+      height: 56px;
+      background-color: #ff6242;
+      border: 0;
+      border-radius: 100%;
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1000;
+
+      i {
+        color: #fff;
+        font-size: 32px;
+      }
+
+      &:hover {
+        right: 26px;
+        bottom: 26px;
+        width: 52px;
+        height: 52px;
+        cursor: pointer;
+
+        i {
+          font-size: 28px;
+        }
+      }
+    }
+  }
+
+  #shake-output {
+    border: 1px solid var(--secoundary-color);
+    font-size: 25px;
+    padding: 8px;
+    font-family: monospace;
+    overflow-wrap: anywhere;
+    max-height: 400px;
+    overflow-y: auto;
+
+    p {
+      margin: 0;
+    }
+    p.console-log {
+      color: #fff;
+    }
+    p.console-warn {
+      color: #fd0;
+    }
+    p.console-error {
+      color: #f00;
+    }
+    p.console-debug {
+      color: #3af;
+      display: none;
+    }
+  }
+}
+
+.CodeMirror {
+  border: 1px solid var(--secoundary-color);
+  font-size: 25px;
+  padding: 8px;
+}
+
+/* The container must be positioned relative: */
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  user-select: none;
+  margin: 8px 0;
+  width: 400px;
+
+  select {
+    display: none; /*hide original SELECT element: */
+  }
+
+  .select-selected {
+    background-color: var(--primary-background-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 1000px;
+    position: relative;
+
+    /* Style the arrow inside the select element: */
+    &:after {
+      position: absolute;
+      content: "";
+      top: 14px;
+      right: 12px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #fff transparent transparent transparent;
+      transition: ease 300ms all;
+    }
+
+    /* Point the arrow upwards when the select box is open (active): */
+    &.select-arrow-active {
+      border-radius: 18px 18px 0px 0px;
+      border-bottom: none;
+
+      &:after {
+        top: 7px;
+        transform: rotate(180deg);
+        //border-color: transparent transparent #fff transparent;
+      }
+    }
+  }
+
+  /* style the items (options), including the selected item: */
+  .select-items div,
+  .select-selected {
+    color: #ffffff;
+    padding: 8px 16px;
+    // border: 1px solid transparent;
+    // border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+  }
+
+  /* Style items (options): */
+  .select-items {
+    position: absolute;
+    background-color: var(--primary-background-color);
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border: 1px solid var(--primary-color);
+    max-height: 50vh;
+    //transition: ease 300ms all;
+  }
+
+  /* Hide the items when the select box is closed: */
+  .select-hide {
+    display: none;
+    //max-height: 0vh;
+    //opacity: 0;
+  }
+
+  .select-items div:hover,
+  .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  --primary-background-color: #f4f4f4;
+  --code-block-background-color: #d4d4d4;
+  --primary-font-color: #000;
+  --secoundary-font-color: #666;
+  --primary-color: #ccc;
+  --secoundary-color: #ddd;
+  background: var(--primary-background-color);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--primary-font-color);
+}
+
+#site-contents-outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#site-contents {
+  padding: 12px 40px 40px 40px;
+  font-size: 16px;
+  width: 70%;
+  min-width: 800px;
+  display: inline-block;
+
+  h1,
+  h2 {
+    border-bottom: 1px solid var(--secoundary-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+    margin: 32px 0 6px 0;
+
+    a {
+      right: calc(100% + 6px);
+      position: absolute;
+      color: var(--primary-font-color);
+      opacity: 0;
+      transition: opacity ease 100ms;
+
+      i {
+        font-size: 0.8em;
+      }
+      &:visited {
+        color: var(--primary-font-color);
+      }
+      &:active {
+        color: #ff4500;
+      }
+    }
+    &:hover a {
+      opacity: 1;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 40px;
+      right: 100%;
+    }
+  }
+
+  h1 {
+    font-size: 2.4em;
+    padding: 0 0 6px 0;
+  }
+  h2 {
+    font-size: 2.2em;
+    padding: 0 0 4px 0;
+  }
+  h3 {
+    font-size: 1.6em;
+  }
+  h4 {
+    font-size: 1.4em;
+  }
+  h5 {
+    font-size: 1.3em;
+  }
+  h6 {
+    font-size: 1.2em;
+  }
+
+  code {
+    font-family: Consolas, monospace, sans-serif;
+    background-color: var(--code-block-background-color);
+    display: inline-block;
+    padding: 2px 4px;
+    border-radius: 4px;
+
+    // Code Highlight
+    span.hljs-number {
+      color: #ff4500;
+    }
+    span.hljs-comment {
+      color: #666666;
+    }
+  }
+
+  pre code {
+    padding: 4px 8px;
+    min-width: 400px;
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  a {
+    color: #777;
+  }
+}
+
+@media only screen and (max-width: 880px) {
+  #site-contents {
+    min-width: 0;
+    width: 800px;
+    max-width: 100%;
+  }
+}
