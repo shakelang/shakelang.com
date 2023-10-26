@@ -1,12 +1,13 @@
 import "./index.scss";
-import React, { useState } from "react";
+import React from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import "./language-shake";
-import { darcula } from "@uiw/codemirror-theme-darcula";
 import Icon from "@mdi/react";
 import { mdiPlay } from "@mdi/js";
+import { StreamLanguage } from "@codemirror/language";
+import { basicSetup } from "@uiw/react-codemirror";
 import { shake } from "./language-shake";
-import light from "@uiw/react-codemirror/cjs/theme/light";
+import "./codemirror-theme.scss";
 
 // @ts-ignore
 // const shake_versions = require("./shake-versions.json");
@@ -16,6 +17,7 @@ export function TryShake() {
   const onChange = React.useCallback((val, viewUpdate) => {
     setValue(val);
   }, []);
+
   return (
     <div id="try-shake-outer">
       <h2>Try Shake</h2>
@@ -36,25 +38,18 @@ export function TryShake() {
           <CodeMirror
             value={value}
             height="200px"
-            extensions={[]}
+            extensions={[
+              basicSetup({
+                tabSize: 2,
+                lineNumbers: false,
+                foldKeymap: true,
+                autocompletion: true,
+                foldGutter: true,
+                highlightActiveLineGutter: true,
+              }),
+              StreamLanguage.define(shake),
+            ]}
             onChange={onChange}
-            // tabSize={2}
-            // lineNumbers={false}
-            //firstLineNumber: 1,
-            /*extraKeys={{
-              "Ctrl-Space": "autocomplete",
-              "Alt-F": "findPersistent",
-              F11: function (cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-              },
-              Esc: function (cm) {
-                if (cm.getOption("fullScreen"))
-                  cm.setOption("fullScreen", false);
-              },
-            }}*/
-            //lineWrapping={true}
-            //scrollbarStyle="simple"
-            theme="light"
           />
           <button type="button" title="play" id="try-shake-execute-button">
             <Icon path={mdiPlay} size={1} />
