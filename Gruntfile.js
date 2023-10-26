@@ -18,10 +18,10 @@ module.exports = function (grunt) {
     function () {
       const done = this.async();
       (async () => {
-        await fs.mkdirs("build/scripts");
-        const scripts = await download_browser_scripts("build/scripts/shake/");
+        await fs.mkdirs("scripts");
+        const scripts = await download_browser_scripts("scripts/shake/");
         await fs.writeFile(
-          "build/scripts/shake-versions.json",
+          "scripts/shake-versions.json",
           JSON.stringify(
             scripts.map((e) => ({
               commit: e.commit,

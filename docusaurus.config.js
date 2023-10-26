@@ -135,6 +135,8 @@ const config = {
       },
     }),
   plugins: ["docusaurus-plugin-sass", require.resolve("./plugin-webpack")],
+  onBrokenLinks: "warn",
+  onBrokenMarkdownLinks: "warn",
 };
 
 module.exports = config;

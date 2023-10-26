@@ -49,7 +49,7 @@ global.shakeLogger = shakeLogger;
 
 // @ts-ignore
 export const shake_versions =
-  require("../../../build/scripts/shake-versions.json") as {
+  require("../../../scripts/shake-versions.json") as {
     commit: string;
     file: string;
   }[];
@@ -65,7 +65,7 @@ export async function getShakeInterpreter(
       /* webpackMode: 'lazy' */
       /* webpackPrefetch: true */
       /* webpackPreload: true */
-      `../../../build/scripts/shake/${file}`
+      `../../../scripts/shake/${file}`
     );
 
     if (interpreters[file].addInterpreterFileFromUrl) {
