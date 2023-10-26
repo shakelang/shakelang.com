@@ -52,7 +52,7 @@ export function TryShake() {
             style={{}}
           />
           <button type="button" title="play" id="try-shake-execute-button">
-            <Icon path={mdiPlay} size={1} />
+            <Icon path={mdiPlay} color="#fff" size={1} />
           </button>
         </div>
         <div id="shake-output"></div>
