@@ -14,6 +14,17 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
+    title: "WARNING",
+    Svg: undraw_warning_re_eoyh,
+    description: (
+      <>
+        Shake is still in early development. It is not ready for production. At
+        the moment I (the creator) am the only one working on it. If you want to
+        help and contribute, please contact me.
+      </>
+    ),
+  },
+  {
     title: "Easy to Use",
     Svg: undraw_portfolio_update,
     description: (
@@ -29,32 +40,21 @@ const FeatureList: FeatureItem[] = [
     Svg: undraw_note_list,
     description: (
       <>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        Just write your code and think about the logic. Shake will take care of
+        the rest. It will compile your code to native code for the target
       </>
     ),
   },
-  {
-    title: "Flexible",
-    Svg: undraw_product_iteration,
-    description: (
-      <>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </>
-    ),
-  },
-  {
-    title: "WARNING",
-    Svg: undraw_warning_re_eoyh,
-    description: (
-      <>
-        Shake is still in early development. It is not ready for production. At
-        the moment I (the creator) am the only one working on it. If you want to
-        help and contribute, please contact me.
-      </>
-    ),
-  },
+  // {
+  //   title: "Flexible",
+  //   Svg: undraw_product_iteration,
+  //   description: (
+  //     <>
+  //       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+  //       tempor incididunt ut labore et dolore magna aliqua.
+  //     </>
+  //   ),
+  // },
 ];
 
 function Feature({ title, Svg, description }: FeatureItem) {
