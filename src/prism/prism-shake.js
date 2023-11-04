@@ -1,7 +1,3 @@
-const Prism = require("prismjs");
-
-console.log("Loading prism-shake.js");
-
 const keywords = [
   "do",
   "while",
@@ -40,8 +36,8 @@ Prism.languages.shake = {
   keyword: new RegExp(`\\b(?:${keywords.join("|")})\\b`),
   "variable-2":
     /(function|void|class|interface|enum|var|let[a-z$][\w$]*)(\s+)([a-z$][\w$]*)/,
-  atom: /true|false|null/,
-  number: /0x[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,
+  boolean: /true|false|null/,
+  number: /(0x|0b)[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,
   comment: [/\/\/.*/, /\/\*[\s\S]*?\*\//],
   operator: /[-+\/*=<>!]+/,
   punctuation: /[\{\[\(]|\}|\]|\)/,
