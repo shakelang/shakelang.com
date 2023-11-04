@@ -1,11 +1,10 @@
 # Shake Programming Language Features
 
-
 ## 1 Introduction
 
 Shake is a high level, object-oriented, multi-targeting, modern programming
-language. It can be compiled into different languages (targets), such as C, 
-C++, C#, Java, JavaScript and binary executables as well as interpreted 
+language. It can be compiled into different languages (targets), such as C,
+C++, C#, Java, JavaScript and binary executables as well as interpreted
 (currently the only implemented target is JavaScript).
 It also provides a scripting language for faster and more efficient creation
 of small projects.
@@ -25,36 +24,37 @@ function main() {
 }
 ```
 
-This code will print "Hello World!" to the console, then calculate the sum 
-of the two integers `i=10` and `j=5` and print the result (15) also to the 
+This code will print "Hello World!" to the console, then calculate the sum
+of the two integers `i=10` and `j=5` and print the result (15) also to the
 console.
+
 <!-- It already contains many features we will learn in the next chapters. -->
 
 ## 2 Primitive Datatypes
 
 There are 8 primitive datatypes in Shake:
 
-| Type    | # of Bits                | Range                                            | Description                        |
-| ------- | ------------------------ | ------------------------------------------------ | ---------------------------------- |
-| byte    | 8                        | Whole numbers from -2^7 to 2^ - 1                | Signed 8-bit integer               |
-| short   | 16                       | Whole numbers from -2^15 to 2^15 - 1             | Signed 16-bit integer              |
-| int     | 32                       | Whole numbers from -2^31 to 2^31 - 1             | Signed 32-bit integer              |
-| long    | 64                       | Whole numbers from -2^63 to 2^31 - 1             | Signed 64-bit integer              |
-| float   | 32                       | Floating point numbers from ±3.402823e38         | 32-bit floating point number       |
-| double  | 64                       | Floating point numbers from ±1.7976931348623e308 | 64-bit floating point number       |
-| boolean | 1 [*]                    | True or False                                    | Boolean, either true or false      |
-| char    | 16                       | Unicode characters                               | 16-bit Unicode character           |
+| Type    | # of Bits | Range                                            | Description                   |
+| ------- | --------- | ------------------------------------------------ | ----------------------------- |
+| byte    | 8         | Whole numbers from -2^7 to 2^ - 1                | Signed 8-bit integer          |
+| short   | 16        | Whole numbers from -2^15 to 2^15 - 1             | Signed 16-bit integer         |
+| int     | 32        | Whole numbers from -2^31 to 2^31 - 1             | Signed 32-bit integer         |
+| long    | 64        | Whole numbers from -2^63 to 2^63 - 1             | Signed 64-bit integer         |
+| float   | 32        | Floating point numbers from ±3.402823e38         | 32-bit floating point number  |
+| double  | 64        | Floating point numbers from ±1.7976931348623e308 | 64-bit floating point number  |
+| boolean | 1 [*]     | True or False                                    | Boolean, either true or false |
+| char    | 16        | Unicode characters                               | 16-bit Unicode character      |
 
-_* A boolean behaves like 1 bit, but it occupies 8 bits in RAM_
+_\* A boolean behaves like 1 bit, but it occupies 8 bits in RAM_
 
 additionally there is one unsigned variant of each integer type.
 
-| Type    | # of Bits  | Range                                            | Description                        |
-| ------- | ---------- | ------------------------------------------------ | ---------------------------------- |
-| ubyte   | 8          | Whole numbers from 0 - 2^8 - 1                   | Unsigned 8-bit integer             |
-| ushort  | 16         | Whole numbers from 0 - 2^16 - 1                  | Unsigned 16-bit integer            |
-| uint    | 32         | Whole numbers from 0 - 2^32 - 1                  | Unsigned 32-bit integer            |
-| ulong   | 64         | Whole numbers from 0 - 2^64 - 1                  | Unsigned 64-bit integer            |
+| Type   | # of Bits | Range                           | Description             |
+| ------ | --------- | ------------------------------- | ----------------------- |
+| ubyte  | 8         | Whole numbers from 0 - 2^8 - 1  | Unsigned 8-bit integer  |
+| ushort | 16        | Whole numbers from 0 - 2^16 - 1 | Unsigned 16-bit integer |
+| uint   | 32        | Whole numbers from 0 - 2^32 - 1 | Unsigned 32-bit integer |
+| ulong  | 64        | Whole numbers from 0 - 2^64 - 1 | Unsigned 64-bit integer |
 
 ## 3 Operators
 
@@ -86,7 +86,7 @@ _These are Shake's comparison-operators_
 ### 2.3 Logical Operators
 
 ```shake
-true || false  // or (at least one of them has to be correct) 
+true || false  // or (at least one of them has to be correct)
 true && false  // and (both of them have to be correct)
 true ^ false   // xor (either one, but not both have to be correct)
 ```
@@ -95,7 +95,7 @@ true ^ false   // xor (either one, but not both have to be correct)
 
 #### 2.4.1 Understanding binary numbers
 
-_You can skip this paragraph if you understand the basic concept of binary numbers 
+_You can skip this paragraph if you understand the basic concept of binary numbers
 which is necessary for sections `2.4.2` and `2.4.3`_
 
 Binary operators can manipulate individual bits of values.
@@ -160,6 +160,7 @@ Hence, to multiply the sum of some numbers, brackets have to be placed around th
 4 * 10 + 3    // >> 43
 4 * (10 + 3)  // >> 52
 ```
+
 _(Hint: Brackets can be placed inside other brackets, inner brackets are always calculated first)_
 
 As seen above, Shake "prioritizes" certain operations over others. For a complete overview of these priorities, take a look at the list below.
