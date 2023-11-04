@@ -3,9 +3,9 @@
 ## 1 Introduction
 
 Shake is a high level, object-oriented, multi-targeting, modern programming
-language. It can be compiled into different languages (targets), such as C,
-C++, C#, Java, JavaScript and binary executables as well as interpreted
-(currently the only implemented target is JavaScript).
+language. It can be compiled into different languages (targets), such as `C`,
+`C++`, `C#`, `Java`, `JavaScript` and binary executables as well as interpreted
+(currently the only implemented target is `JavaScript`).
 It also provides a scripting language for faster and more efficient creation
 of small projects.
 
