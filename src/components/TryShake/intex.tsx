@@ -58,17 +58,6 @@ export function TryShake() {
             ))}
           </Select>
         </FormControl>
-        <select
-          name="shake-version-select"
-          title="shake-version-select"
-          id="shake-version-select"
-        >
-          {shake_versions.map((version) => (
-            <option key={version.commit} value={version.file}>
-              {version.commit}
-            </option>
-          ))}
-        </select>
       </div>
       <div id="try-shake-region">
         <div id="try-shake-editor-region">
@@ -83,6 +72,9 @@ export function TryShake() {
               foldGutter: false,
               highlightActiveLineGutter: false,
               highlightActiveLine: false,
+            }}
+            style={{
+              width: "100%",
             }}
             extensions={[StreamLanguage.define(shake)]}
             onChange={onChange}
