@@ -45,7 +45,7 @@ There are 8 primitive datatypes in Shake:
 | boolean | 1 [*]      | True or False                                    | Boolean, either true or false |
 | char    | 2          | Unicode characters                               | 16-bit Unicode character      |
 
-_\* A boolean behaves like 1 bit, but it occupies 8 bits in RAM_
+_\* A boolean behaves like 1 bit, but it occupies 8 bits (one byte) in RAM_
 
 additionally there is one unsigned variant of each integer type.
 
