@@ -15,7 +15,8 @@ function HomepageHeader() {
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">
-          <s>Build</s> Design your backend
+          Shake is a high level, object-oriented, multi-targeting, modern
+          programming language.
         </p>
         <div className={styles.buttons}>
           <Link
