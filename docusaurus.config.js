@@ -131,7 +131,7 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
-  plugins: ["docusaurus-plugin-sass", require.resolve("./plugin-webpack")],
+  plugins: ["docusaurus-plugin-sass"],
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 };
