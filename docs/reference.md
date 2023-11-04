@@ -34,27 +34,27 @@ console.
 
 There are 8 primitive datatypes in Shake:
 
-| Type    | # of Bits | Range                                            | Description                   |
-| ------- | --------- | ------------------------------------------------ | ----------------------------- |
-| byte    | 8         | Whole numbers from -2^7 to 2^ - 1                | Signed 8-bit integer          |
-| short   | 16        | Whole numbers from -2^15 to 2^15 - 1             | Signed 16-bit integer         |
-| int     | 32        | Whole numbers from -2^31 to 2^31 - 1             | Signed 32-bit integer         |
-| long    | 64        | Whole numbers from -2^63 to 2^63 - 1             | Signed 64-bit integer         |
-| float   | 32        | Floating point numbers from ±3.402823e38         | 32-bit floating point number  |
-| double  | 64        | Floating point numbers from ±1.7976931348623e308 | 64-bit floating point number  |
-| boolean | 1 [*]     | True or False                                    | Boolean, either true or false |
-| char    | 16        | Unicode characters                               | 16-bit Unicode character      |
+| Type    | # of Bytes | Range                                            | Description                   |
+| ------- | ---------- | ------------------------------------------------ | ----------------------------- |
+| byte    | 1          | Whole numbers from -2^7 to 2^ - 1                | Signed 8-bit integer          |
+| short   | 2          | Whole numbers from -2^15 to 2^15 - 1             | Signed 16-bit integer         |
+| int     | 4          | Whole numbers from -2^31 to 2^31 - 1             | Signed 32-bit integer         |
+| long    | 8          | Whole numbers from -2^63 to 2^63 - 1             | Signed 64-bit integer         |
+| float   | 4          | Floating point numbers from ±3.402823e38         | 32-bit floating point number  |
+| double  | 8          | Floating point numbers from ±1.7976931348623e308 | 64-bit floating point number  |
+| boolean | 1 [*]      | True or False                                    | Boolean, either true or false |
+| char    | 2          | Unicode characters                               | 16-bit Unicode character      |
 
 _\* A boolean behaves like 1 bit, but it occupies 8 bits in RAM_
 
 additionally there is one unsigned variant of each integer type.
 
-| Type   | # of Bits | Range                           | Description             |
-| ------ | --------- | ------------------------------- | ----------------------- |
-| ubyte  | 8         | Whole numbers from 0 - 2^8 - 1  | Unsigned 8-bit integer  |
-| ushort | 16        | Whole numbers from 0 - 2^16 - 1 | Unsigned 16-bit integer |
-| uint   | 32        | Whole numbers from 0 - 2^32 - 1 | Unsigned 32-bit integer |
-| ulong  | 64        | Whole numbers from 0 - 2^64 - 1 | Unsigned 64-bit integer |
+| Type   | # of Bytes | Range                           | Description             |
+| ------ | ---------- | ------------------------------- | ----------------------- |
+| ubyte  | 1          | Whole numbers from 0 - 2^8 - 1  | Unsigned 8-bit integer  |
+| ushort | 2          | Whole numbers from 0 - 2^16 - 1 | Unsigned 16-bit integer |
+| uint   | 4          | Whole numbers from 0 - 2^32 - 1 | Unsigned 32-bit integer |
+| ulong  | 8          | Whole numbers from 0 - 2^64 - 1 | Unsigned 64-bit integer |
 
 ## 3 Operators
 
