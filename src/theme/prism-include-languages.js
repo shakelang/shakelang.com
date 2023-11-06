@@ -17,5 +17,6 @@ export default function prismIncludeLanguages(PrismObject) {
   });
 
   require("../prism/prism-shake.js");
+  require("../prism/prism-tokens.js");
   delete globalThis.Prism;
 }
