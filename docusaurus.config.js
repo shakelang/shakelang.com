@@ -73,6 +73,11 @@ const config = {
             position: "left",
             label: "Tutorial",
           },
+          {
+            to: "/specification",
+            label: "Specification",
+            position: "left",
+          },
           { to: "/blog", label: "Blog", position: "left" },
           {
             href: "https://github.com/shakelang/shake",
