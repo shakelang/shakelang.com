@@ -131,7 +131,19 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
-  plugins: ["docusaurus-plugin-sass"],
+  plugins: [
+    "docusaurus-plugin-sass",
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "specification",
+        path: "specification",
+        routeBasePath: "specification",
+        sidebarPath: "./sidebarsSpecification.js",
+        // ... other options
+      },
+    ],
+  ],
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 };
