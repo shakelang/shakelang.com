@@ -134,6 +134,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ["antlr4"],
       },
     }),
   plugins: [
