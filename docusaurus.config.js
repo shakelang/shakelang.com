@@ -141,10 +141,12 @@ const config = {
     "docusaurus-plugin-sass",
     [
       "@docusaurus/plugin-content-docs",
+      /** @type {any} */
       {
         id: "specification",
-        path: "specification",
+        path: "specification/specification",
         routeBasePath: "specification",
+
         sidebarPath: "./sidebarsSpecification.js",
         // ... other options
       },
