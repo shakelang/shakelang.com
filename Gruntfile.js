@@ -10,6 +10,17 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
+    copy: {
+      main: {
+        expand: true,
+        cwd: "./modules/shake/build/docs/html",
+        src: "**",
+        dest: "generated/static/dokka/",
+      },
+    },
+    clean: {
+      main: ["generated"],
+    },
   });
 
   grunt.task.registerTask(

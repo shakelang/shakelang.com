@@ -9,7 +9,11 @@ const config = {
   title: "Shake Programming Language",
   tagline: "A statically typed, compiled, and garbage collected language",
   favicon: "img/favicon.ico",
-  staticDirectories: ["static", "specification/static"],
+  staticDirectories: [
+    "static",
+    "modules/specification/static",
+    "generated/static",
+  ],
 
   // Set the production url of your site here
   url: "https://shakelang.github.io",
@@ -144,7 +148,7 @@ const config = {
       "@docusaurus/plugin-content-docs",
       {
         id: "specification",
-        path: "specification/specification",
+        path: "modules/specification/specification",
         routeBasePath: "specification",
 
         sidebarPath: "./sidebarsSpecification.js",
