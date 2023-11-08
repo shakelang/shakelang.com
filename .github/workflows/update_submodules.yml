@@ -41,7 +41,7 @@ jobs:
         run: |
           git diff --name-only
           git diff --name-only --staged
-          continue-on-error: true
+        continue-on-error: true
 
       - name: Commit update
         run: |
