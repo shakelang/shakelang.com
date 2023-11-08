@@ -43,11 +43,6 @@ jobs:
           git diff --name-only --staged
         continue-on-error: true
 
-      - name: Commit update
-        run: |
-          git config --global user.name 'Git bot'
-          git config --global user.email 'bot@noreply.github.com'
-
       - name: Commit changes 📝
         uses: EndBug/add-and-commit@v9
         if: ${{ steps.git-diff.outputs.files_changed != '' }}
