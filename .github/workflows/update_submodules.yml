@@ -35,23 +35,7 @@ jobs:
           git pull --recurse-submodules
           git submodule update --remote --recursive
 
-      # Check for changes
-      - name: Git Diff
-        id: git-diff
-        run: |
-          git diff --name-only
-          git diff --name-only --staged
-        continue-on-error: true
-
-      - name: Print changes
-        run: echo "${{ steps.git-diff.outputs.files_changed != '' }}"
-
       - name: Commit changes 📝
-        uses: EndBug/add-and-commit@v9
-        if: ${{ steps.git-diff.outputs.files_changed != '' }}
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          add: "*"
-          commit: --signoff
-          default_author: github_actions
-          message: "Update submodules 📝"
-          pathspec_error_handling: ignore
+          commit_message: "Update submodules 📝"
