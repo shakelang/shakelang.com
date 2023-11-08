@@ -36,6 +36,16 @@ jobs:
         working-directory: ./modules/shake
         run: chmod +x gradlew
 
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Buid Shake Docs 🔨
         working-directory: ./modules/shake
         run: ./gradlew :copyDokkaHtml
