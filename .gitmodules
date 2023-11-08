@@ -1,3 +1,6 @@
 [submodule "specification"]
 	path = modules/specification
 	url = https://github.com/shakelang/specification
+[submodule "modules/shake"]
+	path = modules/shake
+	url = https://github.com/shakelang/shake
