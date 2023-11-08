@@ -43,6 +43,9 @@ jobs:
           git diff --name-only --staged
         continue-on-error: true
 
+      - name: Print changes
+        run: echo "${{ steps.git-diff.outputs.files_changed != '' }}"
+
       - name: Commit changes 📝
         uses: EndBug/add-and-commit@v9
         if: ${{ steps.git-diff.outputs.files_changed != '' }}
