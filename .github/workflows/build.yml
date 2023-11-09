@@ -37,7 +37,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Cache Gradle packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
@@ -48,7 +48,7 @@ jobs:
 
       - name: Buid Shake Docs 🔨
         working-directory: ./modules/shake
-        run: ./gradlew :copyDokkaHtml
+        run: ./gradlew build dokkaHtml copyDokkaHtml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
