@@ -29,6 +29,14 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           submodules: true
 
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.ACTIONS_GPG_KEY }}
+          passphrase: ${{ secrets.ACTIONS_GPG_PASS }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
       # Update references
       - name: Git Sumbodule Update
         run: |
@@ -39,3 +47,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update submodules 📝"
+          commit_user_name: "shake-bot [bot]"
+          commit_user_email: "bot@shakelang.com"
