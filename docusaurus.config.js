@@ -43,13 +43,15 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/shakelang/shakelang.com/tree/main/",
+          editUrl:
+            "https://github.com/shakelang/shakelang.github.io/tree/main/",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/shakelang/shakelang.com/tree/main/",
+          editUrl:
+            "https://github.com/shakelang/shakelang.github.io/tree/main/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -150,6 +152,11 @@ const config = {
         routeBasePath: "specification",
 
         sidebarPath: "./sidebarsSpecification.js",
+        editUrl: ({ docPath }) => {
+          // Remove the unwanted path segment
+          const editedPath = docPath.replace(/^modules\/specification\//, "");
+          return `https://github.com/shakelang/specification/blob/master/specification/${editedPath}`;
+        },
         // ... other options
       },
     ],
