@@ -45,7 +45,7 @@ jobs:
 
       - name: Buid Shake Docs 🔨
         working-directory: ./modules/shake
-        run: ./gradlew dokkaHtml copyDokkaHtml
+        run: ./gradlew dokkaHtmlMultiModule
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
