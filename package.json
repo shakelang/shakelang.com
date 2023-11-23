@@ -39,7 +39,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.4.3",
+    "@docusaurus/module-type-aliases": "3.0.0",
     "@octokit/core": "^5.0.2",
     "@tsconfig/docusaurus": "^2.0.2",
     "cheerio": "^1.0.0-rc.12",
