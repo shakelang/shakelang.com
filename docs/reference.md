@@ -60,15 +60,15 @@ additionally there is one unsigned variant of each integer type.
 
 ### 3.1 Mathematical Operators
 
-_Shake has 6 different types of simple mathematical operators_
+_Shake has 6 different types of mathematical operators_
 
 ```shake
-10 + 3   // plus
-10 – 3   // minus
-10 * 3   // multiply
-10 / 3   // divide
-10 % 3   // modulo
-10 ** 3  // power (>> 10 * 10 * 10)
+10 + 3   // plus (=13)
+10 – 3   // minus (=7)
+10 * 3   // multiply (=30)
+10 / 3   // divide (=3)
+10 % 3   // modulo (=1)
+10 ** 3  // power (>> 10 * 10 * 10) (=1000)
 ```
 
 ### 3.2 Comparison Operators
@@ -76,11 +76,12 @@ _Shake has 6 different types of simple mathematical operators_
 _These are Shake's comparison-operators_
 
 ```shake
-9 == 8  // equals
-9 >= 8  // bigger Equals
-9 <= 8  // lower Equals
-9 > 8   // bigger
-9 < 8   // lower
+9 == 8  // equals (false)
+9 != 8  // not equals (true)
+9 >= 8  // bigger Equals (true)
+9 <= 8  // lower Equals (false)
+9 > 8   // bigger (true)
+9 < 8   // lower (false)
 ```
 
 ### 3.3 Logical Operators
@@ -88,8 +89,10 @@ _These are Shake's comparison-operators_
 ```shake
 true || false  // or (at least one of them has to be correct)
 true && false  // and (both of them have to be correct)
-true ^ false   // xor (either one, but not both have to be correct)
+true ^^ false   // xor (either one, but not both have to be correct)
 ```
+
+_NOTE: All binary operators will work on booleans as well. Via operator overloading they do exactly the same as logical operators on booleans, so true ^ false will work the same as true ^^ false. It is better practice to use the logical operators though!_
 
 ### 3.4 Bitwise operators
 
