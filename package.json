@@ -29,7 +29,7 @@
     "@mdx-js/react": "^1.6.22",
     "@mui/material": "^5.14.15",
     "@uiw/codemirror-extensions-basic-setup": "^4.21.21",
-    "@uiw/codemirror-theme-darcula": "^4.21.20",
+    "@uiw/codemirror-theme-darcula": "^4.21.21",
     "@uiw/react-codemirror": "^4.21.20",
     "clsx": "^2.0.0",
     "codemirror": "^6.0.1",
