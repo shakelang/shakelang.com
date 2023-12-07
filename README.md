@@ -1,4 +1,10 @@
-# Website
+# shakelang.com
+
+This is a fork of [shakelang.github.io](https://github.com/shakelang/shakelang.github.io/) repository (The deployment repository of [https://shakelang.com/](https://shakelang.com/))
+
+To see actual development process at the [shakelang.github.io](https://github.com/shakelang/shakelang.github.io/) repository.
+
+---
 
 View deployed website at [https://shakelang.com/](https://shakelang.com/).
 
