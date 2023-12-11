@@ -1,5 +1,5 @@
 ---
-title: We're working on the specification now
+title: Working on new Bytecode-Based interpreter
 date: 2023-12-12 00:00:00
 authors: [nsc-de, shakelang]
 tags: [shake, shakelang, shake-lang, build, website]
