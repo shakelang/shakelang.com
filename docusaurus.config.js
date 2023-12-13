@@ -129,7 +129,7 @@ const config = {
               },
               {
                 label: "Contact",
-                href: "mailto:contact@shakelang.com",
+                to: "/contact",
               },
             ],
           },
