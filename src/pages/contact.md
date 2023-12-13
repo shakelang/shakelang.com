@@ -1,7 +1,5 @@
 # Contact shakelang
 
-## Contact Shakelang
-
 Email [contact@shakelang.com](mailto:contact@shakelang.com)
 
 GitHub [https://github.com/shakelang/](https://github.com/shakelang/)
@@ -20,6 +18,6 @@ Email [nicolas.schmidt@shakelang.com](mailto:nicolas.schmidt@shakelang.com)
 
 GitHub [@nsc-de](https://github.com/nsc-de)
 
-Twitter [@nsc_de](https://twitter.com/nsc_dev)
+Twitter [@nsc_dev](https://twitter.com/nsc_dev)
 
-Instagram [@nsc_de](https://instagram.com/nsc_dev)
+Instagram [@nsc_dev](https://instagram.com/nsc_dev)
