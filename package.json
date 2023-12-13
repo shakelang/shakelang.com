@@ -27,7 +27,7 @@
     "@mdi/js": "^7.3.67",
     "@mdi/react": "^1.6.1",
     "@mdx-js/react": "^1.6.22",
-    "@mui/material": "^5.14.20",
+    "@mui/material": "^5.15.0",
     "@uiw/codemirror-extensions-basic-setup": "^4.21.21",
     "@uiw/codemirror-theme-darcula": "^4.21.21",
     "@uiw/react-codemirror": "^4.21.20",
