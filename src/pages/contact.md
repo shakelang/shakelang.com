@@ -10,6 +10,8 @@ Discord [https://discord.shakelang.com](https://discord.shakelang.com)
 
 Repository [https://github.com/shakelang/shake](https://github.com/shakelang/shake)
 
+---
+
 ## Team
 
 ### Founder (nsc-de)
