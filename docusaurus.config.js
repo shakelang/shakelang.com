@@ -9,11 +9,7 @@ const config = {
   title: "Shake Programming Language",
   tagline: "A statically typed, compiled, and garbage collected language",
   favicon: "img/favicon.ico",
-  staticDirectories: [
-    "static",
-    "modules/specification/static",
-    "generated/static",
-  ],
+  staticDirectories: ["static", "generated/static"],
 
   // Set the production url of your site here
   url: "https://shakelang.com",
@@ -78,12 +74,12 @@ const config = {
             position: "left",
             label: "Tutorial",
           },
-          {
-            to: "/specification",
-            label: "Specification",
-            position: "left",
-          },
           { to: "/blog", label: "Blog", position: "left" },
+          {
+            href: "https://specification.shakelang.com",
+            label: "Specification",
+            position: "right",
+          },
           {
             href: "https://github.com/shakelang/shake",
             label: "GitHub",
@@ -146,25 +142,7 @@ const config = {
         additionalLanguages: ["antlr4"],
       },
     }),
-  plugins: [
-    "docusaurus-plugin-sass",
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "specification",
-        path: "modules/specification/specification",
-        routeBasePath: "specification",
-
-        sidebarPath: "./sidebarsSpecification.js",
-        editUrl: ({ docPath }) => {
-          // Remove the unwanted path segment
-          const editedPath = docPath.replace(/^modules\/specification\//, "");
-          return `https://github.com/shakelang/specification/blob/master/specification/${editedPath}`;
-        },
-        // ... other options
-      },
-    ],
-  ],
+  plugins: ["docusaurus-plugin-sass"],
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 };
