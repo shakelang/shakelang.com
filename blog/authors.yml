@@ -1,11 +1,26 @@
-nsc-de:
-  name: Nicolas Schmidt
-  title: Maintainer of Shake
-  url: https://github.com/nsc-de
-  image_url: https://github.com/nsc-de.png
+# The whole shake team as an author
 
 shakelang:
   name: Shake Team
   title: Shake Programming Language Team
   url: https://github.com/shakelang
   image_url: https://github.com/shakelang.png
+  email: contact@shakelang.com
+
+# The shake bot as an author
+
+shakelang-bot:
+  name: Shake Bot
+  title: Bot of the Shake Organization
+  url: https://github.com/shakelang-bot
+  image_url: https://github.com/shakelang-bot.png
+  email: bot@shakelang.com
+
+# Shake Team Members
+
+nsc-de:
+  name: Nicolas Schmidt
+  title: Maintainer of Shake
+  url: https://github.com/nsc-de
+  image_url: https://github.com/nsc-de.png
+  email: nicolas.schmidt@shakelang.com

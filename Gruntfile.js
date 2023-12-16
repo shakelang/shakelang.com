@@ -13,7 +13,7 @@ module.exports = function (grunt) {
     copy: {
       main: {
         expand: true,
-        cwd: "./modules/shake/build/dokka/",
+        cwd: "./modules/shake/build/dokka/htmlMultiModule/",
         src: "**",
         dest: "generated/static/dokka/",
       },
