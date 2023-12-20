@@ -1,5 +1,5 @@
 ---
-title: Moved the specification to specification.shakelang.com
+title: Moved specification
 date: 2023-12-20 00:00:00
 authors: [nsc-de, shakelang]
 tags: [shake, shakelang, shake-lang, build, website]
