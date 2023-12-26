@@ -2,7 +2,7 @@
   "name": "shakelang.com",
   "version": "0.0.0",
   "private": true,
-  "homepage": "shake-lang.github.io",
+  "homepage": "shakelang.com",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
