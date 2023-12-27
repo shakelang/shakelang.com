@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: build
-          path: build
+          path: build/
 
   deploy:
     name: Deploy 🚀
@@ -75,6 +75,7 @@ jobs:
         with:
           name: build
           path: build
+          
       - name: Sync files to hosting
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
@@ -82,3 +83,4 @@ jobs:
           username: ${{ secrets.DEPLOY_WEBSITE_FTP_EMAIL }}
           password: ${{ secrets.DEPLOY_WEBSITE_FTP_PASSWORD }}
           server-dir: /
+          local-dir: build/
