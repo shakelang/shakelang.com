@@ -20,7 +20,8 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build ⛏
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -78,20 +79,34 @@ jobs:
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: Build and deploy
+          on:
+            push:
+              branches: [main]
+            workflow_dispatch:
 
-      - name: Setup Pages 📰
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+      - name: Archive production artifact
+        uses: actions/upload-artifact@main
         with:
-          path: "./build"
+          name: dist
+          path: dist
 
-      - name: Deploy to GitHub Pages 🚀
-        id: deployment
-        uses: actions/deploy-pages@v3
-
-      - name: Cleanup Gradle Cache
-        run: |
-          rm -f ~/.gradle/caches/modules-2/modules-2.lock
-          rm -f ~/.gradle/caches/modules-2/gc.properties
+  deploy:
+    name: Deploy 🚀
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+      - name: Download artifact
+        uses: actions/download-artifact@main
+        with:
+          name: dist
+          path: dist
+      - name: Sync files to hosting
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ftp.shakelang.com
+          username: ${{ secrets.DEPLOY_WEBSITE_FTP_EMAIL }}
+          password: ${{ secrets.DEPLOY_WEBSITE_FTP_PASSWORD }}
+          server-dir: /
