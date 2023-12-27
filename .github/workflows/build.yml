@@ -80,10 +80,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           name: Build and deploy
-          on:
-            push:
-              branches: [main]
-            workflow_dispatch:
 
       - name: Archive production artifact
         uses: actions/upload-artifact@main
