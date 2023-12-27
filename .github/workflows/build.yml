@@ -20,7 +20,8 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build ⛏
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -28,29 +29,6 @@ jobs:
         with:
           persist-credentials: false
           submodules: recursive
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
-      - name: Grant execute permission for gradlew
-        working-directory: ./modules/shake
-        run: chmod +x gradlew
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Buid Shake Docs 🔨
-        working-directory: ./modules/shake
-        run: ./gradlew dokkaHtmlMultiModule
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cache ♻️
         id: cache-npm
@@ -79,19 +57,30 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Pages 📰
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+      - name: Archive production artifact
+        uses: actions/upload-artifact@main
         with:
-          path: "./build"
+          name: build
+          path: build/
 
-      - name: Deploy to GitHub Pages 🚀
-        id: deployment
-        uses: actions/deploy-pages@v3
-
-      - name: Cleanup Gradle Cache
-        run: |
-          rm -f ~/.gradle/caches/modules-2/modules-2.lock
-          rm -f ~/.gradle/caches/modules-2/gc.properties
+  deploy:
+    name: Deploy 🚀
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+      - name: Download artifact
+        uses: actions/download-artifact@main
+        with:
+          name: build
+          path: build
+          
+      - name: Sync files to hosting
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ftp.shakelang.com
+          username: ${{ secrets.DEPLOY_WEBSITE_FTP_EMAIL }}
+          password: ${{ secrets.DEPLOY_WEBSITE_FTP_PASSWORD }}
+          server-dir: /
+          local-dir: build/
