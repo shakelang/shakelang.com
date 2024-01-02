@@ -26,7 +26,7 @@
     "@fontsource/roboto": "^5.0.8",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
-    "@mdx-js/react": "^1.6.22",
+    "@mdx-js/react": "^3.0.0",
     "@mui/material": "^5.15.2",
     "@uiw/codemirror-extensions-basic-setup": "^4.21.21",
     "@uiw/codemirror-theme-darcula": "^4.21.21",
