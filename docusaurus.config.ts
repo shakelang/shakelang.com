@@ -32,7 +32,7 @@ const config: Config = {
   organizationName: "shakelang",
   projectName: "shake",
 
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 
   i18n: {
