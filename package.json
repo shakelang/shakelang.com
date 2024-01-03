@@ -1,8 +1,7 @@
 {
-  "name": "shakelang.com",
+  "name": "specification",
   "version": "0.0.0",
   "private": true,
-  "homepage": "shakelang.com",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
@@ -11,7 +10,7 @@
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
-    "dependents": "grunt browser-scripts copy",
+    "dependents": "node build-src/index.js",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc"
@@ -21,38 +20,42 @@
     "@codemirror/legacy-modes": "^6.3.3",
     "@docusaurus/core": "3.0.1",
     "@docusaurus/preset-classic": "3.0.1",
+    "@docusaurus/theme-common": "^3.0.1",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@fontsource/roboto": "^5.0.8",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
     "@mdx-js/react": "^3.0.0",
+    "@microsoft/eslint-formatter-sarif": "^3.0.0",
     "@mui/material": "^5.15.2",
     "@uiw/codemirror-extensions-basic-setup": "^4.21.21",
     "@uiw/codemirror-theme-darcula": "^4.21.21",
-    "@uiw/react-codemirror": "^4.21.20",
+    "@uiw/react-codemirror": "^4.21.21",
     "clsx": "^2.0.0",
     "codemirror": "^6.0.1",
     "docusaurus-plugin-sass": "^0.2.5",
     "prism-react-renderer": "^2.3.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "sass": "^1.69.7"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.0.1",
+    "@docusaurus/tsconfig": "3.0.1",
+    "@docusaurus/types": "3.0.1",
     "@octokit/core": "^5.0.2",
-    "@tsconfig/docusaurus": "^2.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
     "cheerio": "^1.0.0-rc.12",
-    "fs-extra": "^11.1.1",
-    "fuse.js": "^7.0.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "eslint-plugin-react": "^7.33.2",
+    "fs-extra": "^11.2.0",
     "github-graphql-client": "^1.0.0",
     "glob-promise": "^6.0.5",
-    "grunt": "^1.6.1",
-    "grunt-contrib-clean": "^2.0.1",
-    "grunt-contrib-copy": "^1.0.0",
-    "load-grunt-tasks": "^5.1.0",
-    "sass": "^1.69.5",
-    "typescript": "^5.3.3"
+    "prettier": "^3.1.1",
+    "typescript": "~5.3.3"
   },
   "browserslist": {
     "production": [
@@ -61,12 +64,12 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
     ]
   },
   "engines": {
-    "node": ">=16.14"
+    "node": ">=18.0"
   }
 }
