@@ -54,7 +54,7 @@
     "fs-extra": "^11.2.0",
     "github-graphql-client": "^1.0.0",
     "glob-promise": "^6.0.5",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.2",
     "typescript": "~5.3.3"
   },
   "browserslist": {
