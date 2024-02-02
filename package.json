@@ -16,7 +16,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@codemirror/language": "^6.10.0",
+    "@codemirror/language": "^6.10.1",
     "@codemirror/legacy-modes": "^6.3.3",
     "@docusaurus/core": "3.0.1",
     "@docusaurus/preset-classic": "3.0.1",
