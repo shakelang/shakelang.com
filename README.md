@@ -1,11 +1,3 @@
-# shakelang.com
-
-This is a fork of [shakelang.com](https://github.com/shakelang/shakelang.com/) repository (The deployment repository of [https://shakelang.com/](https://shakelang.com/))
-
-To see actual development process, take a look at the [shakelang.com](https://github.com/shakelang/shakelang.com/) repository.
-
----
-
 View deployed website at [https://shakelang.com/](https://shakelang.com/).
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
