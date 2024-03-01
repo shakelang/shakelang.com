@@ -6,7 +6,7 @@ const extTheme = extendTheme({
     light: {
       palette: {
         primary: {
-          main: "hsl(240, 48%, 47%)",
+          main: "#b33b1e",
         },
         background: {
           paper: "hsl(240, 15%, 95%)",
@@ -16,7 +16,7 @@ const extTheme = extendTheme({
     dark: {
       palette: {
         primary: {
-          main: "hsl(240, 90%, 70%)",
+          main: "#cf6039",
         },
         background: {
           paper: "hsl(210, 3%, 15%)",

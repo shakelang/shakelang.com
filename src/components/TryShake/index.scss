@@ -4,7 +4,7 @@
 }
 
 #try-shake-region {
-  border: 1px solid var(--ifm-color-primary-dark) !important;
+  border: 1px solid var(--ifm-color-primary) !important;
   padding: 20px !important;
   background-color: #0000;
 
@@ -15,7 +15,7 @@
       display: inline-block;
       width: 56px;
       height: 56px;
-      background-color: var(--ifm-color-primary);
+      background-color: var(--ifm-color-primary-lighter);
       border: 0;
       border-radius: 100%;
       position: absolute;
