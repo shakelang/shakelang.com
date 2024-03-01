@@ -60,7 +60,7 @@ export const shake = clike({
       "break continue object if else while do try when !in !is as? " +
       /*soft keywords*/
       "file import where by get set abstract enum open inner override private public internal " +
-      "protected catch finally out final vararg reified dynamic companion constructor init " +
+      "protected catch finally out final static vararg reified dynamic companion constructor init " +
       "sealed field property receiver param sparam lateinit data inline noinline tailrec " +
       "external annotation crossinline const operator infix suspend actual expect setparam"
   ),

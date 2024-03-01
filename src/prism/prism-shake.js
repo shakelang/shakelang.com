@@ -3,7 +3,7 @@
     keyword: {
       // The lookbehind prevents wrong highlighting of e.g. shake.properties.get
       pattern:
-        /(^|[^.])\b(?:abstract|actual|annotation|as|break|by|catch|class|companion|const|constructor|continue|crossinline|data|do|dynamic|else|enum|expect|external|final|finally|for|fun|get|if|import|in|infix|init|inline|inner|interface|internal|is|lateinit|noinline|null|object|open|operator|out|override|package|private|protected|public|reified|return|sealed|set|super|suspend|tailrec|this|throw|to|try|typealias|val|var|vararg|when|where|while|byte|short|int|long|ubyte|ushort|uint|ulong|float|double|char|boolean)\b/,
+        /(^|[^.])\b(?:abstract|actual|annotation|as|break|by|catch|class|companion|const|constructor|continue|crossinline|data|do|dynamic|else|enum|expect|external|final|static|finally|for|fun|get|if|import|in|infix|init|inline|inner|interface|internal|is|lateinit|noinline|null|object|open|operator|out|override|package|private|protected|public|reified|return|sealed|set|super|suspend|tailrec|this|throw|to|try|typealias|val|var|vararg|when|where|while|byte|short|int|long|ubyte|ushort|uint|ulong|float|double|char|boolean)\b/,
       lookbehind: true,
     },
     function: [
