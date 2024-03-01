@@ -37,10 +37,10 @@ export function TryShake() {
 
       <b>
         <label style={{ color: "red" }}>
-          Warning: This run's a very old build of the shake compiler. <br />
-          The synthax has changed since. This will not accept all synthax
-          specified in the documentation. Please be patient as we update the
-          compiler. There will be a new demo soon.
+          Warning: This run's a very old build of the shake compiler. The
+          synthax has changed since. This will not accept all synthax specified
+          in the documentation. Please be patient as we update the compiler.
+          There will be a new demo soon.
         </label>
       </b>
       <div id="shake-version-select-outer" className="custom-select">
