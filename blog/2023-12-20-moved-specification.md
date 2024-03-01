@@ -2,7 +2,7 @@
 title: Moved specification
 date: 2023-12-20 00:00:00
 authors: [nsc-de, shakelang]
-tags: [shake, shakelang, shake-lang, specification, library, api]
+tags: [shake, shakelang, specification, library, api]
 ---
 
 We moved the specification to [specification.shakelang.com](https://specification.shakelang.com). The old specification url [shakelang.com/specification](https://shakelang.com/specification) will redirect to the new url.

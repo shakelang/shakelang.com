@@ -2,7 +2,17 @@
 title: Moved Utility Packages
 date: 2023-12-25 00:00:00
 authors: [nsc-de, shakelang]
-tags: [shake, shakelang, shake-lang, library, api, util, utilities, com.shakelang.shake.util, com.shakelang.util]
+tags:
+  [
+    shake,
+    shakelang,
+    library,
+    api,
+    util,
+    utilities,
+    com.shakelang.shake.util,
+    com.shakelang.util,
+  ]
 ---
 
 We've decided, to move our utility packages from group `com.shakelang.shake.util` to `com.shakelang.util`. We've wanted to do this change

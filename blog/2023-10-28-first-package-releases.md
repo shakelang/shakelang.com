@@ -2,7 +2,7 @@
 title: Release first utility packages
 date: 2023-10-28 16:00:00
 authors: [nsc-de, shakelang]
-tags: [shake, shakelang, shake-lang, release, package]
+tags: [shake, shakelang, release, package]
 ---
 
 We are very happy to release our first pre-release version of Shake! These releases is a pre-releases, and is not intended for production use. This release is intended for testing purposes only.

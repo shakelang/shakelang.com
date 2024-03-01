@@ -2,7 +2,7 @@
 title: We're working on the specification now
 date: 2023-11-08 16:00:00
 authors: [nsc-de, shakelang]
-tags: [shake, shakelang, shake-lang, documentation]
+tags: [shake, shakelang, documentation]
 ---
 
 Hey, we're working on the specification now. We're trying to make it as detailed as possible,
