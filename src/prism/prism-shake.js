@@ -1,89 +1,90 @@
-const keywords = [
-  "do",
-  "while",
-  "for",
-  "if",
-  "else",
-  "class",
-  "extends",
-  "implements",
-  "public",
-  "protected",
-  "private",
-  "new",
-  "function",
-  "return",
-  "var",
-  "let",
-  "const",
-  "dynamic",
-  "byte",
-  "short",
-  "int",
-  "long",
-  "float",
-  "double",
-  "char",
-  "boolean",
-  "import",
-  "void",
-  "constructor",
-  "as",
-];
+(function (Prism) {
+  Prism.languages.shake = Prism.languages.extend("clike", {
+    keyword: {
+      // The lookbehind prevents wrong highlighting of e.g. shake.properties.get
+      pattern:
+        /(^|[^.])\b(?:abstract|actual|annotation|as|break|by|catch|class|companion|const|constructor|continue|crossinline|data|do|dynamic|else|enum|expect|external|final|finally|for|fun|get|if|import|in|infix|init|inline|inner|interface|internal|is|lateinit|noinline|null|object|open|operator|out|override|package|private|protected|public|reified|return|sealed|set|super|suspend|tailrec|this|throw|to|try|typealias|val|var|vararg|when|where|while|byte|short|int|long|ubyte|ushort|uint|ulong|float|double|char|boolean)\b/,
+      lookbehind: true,
+    },
+    function: [
+      {
+        pattern: /(?:`[^\r\n`]+`|\b\w+)(?=\s*\()/,
+        greedy: true,
+      },
+      {
+        pattern: /(\.)(?:`[^\r\n`]+`|\w+)(?=\s*\{)/,
+        lookbehind: true,
+        greedy: true,
+      },
+    ],
+    number:
+      /\b(?:0[xX][\da-fA-F]+(?:_[\da-fA-F]+)*|0[bB][01]+(?:_[01]+)*|\d+(?:_\d+)*(?:\.\d+(?:_\d+)*)?(?:[eE][+-]?\d+(?:_\d+)*)?[fFL]?)\b/,
+    operator:
+      /\+[+=]?|-[-=>]?|==?=?|!(?:!|==?)?|[\/*%<>]=?|[?:]:?|\.\.|&&|\|\||\b(?:and|inv|or|shl|shr|ushr|xor)\b/,
+  });
 
-Prism.languages.shake = {
-  string: /"(?:[^\\]|\\.)*?(?:"|$)/,
-  keyword: new RegExp(`\\b(?:${keywords.join("|")})\\b`),
-  "variable-2":
-    /(function|void|class|interface|enum|var|let[a-z$][\w$]*)(\s+)([a-z$][\w$]*)/,
-  boolean: /true|false|null/,
-  number: /(0x|0b)[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,
-  comment: [/\/\/.*/, /\/\*[\s\S]*?\*\//],
-  operator: /[-+\/*=<>!]+/,
-  punctuation: /[\{\[\(]|\}|\]|\)/,
-  variable: /[a-z][\w]*/,
-};
+  delete Prism.languages.shake["class-name"];
 
-Prism.languages.shake["keyword"].inside = {
-  "variable-2":
-    /(function|void|class|interface|enum|var|let[a-z$][\w$]*)(\s+)([a-z$][\w$]*)/,
-};
+  var interpolationInside = {
+    "interpolation-punctuation": {
+      pattern: /^\$\{?|\}$/,
+      alias: "punctuation",
+    },
+    expression: {
+      pattern: /[\s\S]+/,
+      inside: Prism.languages.shake,
+    },
+  };
 
-Prism.languages.shake["comment"][1].inside = {
-  comment: Prism.languages.shake["comment"][0],
-};
+  Prism.languages.insertBefore("shake", "string", {
+    // https://shakelang.org/spec/expressions.html#string-interpolation-expressions
+    "string-literal": [
+      {
+        pattern: /"""(?:[^$]|\$(?:(?!\{)|\{[^{}]*\}))*?"""/,
+        alias: "multiline",
+        inside: {
+          interpolation: {
+            pattern: /\$(?:[a-z_]\w*|\{[^{}]*\})/i,
+            inside: interpolationInside,
+          },
+          string: /[\s\S]+/,
+        },
+      },
+      {
+        pattern: /"(?:[^"\\\r\n$]|\\.|\$(?:(?!\{)|\{[^{}]*\}))*"/,
+        alias: "singleline",
+        inside: {
+          interpolation: {
+            pattern: /((?:^|[^\\])(?:\\{2})*)\$(?:[a-z_]\w*|\{[^{}]*\})/i,
+            lookbehind: true,
+            inside: interpolationInside,
+          },
+          string: /[\s\S]+/,
+        },
+      },
+    ],
+    char: {
+      // https://shakelang.org/spec/expressions.html#character-literals
+      pattern: /'(?:[^'\\\r\n]|\\(?:.|u[a-fA-F0-9]{0,4}))'/,
+      greedy: true,
+    },
+  });
 
-Prism.hooks.add("before-tokenize", (env) => {
-  if (env.language === "shake") {
-    env.tokenStack = [];
+  delete Prism.languages.shake["string"];
 
-    env.backup = (str, match) => {
-      let len = 0;
-      for (let i = 0; i < str.length; i++) {
-        if (str[i] === match[0]) {
-          len = i + 1;
-          break;
-        }
-      }
-      env.tokens = env.tokens.slice(0, len);
-      env.text = env.input.slice(0, len);
-      return match;
-    };
-  }
-});
+  Prism.languages.insertBefore("shake", "keyword", {
+    annotation: {
+      pattern: /\B@(?:\w+:)?(?:[A-Z]\w*|\[[^\]]+\])/,
+      alias: "builtin",
+    },
+  });
 
-Prism.hooks.add("before-insert", (env) => {
-  if (env.language === "shake") {
-    if (env.tokenStack.length > 0) {
-      env.tokens = env.tokenStack;
-      env.text = env.backup(env.input, env.tokenStack[0]);
-      return true;
-    }
-  }
-});
+  Prism.languages.insertBefore("shake", "function", {
+    label: {
+      pattern: /\b\w+@|@\w+\b/,
+      alias: "symbol",
+    },
+  });
 
-Prism.hooks.add("after-tokenize", (env) => {
-  if (env.language === "shake") {
-    env.tokenStack = env.tokens.slice();
-  }
-});
+  Prism.languages.shake = Prism.languages.shake;
+})(Prism);

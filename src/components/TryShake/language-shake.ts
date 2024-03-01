@@ -1,69 +1,121 @@
-import { simpleMode } from "@codemirror/legacy-modes/mode/simple-mode";
+import { clike } from "@codemirror/legacy-modes/mode/clike";
 
-const keywords = [
-  "do",
-  "while",
-  "for",
-  "if",
-  "else",
-  "class",
-  "extends",
-  "implements",
-  "public",
-  "protected",
-  "private",
-  "new",
-  "function",
-  "return",
-  "var",
-  "let",
-  "const",
-  "dynamic",
-  "byte",
-  "short",
-  "int",
-  "long",
-  "float",
-  "double",
-  "char",
-  "boolean",
-  "import",
-  "void",
-  "constructor",
-  "as",
-];
+function words(str) {
+  var obj = {},
+    words = str.split(" ");
+  for (var i = 0; i < words.length; ++i) obj[words[i]] = true;
+  return obj;
+}
 
-export const shake = simpleMode({
-  start: [
-    { regex: /"(?:[^\\]|\\.)*?(?:"|$)/, token: "string" },
-    {
-      regex:
-        /(function|void|class|interface|enum|var|let[a-z$][\w$]*)(\s+)([a-z$][\w$]*)/,
-      token: ["keyword", "variable-2"],
+function tokenShakeString(tripleString) {
+  return function (stream, state) {
+    var escaped = false,
+      next,
+      end = false;
+    while (!stream.eol()) {
+      if (!tripleString && !escaped && stream.match('"')) {
+        end = true;
+        break;
+      }
+      if (tripleString && stream.match('"""')) {
+        end = true;
+        break;
+      }
+      next = stream.next();
+      if (!escaped && next == "$" && stream.match("{")) stream.skipTo("}");
+      escaped = !escaped && next == "\\" && !tripleString;
+    }
+    if (end || !tripleString) state.tokenize = null;
+    return "string";
+  };
+}
+
+function tokenNestedComment(depth) {
+  return function (stream, state) {
+    var ch;
+    while ((ch = stream.next())) {
+      if (ch == "*" && stream.eat("/")) {
+        if (depth == 1) {
+          state.tokenize = null;
+          break;
+        } else {
+          state.tokenize = tokenNestedComment(depth - 1);
+          return state.tokenize(stream, state);
+        }
+      } else if (ch == "/" && stream.eat("*")) {
+        state.tokenize = tokenNestedComment(depth + 1);
+        return state.tokenize(stream, state);
+      }
+    }
+    return "comment";
+  };
+}
+
+export const shake = clike({
+  name: "shake",
+  keywords: words(
+    /*keywords*/
+    "package as typealias class interface this super val operator " +
+      "var fun for is in This throw return annotation " +
+      "break continue object if else while do try when !in !is as? " +
+      /*soft keywords*/
+      "file import where by get set abstract enum open inner override private public internal " +
+      "protected catch finally out final vararg reified dynamic companion constructor init " +
+      "sealed field property receiver param sparam lateinit data inline noinline tailrec " +
+      "external annotation crossinline const operator infix suspend actual expect setparam"
+  ),
+  types: words(
+    /* package java.lang */
+    "byte short int long ubyte ushort uint ulong char boolean String"
+  ),
+  // @ts-ignore
+  intendSwitch: false,
+  indentStatements: false,
+  multiLineStrings: true,
+  number:
+    /^(?:0x[a-f\d_]+|0b[01_]+|(?:[\d_]+(\.\d+)?|\.\d+)(?:e[-+]?[\d_]+)?)(u|ll?|l|f)?/i,
+  blockKeywords: words(
+    "catch class do else finally for if where try while enum"
+  ),
+  defKeywords: words("class val var object interface fun"),
+  atoms: words("true false null this"),
+  hooks: {
+    "@": function (stream) {
+      stream.eatWhile(/[\w\$_]/);
+      return "meta";
     },
-    { regex: new RegExp(`(?:${keywords.join("|")})\\b`), token: "keyword" },
-    { regex: /true|false|null/, token: "atom" },
-    {
-      regex: /0x[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,
-      token: "number",
+    "*": function (_stream, state) {
+      return state.prevToken == "." ? "variable" : "operator";
     },
-    { regex: /\/\/.*/, token: "comment" },
-    { regex: /\/(?:[^\\]|\\.)*?\//, token: "variable-3" },
-    { regex: /\/\*/, token: "comment", next: "comment" },
-    { regex: /[-+\/*=<>!]+/, token: "operator" },
-    { regex: /[\{\[\(]/, indent: true },
-    { regex: /[\}\]\)]/, dedent: true },
-    { regex: /[a-z][\w]*/, token: "variable" },
-
-    { regex: /[\[\]\{\}\(\)]/, token: "bracket" },
-  ],
-  comment: [
-    { regex: /.*?\*\//, token: "comment", next: "start" },
-    { regex: /.*/, token: "comment" },
-  ],
-  /*
-  meta: {
-    dontIndentStates: ["comment"],
-    lineComment: "//",
-  },*/
+    '"': function (stream, state) {
+      state.tokenize = tokenShakeString(stream.match('""'));
+      return state.tokenize(stream, state);
+    },
+    "/": function (stream, state) {
+      if (!stream.eat("*")) return false;
+      state.tokenize = tokenNestedComment(1);
+      return state.tokenize(stream, state);
+    },
+    indent: function (state, ctx, textAfter, indentUnit) {
+      var firstChar = textAfter && textAfter.charAt(0);
+      if ((state.prevToken == "}" || state.prevToken == ")") && textAfter == "")
+        return state.indented;
+      if (
+        (state.prevToken == "operator" &&
+          textAfter != "}" &&
+          state.context.type != "}") ||
+        (state.prevToken == "variable" && firstChar == ".") ||
+        ((state.prevToken == "}" || state.prevToken == ")") && firstChar == ".")
+      )
+        return indentUnit * 2 + ctx.indented;
+      if (ctx.align && ctx.type == "}")
+        return (
+          ctx.indented +
+          (state.context.type == (textAfter || "").charAt(0) ? 0 : indentUnit)
+        );
+    },
+  },
+  languageData: {
+    closeBrackets: { brackets: ["(", "[", "{", "'", '"', '"""'] },
+  },
 });
