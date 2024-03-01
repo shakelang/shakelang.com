@@ -1,3 +1,8 @@
+// This file is used to define the language mode for the codemirror editor
+// The language is based on the Kotlin language mode, with some modifications
+// The original Kotlin language mode can be found here:
+// https://github.com/codemirror/legacy-modes/blob/main/mode/clike.js
+
 import { clike } from "@codemirror/legacy-modes/mode/clike";
 
 function words(str) {

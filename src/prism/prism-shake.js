@@ -1,3 +1,8 @@
+// This file is created to add Shake language support to Prism.js
+// It is based on the Kotlin language support file from Prism.js
+// The original kotlin language support file can be found at:
+// https://github.com/PrismJS/prism/blob/master/components/prism-kotlin.js
+
 (function (Prism) {
   Prism.languages.shake = Prism.languages.extend("clike", {
     keyword: {
