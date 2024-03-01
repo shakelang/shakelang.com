@@ -4,31 +4,30 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* Overriding the default Infima variables for a darker orange/red-ish theme */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #d35400; /* primary color - dark orange */
+  --ifm-color-primary-dark: #c0392b; /* darker shade of red/orange */
+  --ifm-color-primary-darker: #a2281d; /* even darker shade */
+  --ifm-color-primary-darkest: #8a1a10; /* darkest shade */
+  --ifm-color-primary-light: #e55b23; /* lighter shade */
+  --ifm-color-primary-lighter: #ea7040; /* even lighter shade */
+  --ifm-color-primary-lightest: #ef855d; /* lightest shade */
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Adjusting for dark mode with a deeper and more intense orange/red palette */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #b33b1e; /* primary color in dark mode - dark red */
+  --ifm-color-primary-dark: #9c2f19; /* darker shade in dark mode */
+  --ifm-color-primary-darker: #852417; /* even darker shade in dark mode */
+  --ifm-color-primary-darkest: #6e1a15; /* darkest shade in dark mode */
+  --ifm-color-primary-light: #c44d2e; /* lighter shade in dark mode */
+  --ifm-color-primary-lighter: #cf6039; /* even lighter shade in dark mode */
+  --ifm-color-primary-lightest: #da7344; /* lightest shade in dark mode */
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
-
 
 :root,
 html, 
