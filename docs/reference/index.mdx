@@ -189,7 +189,7 @@ As seen above, Shake "prioritizes" certain operations over others. For a complet
 8. [logical operators](#3.3-Logical-Operators) \> or `||`
 9. [comparison](#3.2-Comparison-Operators) \> equals, not equals `==` `!=`
 
-## 4 Variables and Constants
+## 4 Variables, Values and Constants
 
 ### 4.1 Variables
 
@@ -203,19 +203,19 @@ A variable that is declared outside a function's body is called a field.
 val i: int = 10;  // i is a variable of type int and is assigned the value 10
 ```
 
-### 4.2 Constants
+### 4.2 Values
 
-Constants are used to store data, which cannot be changed during the execution of the program.
-In Shake, constants are declared using the `val` keyword, followed by the name of the constant,
-a colon and the type of the constant.
+Values are used to store data, which cannot be changed after it has been assigned.
+In Shake, values are declared using the `val` keyword, followed by the name of the value,
+a colon and the type of the value.
 
 ```shake
 val PI: float = 3.14159;  // PI is a constant of type float and is assigned the value 3.14159
 ```
 
-### 4.3 Consts
+### 4.3 Constants
 
-Consts are used to store data, which cannot be changed during the execution of the program.
+Constants are used to store data, which cannot be changed during the execution of the program.
 A const binds even stronger than a val, the content of a const must also be constant and known at compile time.
 
 ```shake
