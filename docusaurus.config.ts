@@ -132,6 +132,23 @@ const config: Config = {
             },
           ],
         },
+        {
+          title: "Legal",
+          items: [
+            {
+              label: "Privacy Policy",
+              href: "https://www.iubenda.com/privacy-policy/10891491",
+            },
+            {
+              label: "Cookie Policy",
+              href: "https://www.iubenda.com/privacy-policy/10891491/cookie-policy",
+            },
+            {
+              label: "Terms and Conditions",
+              href: "https://www.iubenda.com/terms-and-conditions/10891491",
+            },
+          ],
+        },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Nicolas Schmidt. Built with Docusaurus.`,
     },
