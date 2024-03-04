@@ -3,7 +3,7 @@ import { getInitColorSchemeScript } from "@mui/material/styles";
 import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/styles";
 import theme from "@site/src/components/MuiTheme";
 
-import "./analytics";
+initAnalytics();
 
 export default function Root({ children }) {
   return (

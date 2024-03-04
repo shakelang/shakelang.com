@@ -1,4 +1,4 @@
-function initAnalytics() {
+export function initAnalytics() {
   // Check if the environment is not development
   if (process.env.NODE_ENV === "development") {
     console.log("Development environment, analytics not loaded");
