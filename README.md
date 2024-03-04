@@ -1,4 +1,5 @@
 [![CI](https://github.com/shakelang/shakelang.com/actions/workflows/ci.yml/badge.svg)](https://github.com/shakelang/shakelang.com/actions/workflows/ci.yml)
+[![Generate Pages](https://github.com/shakelang/shakelang.com/actions/workflows/build.yml/badge.svg)](https://github.com/shakelang/shakelang.com/actions/workflows/build.yml)
 
 View deployed website at [https://shakelang.com/](https://shakelang.com/).
 
