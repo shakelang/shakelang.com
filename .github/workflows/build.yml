@@ -77,7 +77,7 @@ jobs:
           path: build
           
       - name: Sync files to hosting
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.shakelang.com
           username: ${{ secrets.DEPLOY_WEBSITE_FTP_EMAIL }}
