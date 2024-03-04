@@ -1,4 +1,9 @@
 export function initAnalytics() {
+  // Check if running in the browser
+  if (typeof window === "undefined") {
+    return; // Exit if not in a browser environment
+  }
+
   // Check if the environment is not development
   if (process.env.NODE_ENV === "development") {
     console.log("Development environment, analytics not loaded");
@@ -7,16 +12,15 @@ export function initAnalytics() {
 
   console.log("Production environment, analytics loaded");
 
-  // Load cookieeyes script
-  const cookieeyes = document.createElement("script");
-  cookieeyes.id = "cookieyes";
-  cookieeyes.type = "text/javascript";
-  cookieeyes.src =
+  // Load cookieyes script
+  const cookieyes = document.createElement("script");
+  cookieyes.id = "cookieyes";
+  cookieyes.type = "text/javascript";
+  cookieyes.src =
     "https://cdn-cookieyes.com/client_data/a6e08531352539bd861c31d7/script.js";
-  document.head.appendChild(cookieeyes);
+  document.head.appendChild(cookieyes);
 
   // Load Google Analytics script
-
   const googleAnalytics = document.createElement("script");
   googleAnalytics.id = "google-analytics";
   googleAnalytics.type = "text/javascript";
@@ -26,7 +30,6 @@ export function initAnalytics() {
   document.head.appendChild(googleAnalytics);
 
   // Initialize Google Analytics
-
   window.dataLayer = window.dataLayer || [];
   function gtag() {
     dataLayer.push(arguments);
