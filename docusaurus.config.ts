@@ -137,11 +137,11 @@ const config: Config = {
           items: [
             {
               label: "Privacy Policy",
-              href: "https://www.iubenda.com/privacy-policy/10891491",
+              href: "https://shakelang.com/privacy-policy",
             },
             {
               label: "Cookie Policy",
-              href: "https://www.iubenda.com/privacy-policy/10891491/cookie-policy",
+              href: "https://shakelang.com/cookies",
             },
           ],
         },
