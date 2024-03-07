@@ -55,7 +55,7 @@
     "github-graphql-client": "^1.0.0",
     "glob-promise": "^6.0.5",
     "prettier": "^3.2.5",
-    "typescript": "~5.3.3"
+    "typescript": "~5.4.2"
   },
   "browserslist": {
     "production": [
