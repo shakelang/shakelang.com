@@ -54,7 +54,7 @@
     "eslint-plugin-react": "^7.34.2",
     "fs-extra": "^11.2.0",
     "github-graphql-client": "^1.0.0",
-    "glob-promise": "^6.0.5",
+    "glob-promise": "^6.0.7",
     "prettier": "^3.3.2",
     "typescript": "~5.4.5"
   },
