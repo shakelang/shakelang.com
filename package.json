@@ -20,7 +20,7 @@
     "@codemirror/legacy-modes": "^6.4.0",
     "@docusaurus/core": "^3.1.1",
     "@docusaurus/preset-classic": "^3.4.0",
-    "@docusaurus/theme-common": "^3.4.0",
+    "@docusaurus/theme-common": "^3.5.1",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mdi/js": "^7.4.47",
