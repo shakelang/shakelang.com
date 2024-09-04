@@ -21,7 +21,7 @@
     "@docusaurus/core": "^3.1.1",
     "@docusaurus/preset-classic": "^3.5.1",
     "@docusaurus/theme-common": "^3.5.2",
-    "@emotion/react": "^11.13.0",
+    "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
