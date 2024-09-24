@@ -30,7 +30,7 @@
     "@mui/material": "^6.1.1",
     "@uiw/codemirror-extensions-basic-setup": "^4.23.3",
     "@uiw/codemirror-theme-darcula": "^4.23.3",
-    "@uiw/react-codemirror": "^4.23.2",
+    "@uiw/react-codemirror": "^4.23.3",
     "clsx": "^2.1.1",
     "codemirror": "^6.0.1",
     "docusaurus-lunr-search": "^3.5.0",
