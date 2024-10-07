@@ -29,7 +29,7 @@
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@mui/material": "^6.1.2",
     "@uiw/codemirror-extensions-basic-setup": "^4.23.5",
-    "@uiw/codemirror-theme-darcula": "^4.23.4",
+    "@uiw/codemirror-theme-darcula": "^4.23.5",
     "@uiw/react-codemirror": "^4.23.4",
     "clsx": "^2.1.1",
     "codemirror": "^6.0.1",
