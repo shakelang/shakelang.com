@@ -25,7 +25,7 @@
     "@emotion/styled": "^11.13.0",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
-    "@mdx-js/react": "^3.0.1",
+    "@mdx-js/react": "^3.1.0",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@mui/material": "^6.1.4",
     "@uiw/codemirror-extensions-basic-setup": "^4.23.5",
