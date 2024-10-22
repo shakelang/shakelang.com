@@ -18,7 +18,7 @@ interface PackageEntry {
 }
 
 const config: Config = {
-  title: "Shake Programming Language Specification",
+  title: "Shake Programming Language",
   tagline:
     "Shake is a statically typed, compiled, and garbage collected language",
   favicon: "img/favicon.ico",
