@@ -19,7 +19,7 @@
     "@codemirror/language": "^6.10.3",
     "@codemirror/legacy-modes": "^6.4.1",
     "@docusaurus/core": "^3.1.1",
-    "@docusaurus/preset-classic": "^3.5.2",
+    "@docusaurus/preset-classic": "^3.6.0",
     "@docusaurus/theme-common": "^3.5.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
