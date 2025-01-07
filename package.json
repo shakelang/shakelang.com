@@ -27,7 +27,7 @@
     "@mdi/react": "^1.6.1",
     "@mdx-js/react": "^3.1.0",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
-    "@mui/material": "^6.3.0",
+    "@mui/material": "^6.3.1",
     "@uiw/codemirror-extensions-basic-setup": "^4.23.7",
     "@uiw/codemirror-theme-darcula": "^4.23.7",
     "@uiw/react-codemirror": "^4.23.7",
