@@ -18,7 +18,7 @@
   "dependencies": {
     "@codemirror/language": "^6.10.8",
     "@codemirror/legacy-modes": "^6.4.2",
-    "@docusaurus/core": "^3.1.1",
+    "@docusaurus/core": "^3.7.0",
     "@docusaurus/preset-classic": "^3.6.3",
     "@docusaurus/theme-common": "^3.7.0",
     "@emotion/react": "^11.14.0",
