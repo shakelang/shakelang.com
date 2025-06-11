@@ -44,7 +44,7 @@ jobs:
           git submodule update --remote --recursive
 
       - name: Commit changes 📝
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "Update submodules 📝"
           commit_user_name: "shake-bot [bot]"
